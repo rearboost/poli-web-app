@@ -34,6 +34,7 @@ mysqli_select_db($con,DB_NAME);
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -146,7 +147,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <label>Customer Type</label>
-                          <select class="form-control" name = "type" onchange="">
+                          <select class="form-control form-selectBox" id="customerType" name ="type">
                             <option>--Select Customer Type--</option>
                             <option>Daily</option>
                             <option>Monthly</option>
@@ -158,7 +159,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-1">
                       <div class="form-group">
                         <label>Customer ID</label>
-                        <input type="text" class="form-control" name = "id">
+                        <input type="text" class="form-control" name ="id" id="customerID" readonly>
                       </div>
                     </div>
                     </div>
@@ -282,7 +283,22 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
   <script>
-   
+
+    $('#customerType').on('change', function() {
+
+      const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+      $.ajax({
+        url: 'func_custid.php',
+        method:"POST",
+        data:{type:this.value},
+        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+          var lastNumber = Number(response.substr(1))+1;
+          var type  = response.charAt(0)
+          $('#customerID').val(type+zeroPad(lastNumber, 4));
+        }
+      });
+    });   
    
   </script>
 </body>
