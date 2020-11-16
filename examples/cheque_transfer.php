@@ -257,8 +257,8 @@ mysqli_select_db($con,DB_NAME);
                             $exchange_value = $_POST['exchange_value'];
                             $status         = $_POST['status'];
 
-                          $insert2 = "INSERT INTO cheque (bank,cheque_no,valid_date,exchange_date,cheque_value,interest,exchange_amt,status,cust-id) 
-                            VALUES ($bank,$cheque_no,'$v_date','$change_date',$cheque_value,$interest,$exchange_value,'$status','$cust_id')";                         
+                          $insert2 = "INSERT INTO cheque (bank,cheque_no,valid_date,exchange_date,cheque_value,interest,exchange_amt,status,cust_id) 
+                            VALUES ('$bank','$cheque_no','$v_date','$change_date',$cheque_value,$interest,$exchange_value,'$status','$cust_id')";                         
                           mysqli_query($con,$insert2);
                           }
                       ?>
