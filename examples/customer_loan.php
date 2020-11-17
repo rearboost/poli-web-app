@@ -146,7 +146,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control" name = "id">
+                          <select class="form-control form-selectBox" name = "id">
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -178,7 +178,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Loan Amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" name="l_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="amount" name="l_amt">
                       </div>
                     </div>
                   </div>
@@ -186,7 +186,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest (%)</label>
-                        <input type="number" class="form-control" placeholder="Interest" name="interest">
+                        <input type="number" class="form-control" placeholder="Interest" id="int" name="interest">
                       </div>
                     </div>
                   </div>
@@ -194,16 +194,22 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>No. of Installments</label>
-                        <input type="number" class="form-control" name = "ino_inst">
+                        <input type="number" class="form-control" id="no" name = "ino_inst">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-10 pr-3">
                     <div class="form-group">
-                        <label><input type="radio" name="l_method" value="daily"> Daily</label><br>
-                        <label><input type="radio" name="l_method" value="monthly"> Monthly</label><br>
-                        <label><input type="radio" name="l_method" value="declining"> Declining Balance Method</label>
+                        <label>
+                          <input type="radio" id="loan_method" name="l_method" value="daily"> Daily
+                        </label><br>
+                        <label>
+                          <input type="radio" id="loan_method" name="l_method" value="monthly"> Monthly
+                        </label><br>
+                        <label>
+                          <input type="radio" id="loan_method" name="l_method" value="declining"> Declining Balance Method
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -211,7 +217,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Paid amount with interest</label>
-                        <input type="text" class="form-control" placeholder="LKR" name="p_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="paid_amt" name="p_amt">
                       </div>
                     </div>
                   </div>
@@ -219,7 +225,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Value of installement</label>
-                        <input type="text" class="form-control" placeholder="LKR" name = "i_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="inst_val" name = "i_amt">
                       </div>
                     </div>
                   </div>
@@ -345,16 +351,42 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
 
-<!--script type="text/javascript">
-  function get_paid_amt()
-{ 
-   var loan_amt = document.getElementById('l_amt').value;
-   var interest = document.getElementById('interest').value;
+<script>
 
-    document.getElementById('p_amt').value = (parseFloat(loan_amt) + (parseFloat(loan_amt) * parseFloat(interest/100)));
-}
+    $('#loan_method').change(function()  {
 
-</script-->
+      $.ajax({
+        method:"POST",
+        data:{l_method:this.value},
+        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+        var amount = $('#amount').val();
+        var int  = $('#int').val();
+        var no  = $('#no').val();
+
+        $('#paid_amt').val((parseFloat(amount)) + ((parseFloat(amount))*(parseFloat((int)/100))*(parseint(no))) ;
+
+        $method = $_POST['l_method'];
+        var paid_amt = $('#paid_amt').val();
+
+          if($method.val('daily'))
+          {           
+            $('#inst_val').val(((parseFloat(paid_amt)) / no) / (30)) ;
+          }
+          else if($method.val('monthly'))
+          {
+            $('#inst_val').val((parseFloat(paid_amt)) / no) ;
+          }
+          else
+          {
+            $('#paid_amt').val()="" ;
+            $('#inst_val').val() = "" ;
+          }
+
+        }
+      });
+    });   
+   
+  </script>
 
 </body>
 

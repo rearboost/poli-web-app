@@ -106,7 +106,6 @@ mysqli_select_db($con,DB_NAME);
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-toggle">
             <a class="navbar-brand" href="javascript:;">Dashboard</a>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -148,7 +147,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control" name = "id">
+                          <select class="form-control form-selectBox" name = "id">
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -204,7 +203,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Value of the cheque</label>
-                        <input type="text" class="form-control" placeholder="LKR" name="cheque_value">
+                        <input type="text" class="form-control" placeholder="LKR" id="cheque_val" name="cheque_value">
                       </div>
                     </div>
                   </div>
@@ -212,7 +211,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest(%)</label>
-                        <input type="number" class="form-control" placeholder="0" name = "interest">
+                        <input type="number" class="form-control" placeholder="0" id="int" name = "interest">
                       </div>
                     </div>
                   </div>
@@ -220,7 +219,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Exchange Value</label>
-                        <input type="text" class="form-control" placeholder="LKR" name="exchange_value">
+                        <input type="text" class="form-control" placeholder="LKR" id="exchange_val" name="exchange_value" readonly>
                       </div>
                     </div>
                   </div>
@@ -228,7 +227,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control" name = "status">
+                        <select class="form-control form-selectBox" name = "status">
                             <option>--Select Status--</option>
                             <option>Completed</option>
                             <option>NYC</option>
@@ -259,9 +258,12 @@ mysqli_select_db($con,DB_NAME);
 
                           mysqli_query($con,$insert2);
                           // header('location:'.$_SERVER['PHP_SELF']);
-                          // $res = mysqli_query($con,$insert2);
-                          // var_dump($res);
-                          }
+                           // $res = mysqli_query($con,$insert2);
+                           // if($res){
+                           //  unset($_POST);
+
+                           // }
+                          }   
                       ?>
                     </div>
                   </div>
@@ -363,6 +365,30 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script>
+
+    $('#int').on('change', function() {
+
+      $.ajax({
+        method:"POST",
+        data:{interest:this.value},
+        success: function (response) {//response is value returned from php (for your example it's "bye bye"
+          var amount = $('#cheque_val').val();
+          var int  = $('#int').val();
+          $('#exchange_val').val((parseFloat(amount)) - (parseFloat(amount))*(parseFloat((int)/100)));
+        }
+      });
+    });  
+
+//     $(document).on("change keyup blur", "#chDiscount", function() {
+//   var amd = $('#cBalance').val();
+//   var disc = $('#chDiscount').val();
+//   if (disc != '' && amd != '')
+//     $('#cBalance').val((parseInt(amd)) - (parseInt(disc)));
+
+// }); 
+   
+  </script>
 
 </body>
 

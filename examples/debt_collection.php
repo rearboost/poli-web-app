@@ -147,7 +147,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control" name = "id">
+                          <select class="form-control form-selectBox" name = "id">
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -161,10 +161,7 @@ mysqli_select_db($con,DB_NAME);
                                       
                                     }
                                   }
-
-                              
                             ?>
-                            
                           </select>
                       </div>
                     </div>
@@ -173,7 +170,6 @@ mysqli_select_db($con,DB_NAME);
                         <div class="col-md-5 pl-1">
                           <div class="form-group">
                             <label>Date</label>
-                            <!--input type="text" class="form-control" disabled="" name = "id"-->
                             <input type="date" class="form-control" name = "li_date">
                           </div>
                         </div>
@@ -198,8 +194,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Remaining amount</label>
-                        <!--input type="text" class="form-control" disabled = ""  name = "remain_amt"-->
-                        <input type="text" class="form-control" name = "remain_amt" value="">
+                        <input type="text" class="form-control" name = "remain_amt" value="" readonly>
                       </div>
                     </div>
                     <div class="col-md-1">
@@ -207,8 +202,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pl-1">
                       <div class="form-group">
                         <label>Loan Amount</label>
-                        <!--input type="text" class="form-control" disabled = "" name = "l_amt"-->
-                        <input type="text" class="form-control" name = "l_amt" disabled = "" value = "">
+                        <input type="text" class="form-control" name = "l_amt" disabled = "" id = "loan_amount" readonly>
                       </div>
                     </div>
                   </div>                  
