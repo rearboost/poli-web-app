@@ -200,15 +200,15 @@ mysqli_select_db($con,DB_NAME);
                   </div>
                   <div class="row">
                     <div class="col-md-10 pr-3">
-                    <div class="form-group">
+                    <div class="form-group" id="rates">
                         <label>
-                          <input type="radio" id="loan_method" name="l_method" value="daily"> Daily
+                          <input type="radio" id="r1" name="l_method" value="daily"> Daily
                         </label><br>
                         <label>
-                          <input type="radio" id="loan_method" name="l_method" value="monthly"> Monthly
+                          <input type="radio" id="r2" name="l_method" value="monthly"> Monthly
                         </label><br>
                         <label>
-                          <input type="radio" id="loan_method" name="l_method" value="declining"> Declining Balance Method
+                          <input type="radio" id="r3" name="l_method" value="declining"> Declining Balance Method
                         </label>
                       </div>
                     </div>
@@ -353,37 +353,38 @@ mysqli_select_db($con,DB_NAME);
 
 <script>
 
-    $('#loan_method').change(function()  {
+    $('#rates').change(function(){
 
-      $.ajax({
-        method:"POST",
-        data:{l_method:this.value},
-        success: function (response) {//response is value returned from php (for your example it's "bye bye"
-        var amount = $('#amount').val();
-        var int  = $('#int').val();
-        var no  = $('#no').val();
+      if (document.getElementById('r1').checked) {
+        rate_value = document.getElementById('r1').value;
+      }
+      else if(document.getElementById('r2').checked) {
+        rate_value = document.getElementById('r2').value;
+      }
+      else if(document.getElementById('r3').checked) {
+        rate_value = document.getElementById('r3').value;
+      }
 
-        $('#paid_amt').val((parseFloat(amount)) + ((parseFloat(amount))*(parseFloat((int)/100))*(parseint(no))) ;
+      var amount = $('#amount').val();
+      var int  = $('#int').val();
+      var no  = $('#no').val();
 
-        $method = $_POST['l_method'];
-        var paid_amt = $('#paid_amt').val();
+      if(rate_value =='daily')
+      {           
+        $('#inst_val').val(((parseFloat(paid_amt)) / no) / (30)) ;
+      }
+      else if(rate_value =='monthly')
+      {
+        $('#inst_val').val((parseFloat(paid_amt)) / no) ;
+      }
+      else
+      {
+        $('#paid_amt').val()="" ;
+        $('#inst_val').val() = "" ;
+      }
 
-          if($method.val('daily'))
-          {           
-            $('#inst_val').val(((parseFloat(paid_amt)) / no) / (30)) ;
-          }
-          else if($method.val('monthly'))
-          {
-            $('#inst_val').val((parseFloat(paid_amt)) / no) ;
-          }
-          else
-          {
-            $('#paid_amt').val()="" ;
-            $('#inst_val').val() = "" ;
-          }
+      $('#paid_amt').val((parseFloat(amount)) + ((parseFloat(amount))*(parseFloat((int)/100))*(parseint(no))) ;
 
-        }
-      });
     });   
    
   </script>
