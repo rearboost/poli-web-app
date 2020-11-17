@@ -9,9 +9,6 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
   if (!$con) {
       die('Could not connect: ' . mysqli_error($con));
   }
-  // else{
-  //   echo "Connection is Success!";
-  // }
 mysqli_select_db($con,DB_NAME);
 ?>
 
@@ -32,7 +29,8 @@ mysqli_select_db($con,DB_NAME);
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link rel="stylesheet" href="../assets/css/bootstrap.css" />
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/bootstrap.min.css" rel="stylesheet" /> -->
+  <link href="../assets/css-4.0/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
@@ -107,20 +105,8 @@ mysqli_select_db($con,DB_NAME);
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
             <a class="navbar-brand" href="javascript:;">Dashboard</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -137,24 +123,24 @@ mysqli_select_db($con,DB_NAME);
           <div class="col-md-12">         
             <div class="card">
               <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-9">
               <div class="card-header">
                 <h4 class="card-title"> DEBT COLLECTION WITH INTEREST</h4>                    
               </div>
               </div>
-              <!--div class="col-md-2">
-              <div class="update ml-auto mr-auto">
-                      <button type="submit" class="btn btn-default btn-round" onclick="load('custom_form')"> + Register</button>
+              <div class="col-md-3">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form1">+ Fill Form in here..
+                </button> 
               </div>
-              </div-->
               </div>
               <center>
-            <div class="col-md-8" id = "custom_form" display = "">
-            <div class="card card-user">
-              <div class="card-header">
-                <h5 class="card-title">Form</h5>
-              </div>
               <div class="card-body">
+                <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Debt Collection</h5>
+                  </div>
                 <form action ="" method="POST">
                   <div class="col-md-12">
                   <div class="row">
@@ -229,6 +215,7 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <button type="submit" name="submit" class="btn btn-primary btn-round">Submit</button>
+                      <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 
                       <?php
                           if(isset($_POST['submit'])){
@@ -251,11 +238,12 @@ mysqli_select_db($con,DB_NAME);
                       ?>
                     </div>
                   </div>
-                  </div>
+                 </div>
                 </form>
+               </div>
               </div>
+             </div>
             </div>
-          </div>
           </center>
               <div class="card-body">
                 <div class="table-responsive">
@@ -309,12 +297,12 @@ mysqli_select_db($con,DB_NAME);
                   ?>
                 </div>
               </div>
+              </div>
+              </div>
             </div>
           </div>
           </div>
-
         </div>
-      </div>
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
@@ -336,7 +324,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->

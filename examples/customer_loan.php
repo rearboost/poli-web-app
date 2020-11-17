@@ -9,9 +9,6 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
   if (!$con) {
       die('Could not connect: ' . mysqli_error($con));
   }
-  // else{
-  //   echo "Connection is Success!";
-  // }
 mysqli_select_db($con,DB_NAME);
 ?>
 
@@ -32,7 +29,9 @@ mysqli_select_db($con,DB_NAME);
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
   <link rel="stylesheet" href="../assets/css/bootstrap.css" />
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- <link href="../assets/css/bootstrap.min.css" rel="stylesheet" /> -->
+
+  <link href="../assets/css-4.0/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
@@ -46,7 +45,6 @@ mysqli_select_db($con,DB_NAME);
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
-          <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
           POLY APP
@@ -107,20 +105,8 @@ mysqli_select_db($con,DB_NAME);
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
             <a class="navbar-brand" href="javascript:;">Dashboard</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -137,22 +123,27 @@ mysqli_select_db($con,DB_NAME);
           <div class="col-md-12">         
             <div class="card">
               <div class="row">
-              <div class="col-md-10">
+              <div class="col-md-9">
               <div class="card-header">
-                <h4 class="card-title"> CUSTOMER</h4>                    
+                <h4 class="card-title"> CUSTOMER LOANS</h4>                    
               </div>
               </div>
+              <div class="col-md-3">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form1">+ Fill Form in here..
+                </button>
               </div>
-            <div class="col-md-8" id = "custom_form" display = "">
-            <div class="card card-user">
-              <div class="card-header">
-                <h5 class="card-title">Customer Loans</h5>
               </div>
               <div class="card-body">
+                <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">  Customer Loan</h5>
+                  </div> 
                 <form action ="" method="POST">
                   <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
                           <select class="form-control" name = "id">
@@ -176,7 +167,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Date of obtaining loan</label>
                         <input type="date" name="l_date" class="form-control">
@@ -184,7 +175,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Loan Amount</label>
                         <input type="text" class="form-control" placeholder="LKR" name="l_amt">
@@ -192,7 +183,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest (%)</label>
                         <input type="number" class="form-control" placeholder="Interest" name="interest">
@@ -200,7 +191,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>No. of Installments</label>
                         <input type="number" class="form-control" name = "ino_inst">
@@ -208,7 +199,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-10 pl-1">
+                    <div class="col-md-10 pr-3">
                     <div class="form-group">
                         <label><input type="radio" name="l_method" value="daily"> Daily</label><br>
                         <label><input type="radio" name="l_method" value="monthly"> Monthly</label><br>
@@ -217,7 +208,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Paid amount with interest</label>
                         <input type="text" class="form-control" placeholder="LKR" name="p_amt">
@@ -225,7 +216,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-7 pl-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Value of installement</label>
                         <input type="text" class="form-control" placeholder="LKR" name = "i_amt">
@@ -236,6 +227,7 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <button type="submit" name="submit" class="btn btn-primary btn-round">Submit</button>
+                      <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 
                       <?php
                           if(isset($_POST['submit'])){
@@ -258,8 +250,9 @@ mysqli_select_db($con,DB_NAME);
                   </div>
                 </form>
               </div>
-            </div>
-          </div>
+              </div>
+              </div>
+              </div>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
@@ -314,9 +307,11 @@ mysqli_select_db($con,DB_NAME);
                   ?>
                 </div>
               </div>
+              </div>
             </div>
           </div>
           </div>
+        </div>
 
         </div>
       </div>
@@ -341,7 +336,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
