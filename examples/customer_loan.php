@@ -293,7 +293,7 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-right">   <?php echo $row['installment_value']?>   </td>
                             <td>                      <?php echo $row['cust_id'] ?>            </td>
                             <td class="text-center">  
-                              <a href="edit_loan.php?id=<?php echo $row['loan_no']; ?>" name="edit">
+                              <a href="#" onclick="editView(<?php echo $row['loan_no']; ?>)" name="edit">
                               <!--a href="edit_cheque.php?id=<?php  ?>" class="btn btn-success" name="edit"-->
                               <span class="glyphicon glyphicon-edit"></span></a>
                             </td>
@@ -336,6 +336,12 @@ mysqli_select_db($con,DB_NAME);
       </footer>
     </div>
   </div>
+
+
+  <div id="show_view">
+
+  </div>
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -353,6 +359,7 @@ mysqli_select_db($con,DB_NAME);
 
 <script>
 
+    //////  radio button onchange catch 
     $('#rates').change(function(){
 
       if (document.getElementById('r1').checked) {
@@ -375,15 +382,15 @@ mysqli_select_db($con,DB_NAME);
       { 
         // paid_amt = amount + (amount*(int/100)*no);
         // installement_amt = (paid_amt/(no*30);
-        paid_amt = ((Number(amount))+((number(amount))*(number(int/100))*(number(no))));
-        installement_amt = (((Number(amount))+((number(amount))*(number(int/100))*(number(no))/(number(no)*30))));
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/Number(no)*30;
 
-      }else if(rate_value =='monthly')
+      }else if(rate_value =="monthly")
       {
         // paid_amt = amount + (amount*(int/100)*no);
         // installement_amt = (paid_amt/no);
-        paid_amt = ((Number(amount))+((number(amount))*(number(int/100))*number(no)));
-        installement_amt = ((Number(amount))+((number(amount))*(number(int/100))*(number(no))/(number(no))));
+        paid_amt = Number(amount)*(Number(int/100)*Number(no))
+        installement_amt = Number(paid_amt)/Number(no)
       }
       else
       {       
@@ -391,11 +398,26 @@ mysqli_select_db($con,DB_NAME);
         installement_amt = Number(0);
       }
       
-      $('#paid_amt').val(pai_amt);
-      $('#inst_val').val(installement_amt);
-      
+      $('#paid_amt').val(paid_amt.toFixed(2));
+      $('#inst_val').val(installement_amt.toFixed(2));
+    
+    }); 
+    ////////////////////  
 
-    });   
+    // Form edit 
+    function editView(id){
+
+      $.ajax({
+              url:"edit_loan.php",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                $('#show_view').html(data);
+                $('#Form2').modal('show');
+              }
+        });
+    }
+    ////////////////////  
    
   </script>
 

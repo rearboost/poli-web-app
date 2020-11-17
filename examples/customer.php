@@ -135,73 +135,73 @@ mysqli_select_db($con,DB_NAME);
               </div>
               </div>
               <div class="card-body">
-              <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Customer Registration Form</h5>
-                  </div> 
-                <form action ="" method="POST">
-                  <div class="col-md-12">
-                  <div class="row">
-                    <div class="col-md-7 pr-1">
-                      <div class="form-group">
-                        <label>Customer Type</label>
-                          <select class="form-control form-selectBox" id="customerType" name ="type">
-                            <option>--Select Customer Type--</option>
-                            <option>Daily</option>
-                            <option>Monthly</option>
-                          </select>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="col-md-7 pr-1">
-                      <div class="form-group">
-                        <label>Customer ID</label>
-                        <input type="text" class="form-control" name ="id" id="customerID" readonly>
-                      </div>
-                    </div>
-                    </div>
-                  <div class="row">
-                    <div class="col-md-7 pr-1">
-                      <div class="form-group">
-                        <label>Customer Name</label>
-                        <input type="text" class="form-control" placeholder="Name" name = "name">
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">                  
-                    <div class="col-md-7 pr-1">
-                      <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Address" name = "address">
-                      </div>
-                    </div>
-                    </div>
-                    <div class="row">
-                    <div class="update ml-auto mr-auto">
-                      <button type="submit" name="submit" class="btn btn-primary btn-round">Register</button>
-                      <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
+                <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Customer Registration Form</h5>
+                      </div> 
+                      <form action ="" method="POST">
+                        <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-7 pr-1">
+                            <div class="form-group">
+                              <label>Customer Type</label>
+                                <select class="form-control form-selectBox" id="customerType" name ="type">
+                                  <option>--Select Customer Type--</option>
+                                  <option>Daily</option>
+                                  <option>Monthly</option>
+                                </select>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="col-md-7 pr-1">
+                            <div class="form-group">
+                              <label>Customer ID</label>
+                              <input type="text" class="form-control" name ="id" id="customerID" readonly>
+                            </div>
+                          </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-md-7 pr-1">
+                            <div class="form-group">
+                              <label>Customer Name</label>
+                              <input type="text" class="form-control" placeholder="Name" name = "name">
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">                  
+                          <div class="col-md-7 pr-1">
+                            <div class="form-group">
+                              <label>Address</label>
+                              <input type="text" class="form-control" placeholder="Address" name = "address">
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="update ml-auto mr-auto">
+                            <button type="submit" name="submit" class="btn btn-primary btn-round">Register</button>
+                            <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 
-                      <?php
-                          if(isset($_POST['submit'])){
-                            $id       = $_POST['id'];
-                            $type     = $_POST['type'];
-                            $name     = $_POST['name'];
-                            $address  = $_POST['address'];
+                            <?php
+                                if(isset($_POST['submit'])){
+                                  $id       = $_POST['id'];
+                                  $type     = $_POST['type'];
+                                  $name     = $_POST['name'];
+                                  $address  = $_POST['address'];
 
-                          $insert1 = "INSERT INTO customer (cust_id,type,name,address) VALUES ('$id','$type','$name','$address')";
-                          mysqli_query($con,$insert1);
-                          }
-                      ?>
-                    </div>
+                                $insert1 = "INSERT INTO customer (cust_id,type,name,address) VALUES ('$id','$type','$name','$address')";
+                                mysqli_query($con,$insert1);
+                                }
+                            ?>
+                          </div>
+                        </div>
+                        </div>
+                      </form>
+                    </div><!-- modal content end-->
                   </div>
-                  </div>
-                </form>
-              </div><!-- modal content end-->
-              </div>
-              </div>
+                </div>
               </div><!-- card body-->
               <div class="card-body">
                 <div class="table-responsive">
@@ -286,7 +286,7 @@ mysqli_select_db($con,DB_NAME);
 
     $('#customerType').on('change', function() {
 
-      const zeroPad = (num, places) => String(num).padStart(places, '0')
+      const zeroPad = (num, places) => String(num).padStart(places, '0');
 
       $.ajax({
         url: 'func_custid.php',
@@ -294,7 +294,7 @@ mysqli_select_db($con,DB_NAME);
         data:{type:this.value},
         success: function (response) {//response is value returned from php (for your example it's "bye bye"
           var lastNumber = Number(response.substr(1))+1;
-          var type  = response.charAt(0)
+          var type  = response.charAt(0);
           $('#customerID').val(type+zeroPad(lastNumber, 4));
         }
       });
