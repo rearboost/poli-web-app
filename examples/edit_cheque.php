@@ -6,7 +6,7 @@ include("db_config.php");
       die('Could not connect: ' . mysqli_error($con));
     }
 
-    $id = $_GET['id']; // get id through query string
+    $id = $_POST['id']; // get id through query string
 
     $qry = mysqli_query($con,"SELECT * FROM cheque WHERE cheque_id=$id "); // select query
 
@@ -15,7 +15,7 @@ include("db_config.php");
     if(isset($_POST['update'])) // when click on Update button
     {
 
-        $cust_id        = $_POST['id'];
+        $ch_id          = $_POST['ch_id'];      
         $bank           = $_POST['bank'];
         $cheque_no      = $_POST['cheque_no'];
         $v_date         = $_POST['v_date'];
@@ -24,7 +24,7 @@ include("db_config.php");
         $c_interest     = $_POST['c_interest'];
         $exchange_amt   = $_POST['exchange_amt'];
         $status         = $_POST['status'];
-
+        $cust_id        = $_POST['cust_id'];
       
         $edit = mysqli_query($con,"UPDATE cheque 
                                   SET bank          ='$bank', 
@@ -35,7 +35,7 @@ include("db_config.php");
                                       interest      ='$c_interest', 
                                       exchange_amt  ='$exchange_amt', 
                                       status        ='$status '
-                                  WHERE cheque_id=$id ");
+                                  WHERE cheque_id=$ch_id ");
       
         if($edit)
         {
@@ -59,29 +59,14 @@ include("db_config.php");
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE DEBT COLLECTIONS</h5>
         </div> 
-        <form action ="" method="POST">
+        <form action ="edit_cheque.php" method="POST">
           <div class="col-md-12">
           <div class="row">
             <div class="col-md-5 pr-1">
               <div class="form-group">
+                <input type="hidden" class="form-control" name = "ch_id" value="<?php echo $data['cheque_id']?>">
                 <label>Customer</label>
-                  <select class="form-control" name = "id" value="<?php echo $data['cust_id']?>">
-                    <option value="default">--Select Customer--</option>
-                    <?php
-                      $custom = "SELECT cust_id, name FROM customer";
-
-                        $result1 = mysqli_query($con,$custom);
-                        $numRows1 = mysqli_num_rows($result1); 
-         
-                          if($numRows1 > 0) {
-                            while($row1 = mysqli_fetch_assoc($result1)) {
-                              echo "<option value = ".$row1['cust_id'].">" . $row1['cust_id'] . " | " . $row1['name'] . "</option>";
-                              
-                            }
-                          }
-                    ?>
-                    
-                  </select>
+                  <input type="text" class="form-control" name = "cust_id" value="<?php echo $data['cust_id']?>" disable>
               </div>
             </div>
             <div class="col-md-1">
@@ -146,7 +131,7 @@ include("db_config.php");
             <div class="col-md-5 pr-1">
             <div class="form-group">
                 <label>Status</label>
-                <select class="form-control" name = "status" value="<?php echo $data['status']?>">
+                <select class="form-control form-selectBox" name = "status" value="<?php echo $data['status']?>">
                     <option>--Select Status--</option>
                     <option>Completed</option>
                     <option>NYC</option>
