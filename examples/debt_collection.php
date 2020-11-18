@@ -271,7 +271,8 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-right">   <?php echo $row['remaining_amt'] ?>    </td>
                             <td class="text-right">   <?php echo $row['loan_no']  ?>         </td>
                             <td class="text-center">  
-                            	<a href="edit_debt.php?id=<?php echo $row['id']; ?>" name="edit">
+                            	<!-- <a href="edit_debt.php?id=<?php //echo $row['id']; ?>" name="edit"> -->
+                              <a href="#" onclick="editView(<?php echo $row['id']; ?>)" name="edit">
                             	<span class="glyphicon glyphicon-edit"></span></a>
                           	</td>
                           	<td class="text-center">  
@@ -312,6 +313,11 @@ mysqli_select_db($con,DB_NAME);
       </footer>
     </div>
   </div>
+
+  <div id="show_view">
+
+  </div>
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -327,7 +333,22 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
   <script>
-    
+    ////////////////////  
+
+    // Form edit 
+    function editView(id){
+
+      $.ajax({
+              url:"edit_debt.php",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                $('#show_view').html(data);
+                $('#Form2').modal('show');
+              }
+        });
+    }
+    ////////////////////  
   </script>
 </body>
 

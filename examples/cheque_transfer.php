@@ -309,8 +309,8 @@ mysqli_select_db($con,DB_NAME);
                             <td>                    <?php echo $row['status']?>         </td>
                             <td>                    <?php echo $row['cust_id'] ?>       </td>
                             <td class="text-center">  
-                              <a href="edit_cheque.php?id=<?php echo $row['cheque_id']; ?>" name="edit">
-                              <!--a href="edit_cheque.php?id=<?php  ?>" class="btn btn-success" name="edit"-->
+                              <!-- <a href="edit_cheque.php?id=<?php //echo $row['cheque_id']; ?>" name="edit"> -->
+                              <a href="#" onclick="editView(<?php echo $row['cheque_id']; ?>)" name="edit">
                               <span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                             <td class="text-center">  
@@ -351,6 +351,11 @@ mysqli_select_db($con,DB_NAME);
       </footer>
     </div>
   </div>
+
+  <div id="show_view">
+
+  </div>
+
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -375,13 +380,22 @@ mysqli_select_db($con,DB_NAME);
        
     });  
 
-//     $(document).on("change keyup blur", "#chDiscount", function() {
-//   var amd = $('#cBalance').val();
-//   var disc = $('#chDiscount').val();
-//   if (disc != '' && amd != '')
-//     $('#cBalance').val((parseInt(amd)) - (parseInt(disc)));
+    ////////////////////  
 
-// }); 
+    // Form edit 
+    function editView(id){
+
+      $.ajax({
+              url:"edit_cheque.php",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                $('#show_view').html(data);
+                $('#Form2').modal('show');
+              }
+        });
+    }
+    ////////////////////  
    
   </script>
 

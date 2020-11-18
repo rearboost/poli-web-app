@@ -294,7 +294,6 @@ mysqli_select_db($con,DB_NAME);
                             <td>                      <?php echo $row['cust_id'] ?>            </td>
                             <td class="text-center">  
                               <a href="#" onclick="editView(<?php echo $row['loan_no']; ?>)" name="edit">
-                              <!--a href="edit_cheque.php?id=<?php  ?>" class="btn btn-success" name="edit"-->
                               <span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                             <td class="text-center">  
@@ -383,14 +382,14 @@ mysqli_select_db($con,DB_NAME);
         // paid_amt = amount + (amount*(int/100)*no);
         // installement_amt = (paid_amt/(no*30);
         paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
-        installement_amt = Number(paid_amt)/Number(no)*30;
+        installement_amt = Number(paid_amt)/(Number(no)*30);
 
       }else if(rate_value =="monthly")
       {
         // paid_amt = amount + (amount*(int/100)*no);
         // installement_amt = (paid_amt/no);
-        paid_amt = Number(amount)*(Number(int/100)*Number(no))
-        installement_amt = Number(paid_amt)/Number(no)
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/Number(no);
       }
       else
       {       

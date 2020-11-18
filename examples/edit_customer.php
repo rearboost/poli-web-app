@@ -40,45 +40,56 @@ include("db_config.php");
 ?>
 
 <div class="card-body">
-  <form action ="" method="POST">
-    <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-7 pr-1">
-        <div class="form-group">
-          <label>Customer ID</label>
-          <input type="text" class="form-control" name = "id" disabled="" value="<?php echo $data['cust_id']?>">
-        </div>
+  <div class="modal fade" id="Form2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">UPDATE CUSTOMERS</h5>
+        </div> 
+
+        <form action ="" method="POST">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-7 pr-1">
+                <div class="form-group">
+                  <label>Customer ID</label>
+                  <input type="text" class="form-control" name = "id" disabled="" value="<?php echo $data['cust_id']?>">
+                </div>
+              </div>
+            </div>
+            <div class="row">      
+              <div class="col-md-7 pr-1">
+                <div class="form-group">
+                  <label>Customer Type</label>
+                    <input type="text" class="form-control" name = "type" value="<?php echo $data['type']?>" disabled ="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 pr-1">
+                <div class="form-group">
+                  <label>Customer Name</label>
+                  <input type="text" class="form-control" placeholder="Name" name = "name" value="<?php echo $data['name']?>">
+                </div>
+              </div>
+              </div>
+              <div class="row">                  
+              <div class="col-md-7 pr-1">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control" placeholder="Address" name = "address" value="<?php echo $data['address']?>">
+                </div>
+              </div>
+              </div>
+              <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
+                <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="row">      
-      <div class="col-md-7 pr-1">
-        <div class="form-group">
-          <label>Customer Type</label>
-            <input type="text" class="form-control" name = "type" value="<?php echo $data['type']?>" disabled ="">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-7 pr-1">
-        <div class="form-group">
-          <label>Customer Name</label>
-          <input type="text" class="form-control" placeholder="Name" name = "name" value="<?php echo $data['name']?>">
-        </div>
-      </div>
-      </div>
-      <div class="row">                  
-      <div class="col-md-7 pr-1">
-        <div class="form-group">
-          <label>Address</label>
-          <input type="text" class="form-control" placeholder="Address" name = "address" value="<?php echo $data['address']?>">
-        </div>
-      </div>
-      </div>
-      <div class="row">
-      <div class="update ml-auto mr-auto">
-        <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
-      </div>
-    </div>
-    </div>
-  </form>
+  </div>
 </div>
