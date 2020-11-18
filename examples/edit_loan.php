@@ -31,7 +31,7 @@
                                       total_amt          ='$p_amt', 
                                       installment_value  ='$i_amt', 
                                       no_of_installments ='$ino_inst'
-                                  WHERE loan_no=$no ");
+                                  WHERE loan_no=$no");
       
         if($edit)
         {
@@ -55,7 +55,7 @@
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE CUSTOMER LOANS</h5>
         </div> 
 
-        <form action ="" method="POST">
+        <form action ="edit_loan.php" method="POST">
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-5 pr-3">
