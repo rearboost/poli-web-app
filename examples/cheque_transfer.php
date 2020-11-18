@@ -369,15 +369,10 @@ mysqli_select_db($con,DB_NAME);
 
     $('#int').on('change', function() {
 
-      $.ajax({
-        method:"POST",
-        data:{interest:this.value},
-        success: function (response) {//response is value returned from php (for your example it's "bye bye"
           var amount = $('#cheque_val').val();
           var int  = $('#int').val();
           $('#exchange_val').val((parseFloat(amount)) - (parseFloat(amount))*(parseFloat((int)/100)));
-        }
-      });
+       
     });  
 
 //     $(document).on("change keyup blur", "#chDiscount", function() {

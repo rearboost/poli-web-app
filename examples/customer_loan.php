@@ -368,22 +368,32 @@ mysqli_select_db($con,DB_NAME);
       var amount = $('#amount').val();
       var int  = $('#int').val();
       var no  = $('#no').val();
+      var paid_amt;
+      var installement_amt;
 
       if(rate_value =='daily')
-      {           
-        $('#inst_val').val(((parseFloat(paid_amt)) / no) / (30)) ;
-      }
-      else if(rate_value =='monthly')
+      { 
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/(no*30);
+        paid_amt = ((Number(amount))+((number(amount))*(number(int/100))*(number(no))));
+        installement_amt = (((Number(amount))+((number(amount))*(number(int/100))*(number(no))/(number(no)*30))));
+
+      }else if(rate_value =='monthly')
       {
-        $('#inst_val').val((parseFloat(paid_amt)) / no) ;
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/no);
+        paid_amt = ((Number(amount))+((number(amount))*(number(int/100))*number(no)));
+        installement_amt = ((Number(amount))+((number(amount))*(number(int/100))*(number(no))/(number(no))));
       }
       else
-      {
-        $('#paid_amt').val()="" ;
-        $('#inst_val').val() = "" ;
+      {       
+        paid_amt = Number(0);
+        installement_amt = Number(0);
       }
-
-      $('#paid_amt').val((parseFloat(amount)) + ((parseFloat(amount))*(parseFloat((int)/100))*(parseint(no))) ;
+      
+      $('#paid_amt').val(pai_amt);
+      $('#inst_val').val(installement_amt);
+      
 
     });   
    
