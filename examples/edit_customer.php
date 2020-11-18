@@ -6,7 +6,7 @@ include("db_config.php");
       die('Could not connect: ' . mysqli_error($con));
     }
 
-    $id = $_GET['id']; // get id through query string
+    $id = $_POST['id']; // get id through query string
 
     $qry = mysqli_query($con,"SELECT * FROM customer WHERE cust_id='$id' "); // select query
 
