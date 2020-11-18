@@ -12,11 +12,9 @@ include("db_config.php");
 
     $data = mysqli_fetch_array($qry); // fetch data
 
-    if(isset($_POST['i_id'])) // when click on Update button
+    if(isset($_POST['update'])) // when click on Update button
     {
 
-
-        echo '<script type="text/javascript">alert("'.$_POST['i_id'].'");</script>';
         $i_id               = $_POST['i_id'];
         $li_id              = $_POST['id'];
         $li_date            = $_POST['li_date'];

@@ -227,7 +227,7 @@ mysqli_select_db($con,DB_NAME);
                             <td>                      <?php echo $row['name']?>                </td>
                             <td>                      <?php echo $row['address']  ?>           </td>
                             <td class="text-center">  
-                             <a href="#" onclick="editView(<?php echo $row['cust_id']; ?>)" name="edit">
+                             <a href="#" onclick="editView(\''+<?php echo $row['cust_id']; ?>+'\')" name="edit">
                               <span class="glyphicon glyphicon-edit"></span></a>
                             </td>
                             <td class="text-center">  
@@ -309,13 +309,15 @@ mysqli_select_db($con,DB_NAME);
     // Form edit 
     function editView(id){
 
+      alert(id)
+
       $.ajax({
               url:"edit_customer.php",
               method:"POST",
               data:{"id":id},
               success:function(data){
                 $('#show_view').html(data);
-                $('#Form2').modal('show');
+                $('#Form3').modal('show');
               }
         });
     }
