@@ -63,7 +63,7 @@ include("db_config.php");
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Customer</label> 
-                  <input type="text" class="form-control" name = "cust_id" disabled="" value = "<?php echo $data['cust_id'] ?>">
+                  <input type="text" class="form-control" id="cust_id1" name = "cust_id" disabled="" value = "<?php echo $data['cust_id'] ?>">
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@ include("db_config.php");
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Installment amount</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "i_amt" value = "<?php echo $data['installement_amt'] ?>">
+                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="i_amt" name = "i_amt" value = "<?php echo $data['installement_amt'] ?>">
                 </div>
               </div>
             </div>  
@@ -88,7 +88,7 @@ include("db_config.php");
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest amount</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "int_amt" value = "<?php echo $data['interest_amt'] ?>">
+                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="int_amt" name = "int_amt" value = "<?php echo $data['interest_amt'] ?>">
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@ include("db_config.php");
                 <div class="form-group">
                   <label>Remaining amount</label>
                   <!--input type="text" class="form-control" disabled = ""  name = "remain_amt"-->
-                  <input type="text" class="form-control" name = "remain_amt" value = "<?php echo $data['remaining_amt'] ?>">
+                  <input type="text" class="form-control" id="remain_amt1" name = "remain_amt" value = "<?php echo $data['remaining_amt'] ?>">
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ include("db_config.php");
                 <div class="form-group">
                   <label>Loan Amount</label>
                   <!--input type="text" class="form-control" disabled = "" name = "l_amt"-->
-                  <input type="text" class="form-control" name = "l_amt" disabled = "" value = "<?php echo $data['amount'] ?>">
+                  <input type="text" class="form-control" id="l_amt" name = "l_amt" disabled = "" value = "<?php echo $data['amount'] ?>">
                 </div>
               </div>
             </div>                  
@@ -122,3 +122,42 @@ include("db_config.php");
     </div>
   </div>
 </div>
+
+
+<script>
+
+    ////////////////////  Update the Functions
+
+    $('.checkAmt1').on('keypress',function(){
+        checkAmt1()
+    })
+
+    function checkAmt1(){
+
+      var installement_amt  = $('#i_amt').val();
+      var interest_amt      = $('#int_amt').val();
+      var remain_amt;
+      var id =  $('#cust_id1').val();
+
+      $.ajax({
+        url: 'remain_amt.php',
+        method:"POST",
+        data:{id:id},
+        success: function (response) {
+
+          var obj = JSON.parse(response);
+         // $('#remain_amt').val(obj.remain_amt);
+          var remain_amt   =  obj.remain_amt
+
+          remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
+      
+           $('#remain_amt1').val(remain_amt.toFixed(2));
+        }
+
+      });
+    }
+
+    ////////////////////  
+
+
+</script>
