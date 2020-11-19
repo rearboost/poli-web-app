@@ -87,7 +87,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Loan Amount</label>
-                  <input type="text" class="form-control" placeholder="LKR" id="amount" name = "l_amt" value="<?php echo $data['amount']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="amount1" name = "l_amt" value="<?php echo $data['amount']?>">
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest (%)</label>
-                  <input type="number" class="form-control" placeholder="Interest" id="int" name = "interest" value="<?php echo $data['interest']?>">
+                  <input type="number" class="form-control" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
                 </div>
               </div>
             </div>
@@ -105,17 +105,17 @@
               <div class="col-md-7 pr-3">
               <div class="form-group">
                   <label>No. of Installments</label>
-                  <input type="number" class="form-control" id="no" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
+                  <input type="number" class="form-control" id="no1" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
                 </div>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-10 pr-3">
-              <div class="form-group" id="rates">
-                  <label><input type="radio" id="r1" name="l_method" value="daily" <?php if($data['l_method']=="daily"){ echo "checked";}?>>Daily</label><br>
-                  <label><input type="radio" id="r2" name="l_method" value="monthly" <?php if($data['l_method']=="monthly"){ echo "checked";}?>> Monthly</label><br>
-                  <label><input type="radio" id="r3" name="l_method" value="declining" <?php if($data['l_method']=="declining"){ echo "checked";}?>> Declining Balance Method</label>
+              <div class="form-group" id="rates1">
+                  <label><input type="radio" id="r4" name="l_method" value="daily" <?php if($data['l_method']=="daily"){ echo "checked";}?>> Daily</label><br>
+                  <label><input type="radio" id="r5" name="l_method" value="monthly" <?php if($data['l_method']=="monthly"){ echo "checked";}?>> Monthly</label><br>
+                  <label><input type="radio" id="r6" name="l_method" value="declining" <?php if($data['l_method']=="declining"){ echo "checked";}?>> Declining Balance Method</label>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Paid amount with interest</label>
-                  <input type="text" class="form-control" placeholder="LKR" id="paid_amt" name = "p_amt" value="<?php echo $data['total_amt']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="paid_amt1" name = "p_amt" value="<?php echo $data['total_amt']?>">
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Value of installement</label>
-                  <input type="text" class="form-control" placeholder="LKR" id="inst_val" name = "i_amt" value="<?php echo $data['installment_value']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="inst_val1" name = "i_amt" value="<?php echo $data['installment_value']?>">
                 </div>
               </div>
             </div>
@@ -151,3 +151,53 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+    //////  radio button onchange catch  ########## Update 
+    $('#rates1').change(function(){
+
+      if (document.getElementById('r4').checked) {
+        rate_value = document.getElementById('r4').value;
+      }
+      else if(document.getElementById('r5').checked) {
+        rate_value = document.getElementById('r5').value;
+      }
+      else if(document.getElementById('r6').checked) {
+        rate_value = document.getElementById('r6').value;
+      }
+
+      var amount = $('#amount1').val();
+      var int  = $('#int1').val();
+      var no  = $('#no1').val();
+      var paid_amt;
+      var installement_amt;
+
+      if(rate_value =='daily')
+      { 
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/(no*30);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/(Number(no)*30);
+
+      }else if(rate_value =="monthly")
+      {
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/no);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/Number(no);
+      }
+      else
+      {       
+        paid_amt = Number(0);
+        installement_amt = Number(0);
+      }
+      
+      $('#paid_amt1').val(paid_amt.toFixed(2));
+      $('#inst_val1').val(installement_amt.toFixed(2));
+    
+    }); 
+    ////////////////////  
+
+</script>

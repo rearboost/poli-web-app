@@ -358,7 +358,7 @@ mysqli_select_db($con,DB_NAME);
 
 <script>
 
-    //////  radio button onchange catch 
+    //////  radio button onchange catch  ########## Insert 
     $('#rates').change(function(){
 
       if (document.getElementById('r1').checked) {
