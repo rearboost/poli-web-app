@@ -150,7 +150,12 @@ mysqli_select_db($con,DB_NAME);
                           <select class="form-control form-selectBox" id="custom_id" name = "id">
                             <option value="default">--Select Customer--</option>
                             <?php
-                              $custom = "SELECT cust_id, name FROM customer";
+                              //$custom = "SELECT cust_id, name FROM customer ";
+
+                              $custom = "SELECT C.cust_id AS cust_id  , C.name AS name
+                                          FROM customer C 
+                                          INNER JOIN  loan L
+                                          ON C.cust_id = L.cust_id;";
 
                                 $result1 = mysqli_query($con,$custom);
                                 $numRows1 = mysqli_num_rows($result1); 
@@ -343,8 +348,9 @@ mysqli_select_db($con,DB_NAME);
         data:{id:this.value},
         success: function (response) {
 
-          $('#remain_amt').val();
-          $('#loan_amt').val();
+          var obj = JSON.parse(response);
+          $('#remain_amt').val(obj.remain_amt);
+          $('#loan_amt').val(obj.loan_amt);
         }
       });
     });  
