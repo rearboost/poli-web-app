@@ -66,7 +66,7 @@ include("db_config.php");
               <div class="form-group">
                 <input type="hidden" class="form-control" name = "ch_id" value="<?php echo $data['cheque_id']?>">
                 <label>Customer</label>
-                  <input type="text" class="form-control" name = "cust_id" value="<?php echo $data['cust_id']?>" disable>
+                  <input type="text" class="form-control" name = "cust_id" value="<?php echo $data['cust_id']?>" readonly>
               </div>
             </div>
             <div class="col-md-1">

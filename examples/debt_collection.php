@@ -147,7 +147,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" name = "id">
+                          <select class="form-control form-selectBox" id="custom_id" name = "id">
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -178,7 +178,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Installment amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" name = "i_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt">
                       </div>
                     </div>  
                     <div class="col-md-1">
@@ -186,7 +186,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pl-1">
                       <div class="form-group">
                         <label>Interest amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" name = "int_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt">
                       </div>
                     </div>
                     </div>
@@ -194,7 +194,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pr-1">
                       <div class="form-group">
                         <label>Remaining amount</label>
-                        <input type="text" class="form-control" name = "remain_amt" value="" readonly>
+                        <input type="text" class="form-control" id="remain_amt" name = "remain_amt" value="" readonly>
                       </div>
                     </div>
                     <div class="col-md-1">
@@ -202,7 +202,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-5 pl-1">
                       <div class="form-group">
                         <label>Loan Amount</label>
-                        <input type="text" class="form-control" name = "l_amt" disabled = "" id = "loan_amount" readonly>
+                        <input type="text" class="form-control" id="loan_amt" name = "l_amt" disabled = "" id = "loan_amount" readonly>
                       </div>
                     </div>
                   </div>                  
@@ -333,6 +333,35 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
   <script>
+
+  // fetch remain amount and loan amount from remain_amt.php
+  $('#custom_id').on('change', function() {
+
+      $.ajax({
+        url: 'remain_amt.php',
+        method:"POST",
+        data:{id:this.value},
+        success: function (response) {
+
+          $('#remain_amt').val();
+          $('#loan_amt').val();
+        }
+      });
+    });  
+
+  // calculate new remain amount when fill the installement value and interest value
+    $('#int_amount').change(function(){
+
+      var installement_amt  = $('#inst_amt').val();
+      var interest_amt      = $('#int_amount').val();
+      var remain_amt        = $('#remain_amt').val();
+     
+        remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
+      
+      $('#remain_amt').val(remain_amt.toFixed(2));
+    
+    }); 
+
     ////////////////////  
 
     // Form edit 

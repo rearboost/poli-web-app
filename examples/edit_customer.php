@@ -15,7 +15,7 @@ include("db_config.php");
     if(isset($_POST['update'])) // when click on Update button
     {
 
-        $cust_id   = $_POST['id'];
+        $cust_id   = $_POST['c_id'];
         $type      = $_POST['type'];
         $name      = $_POST['name'];
         $address   = $_POST['address'];
@@ -24,7 +24,7 @@ include("db_config.php");
         $edit = mysqli_query($con,"UPDATE customer 
                                   SET name        ='$name', 
                                       address     ='$address'
-                                  WHERE cust_id='$id' ");
+                                  WHERE cust_id='$cust_id' ");
       
         if($edit)
         {
@@ -47,13 +47,13 @@ include("db_config.php");
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE CUSTOMERS</h5>
         </div> 
 
-        <form action ="" method="POST">
+        <form action ="edit_customer.php" method="POST">
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer ID</label>
-                  <input type="text" class="form-control" name = "id" disabled="" value="<?php echo $data['cust_id']?>">
+                  <input type="text" class="form-control" name = "c_id" value="<?php echo $data['cust_id']?>" disabled>
                 </div>
               </div>
             </div>
@@ -61,7 +61,7 @@ include("db_config.php");
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer Type</label>
-                    <input type="text" class="form-control" name = "type" value="<?php echo $data['type']?>" disabled ="">
+                    <input type="text" class="form-control" name = "type" value="<?php echo $data['type']?>" disabled>
                 </div>
               </div>
             </div>
@@ -69,7 +69,7 @@ include("db_config.php");
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer Name</label>
-                  <input type="text" class="form-control" placeholder="Name" name = "name" value="<?php echo $data['name']?>">
+                  <input type="text" class="form-control" name = "name" value="<?php echo $data['name']?>">
                 </div>
               </div>
               </div>
@@ -77,7 +77,7 @@ include("db_config.php");
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Address</label>
-                  <input type="text" class="form-control" placeholder="Address" name = "address" value="<?php echo $data['address']?>">
+                  <input type="text" class="form-control" name = "address" value="<?php echo $data['address']?>">
                 </div>
               </div>
               </div>

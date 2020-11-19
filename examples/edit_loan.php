@@ -87,7 +87,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Loan Amount</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "l_amt" value="<?php echo $data['amount']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="amount" name = "l_amt" value="<?php echo $data['amount']?>">
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest (%)</label>
-                  <input type="number" class="form-control" placeholder="Interest" name = "interest" value="<?php echo $data['interest']?>">
+                  <input type="number" class="form-control" placeholder="Interest" id="int" name = "interest" value="<?php echo $data['interest']?>">
                 </div>
               </div>
             </div>
@@ -105,17 +105,17 @@
               <div class="col-md-7 pr-3">
               <div class="form-group">
                   <label>No. of Installments</label>
-                  <input type="number" class="form-control" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
+                  <input type="number" class="form-control" id="no" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
                 </div>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-10 pr-3">
-              <div class="form-group">
-                  <label><input type="radio" name="l_method" value="daily"> Daily</label><br>
-                  <label><input type="radio" name="l_method" value="monthly"> Monthly</label><br>
-                  <label><input type="radio" name="l_method" value="declining"> Declining Balance Method</label>
+              <div class="form-group" id="rates">
+                  <label><input type="radio" id="r1" name="l_method" value="daily"> Daily</label><br>
+                  <label><input type="radio" id="r2" name="l_method" value="monthly"> Monthly</label><br>
+                  <label><input type="radio" id="r3" name="l_method" value="declining"> Declining Balance Method</label>
                 </div>
               </div>
             </div>
@@ -124,7 +124,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Paid amount with interest</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "p_amt" value="<?php echo $data['total_amt']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="paid_amt" name = "p_amt" value="<?php echo $data['total_amt']?>">
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Value of installement</label>
-                  <input type="text" class="form-control" placeholder="LKR" name = "i_amt" value="<?php echo $data['installment_value']?>">
+                  <input type="text" class="form-control" placeholder="LKR" id="inst_val" name = "i_amt" value="<?php echo $data['installment_value']?>">
                 </div>
               </div>
             </div>

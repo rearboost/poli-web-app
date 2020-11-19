@@ -371,15 +371,14 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
   <script>
+ 
 
-    $('#int').on('change', function() {
-
+    $('#int').change(function(){
           var amount = $('#cheque_val').val();
           var int  = $('#int').val();
-          $('#exchange_val').val((parseFloat(amount)) - (parseFloat(amount))*(parseFloat((int)/100)));
-       
-    });  
 
+          $('#exchange_val').val(Number(amount)-(Number(amount)*(Number(int)/100)).toFixed(2));
+    }); 
     ////////////////////  
 
     // Form edit 
