@@ -183,7 +183,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Installment amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt" onchange="checkAmt()">
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="inst_amt" name = "i_amt" >
                       </div>
                     </div>
                   </div>  
@@ -191,7 +191,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt" onchange="checkAmt()">
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="int_amount" name = "int_amt">
                       </div>
                     </div>
                   </div>
@@ -361,16 +361,35 @@ mysqli_select_db($con,DB_NAME);
      
     // }); 
 
+    $('.checkAmt').on('keypress',function(){
+
+        checkAmt()
+
+    })
+
     function checkAmt(){
 
       var installement_amt  = $('#inst_amt').val();
       var interest_amt      = $('#int_amount').val();
-      var remain_amt        = $('#remain_amt').val();
-     
-      remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
+      var remain_amt;
+      var id =  $('#custom_id').val();
+
+      $.ajax({
+        url: 'remain_amt.php',
+        method:"POST",
+        data:{id:id},
+        success: function (response) {
+
+          var obj = JSON.parse(response);
+         // $('#remain_amt').val(obj.remain_amt);
+          var remain_amt   =  obj.remain_amt
+
+          remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
       
-      $('#remain_amt').val(remain_amt.toFixed(2));
-    
+           $('#remain_amt').val(remain_amt.toFixed(2));
+        }
+
+      });
     }
 
     ////////////////////  
