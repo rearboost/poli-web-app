@@ -1,5 +1,6 @@
 <?php
 	
+	error_reporting(0);
 	include("db_config.php");
     $con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
 	mysqli_select_db($con, DB_NAME);

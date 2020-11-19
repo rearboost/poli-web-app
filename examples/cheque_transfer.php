@@ -211,7 +211,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest(%)</label>
-                        <input type="number" class="form-control" placeholder="0" id="int" name = "interest">
+                        <input type="text" class="form-control" placeholder="0" id="int" name = "interest">
                       </div>
                     </div>
                   </div>
@@ -373,12 +373,19 @@ mysqli_select_db($con,DB_NAME);
   <script>
  
 
-    $('#int').change(function(){
+    $('#int').keyup(function(){
           var amount = $('#cheque_val').val();
           var int  = $('#int').val();
 
           $('#exchange_val').val(Number(amount)-(Number(amount)*(Number(int)/100)).toFixed(2));
     }); 
+
+    // function change_amt(){
+    //   var amount = $('#cheque_val').val();
+    //       var int  = $('#int').val();
+
+    //       $('#exchange_val').val(Number(amount)-(Number(amount)*(Number(int)/100)).toFixed(2));
+    // }
     ////////////////////  
 
     // Form edit 

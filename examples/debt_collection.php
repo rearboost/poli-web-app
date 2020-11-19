@@ -183,7 +183,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Installment amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt" onchange="checkAmt()">
                       </div>
                     </div>
                   </div>  
@@ -191,7 +191,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt">
+                        <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt" onchange="checkAmt()">
                       </div>
                     </div>
                   </div>
@@ -327,7 +327,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
@@ -356,17 +356,22 @@ mysqli_select_db($con,DB_NAME);
     });  
 
   // calculate new remain amount when fill the installement value and interest value
-    $('#int_amount').change(function(){
+    // $('#int_amount').change(function(){
+
+     
+    // }); 
+
+    function checkAmt(){
 
       var installement_amt  = $('#inst_amt').val();
       var interest_amt      = $('#int_amount').val();
       var remain_amt        = $('#remain_amt').val();
      
-        remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
+      remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
       
       $('#remain_amt').val(remain_amt.toFixed(2));
     
-    }); 
+    }
 
     ////////////////////  
 
