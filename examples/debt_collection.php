@@ -86,9 +86,9 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="nc-icon nc-paper"></i>
-              <p>CHEQUE DETAIL</p>
+            <a href="notification.php">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>NOTIFICATIONS</p>
             </a>
           </li>
           <li>
@@ -144,7 +144,7 @@ mysqli_select_db($con,DB_NAME);
                 <form action ="" method="POST">
                   <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
                           <select class="form-control form-selectBox" id="custom_id" name = "id">
@@ -165,41 +165,41 @@ mysqli_select_db($con,DB_NAME);
                           </select>
                       </div>
                     </div>
-                    <div class="col-md-1">
-                    </div>
-                        <div class="col-md-5 pl-1">
-                          <div class="form-group">
-                            <label>Date</label>
-                            <input type="date" class="form-control" name = "li_date">
-                          </div>
-                        </div>
-                    </div>
+                  </div>
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-7 pr-3">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" class="form-control" name = "li_date">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Installment amount</label>
                         <input type="text" class="form-control" placeholder="LKR" id="inst_amt" name = "i_amt">
                       </div>
-                    </div>  
-                    <div class="col-md-1">
-                    </div>                  
-                    <div class="col-md-5 pl-1">
+                    </div>
+                  </div>  
+                  <div class="row">                
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest amount</label>
                         <input type="text" class="form-control" placeholder="LKR" id="int_amount" name = "int_amt">
                       </div>
                     </div>
-                    </div>
+                  </div>
                   <div class="row">
-                    <div class="col-md-5 pr-1">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Remaining amount</label>
                         <input type="text" class="form-control" id="remain_amt" name = "remain_amt" value="" readonly>
                       </div>
                     </div>
-                    <div class="col-md-1">
-                    </div>
-                    <div class="col-md-5 pl-1">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Loan Amount</label>
                         <input type="text" class="form-control" id="loan_amt" name = "l_amt" disabled = "" id = "loan_amount" readonly>

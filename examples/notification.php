@@ -1,5 +1,6 @@
 <?php
 include("db_config.php");
+include("msg_show.php");
 session_start();
 if (!isset($_SESSION['loged_user'])) {
     //echo "Access Denied";
@@ -10,6 +11,8 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
       die('Could not connect: ' . mysqli_error($con));
   }
 mysqli_select_db($con,DB_NAME);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -90,6 +93,11 @@ mysqli_select_db($con,DB_NAME);
             <a href="notification.php">
               <i class="nc-icon nc-bell-55"></i>
               <p>NOTIFICATIONS</p>
+              <?php
+              	if($numRows>0){
+              		echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
+              	}
+              ?>
             </a>
           </li>
           <li>
@@ -124,116 +132,38 @@ mysqli_select_db($con,DB_NAME);
           <div class="col-md-12">         
             <div class="card">
               <div class="row">
-              <div class="col-md-9">
+              <div class="col-md-10">
               <div class="card-header">
-                <h4 class="card-title"> CUSTOMER</h4>                    
+                <h3 class="card-title"> You have to exchange following cheques.</h3>                    
               </div>
               </div>
-              <div class="col-md-3">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form1">+ Register in here..
-              </button> 
               </div>
-              </div>
-              <div class="card-body">
-                <div class="modal fade" id="Form1" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Customer Registration Form</h5>
-                      </div> 
-                      <form action ="" method="POST">
-                        <div class="col-md-12">
-                        <div class="row">
-                          <div class="col-md-7 pr-1">
-                            <div class="form-group">
-                              <label>Customer Type</label>
-                                <select class="form-control form-selectBox" id="customerType" name ="type">
-                                  <option>--Select Customer Type--</option>
-                                  <option>Daily</option>
-                                  <option>Monthly</option>
-                                </select>
-                            </div>
-                          </div>
-                          </div>
-                          <div class="row">
-                          <div class="col-md-7 pr-1">
-                            <div class="form-group">
-                              <label>Customer ID</label>
-                              <input type="text" class="form-control" name ="id" id="customerID" readonly>
-                            </div>
-                          </div>
-                          </div>
-                        <div class="row">
-                          <div class="col-md-7 pr-1">
-                            <div class="form-group">
-                              <label>Customer Name</label>
-                              <input type="text" class="form-control" placeholder="Name" name = "name">
-                            </div>
-                          </div>
-                          </div>
-                          <div class="row">                  
-                          <div class="col-md-7 pr-1">
-                            <div class="form-group">
-                              <label>Address</label>
-                              <input type="text" class="form-control" placeholder="Address" name = "address">
-                            </div>
-                          </div>
-                          </div>
-                          <div class="row">
-                          <div class="update ml-auto mr-auto">
-                            <button type="submit" name="submit" class="btn btn-primary btn-round">Register</button>
-                            <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
-
-                            <?php
-                                if(isset($_POST['submit'])){
-                                  $id       = $_POST['id'];
-                                  $type     = $_POST['type'];
-                                  $name     = $_POST['name'];
-                                  $address  = $_POST['address'];
-
-                                $insert1 = "INSERT INTO customer (cust_id,type,name,address) VALUES ('$id','$type','$name','$address')";
-                                mysqli_query($con,$insert1);
-                                }
-                            ?>
-                          </div>
-                        </div>
-                        </div>
-                      </form>
-                    </div><!-- modal content end-->
-                  </div>
-                </div>
-              </div><!-- card body-->
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
                     <thead class="text-primary">
-                      <th>                    ID</th>
-                      <th>                    Type</th>
-                      <th>                    Name</th>
-                      <th>                    Address</th>
+                      <th>  Customer</th>
+                      <th>  Bank</th>
+                      <th>  Cheque No</th>
+                      <th>  Valid Date</th>
+                      <th>  Cheque value</th>
                     </thead>
                     <tbody>
                       <?php
-                      $sql=mysqli_query($con,"SELECT * FROM customer");
 
-                      $numRows = mysqli_num_rows($sql); 
+                      // $sql=mysqli_query($con,"SELECT * FROM cheque WHERE valid_date = CURDATE() OR valid_date = date_add(curdate(),interval 1 day) AND status = 'NYC' ORDER BY valid_date ASC");
+
+                      // $numRows = mysqli_num_rows($sql); 
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($sql)) {
                           ?>
                           <tr>
-                            <td>                      <?php echo $row['cust_id'] ?>            </td>
-                            <td>                      <?php echo $row['type'] ?>               </td>
-                            <td>                      <?php echo $row['name']?>                </td>
-                            <td>                      <?php echo $row['address']  ?>           </td>
-                            <td class="text-center">  
-                             <a href="#" onclick="editView('<?php echo $row['cust_id']; ?>')" name="edit">
-                              <span class="glyphicon glyphicon-edit"></span></a>
-                            </td>
-                            <td class="text-center">  
-                              <a href="delete_customer.php?id=<?php echo $row['cust_id']; ?>" name="delete">
-                              <span class="glyphicon glyphicon-trash"></span></a>
-                            </td>
+                            <td>                      <?php echo $row['cust_id'] ?>       </td>
+                            <td>                      <?php echo $row['bank'] ?>          </td>
+                            <td>                      <?php echo $row['cheque_no']?>      </td>
+                            <td>                      <?php echo $row['valid_date']  ?>   </td>
+                            <td>                      <?php echo $row['cheque_value']  ?> </td>
                           </tr>
                     </tbody>
                            <?php
@@ -268,10 +198,6 @@ mysqli_select_db($con,DB_NAME);
     </div>
   </div>
 
-  <div id="show_view">
-
-  </div>
-
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -286,42 +212,7 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-  <script>
 
-    $('#customerType').on('change', function() {
-
-      const zeroPad = (num, places) => String(num).padStart(places, '0');
-
-      $.ajax({
-        url: 'func_custid.php',
-        method:"POST",
-        data:{type:this.value},
-        success: function (response) {//response is value returned from php (for your example it's "bye bye"
-          var lastNumber = Number(response.substr(1))+1;
-          var type  = response.charAt(0);
-          $('#customerID').val(type+zeroPad(lastNumber, 4));
-        }
-      });
-    });  
-
-    ////////////////////  
-
-    // Form edit 
-    function editView(id){
-
-      $.ajax({
-              url:"edit_customer.php",
-              method:"POST",
-              data:{"id":id},
-              success:function(data){
-                $('#show_view').html(data);
-                $('#Form3').modal('show');
-              }
-        });
-    }
-    ////////////////////  
-   
-  </script>
 </body>
 
 </html>

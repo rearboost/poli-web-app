@@ -86,9 +86,9 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="nc-icon nc-paper"></i>
-              <p>CHEQUE DETAIL</p>
+            <a href="notification.php">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>NOTIFICATIONS</p>
             </a>
           </li>
           <li>
@@ -168,7 +168,7 @@ mysqli_select_db($con,DB_NAME);
                   </div>
                   <div class="row">
                     <div class="col-md-7 pr-3">
-                      <div class="form-group">
+                      <div class="form-group" >
                         <label>Date of obtaining loan</label>
                         <input type="date" name="l_date" class="form-control">
                       </div>

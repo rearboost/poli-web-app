@@ -60,15 +60,15 @@ include("db_config.php");
                 <div class="form-group">
                   <input type="hidden" class="form-control" name = "i_id" value = "<?php echo $data['id'] ?>" >
                 </div>
-              <div class="col-md-5 pr-1">
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Customer</label> 
                   <input type="text" class="form-control" name = "cust_id" disabled="" value = "<?php echo $data['cust_id'] ?>">
                 </div>
               </div>
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-5 pl-1">
+            </div>
+            <div class="row">
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Date</label>
                   <!--input type="text" class="form-control" disabled="" name = "id"-->
@@ -77,15 +77,15 @@ include("db_config.php");
               </div>
             </div>
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Installment amount</label>
                   <input type="text" class="form-control" placeholder="LKR" name = "i_amt" value = "<?php echo $data['installement_amt'] ?>">
                 </div>
-              </div>  
-              <div class="col-md-1">
-              </div>                  
-              <div class="col-md-5 pl-1">
+              </div>
+            </div>  
+            <div class="row">                
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest amount</label>
                   <input type="text" class="form-control" placeholder="LKR" name = "int_amt" value = "<?php echo $data['interest_amt'] ?>">
@@ -93,16 +93,16 @@ include("db_config.php");
               </div>
             </div>
             <div class="row">
-              <div class="col-md-5 pr-1">
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Remaining amount</label>
                   <!--input type="text" class="form-control" disabled = ""  name = "remain_amt"-->
                   <input type="text" class="form-control" name = "remain_amt" value = "<?php echo $data['remaining_amt'] ?>">
                 </div>
               </div>
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-5 pl-1">
+            </div>
+            <div class="row">
+              <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Loan Amount</label>
                   <!--input type="text" class="form-control" disabled = "" name = "l_amt"-->

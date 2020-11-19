@@ -87,9 +87,9 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="nc-icon nc-paper"></i>
-              <p>CHEQUE DETAIL</p>
+            <a href="notification.php">
+              <i class="nc-icon nc-bell-55"></i>
+              <p>NOTIFICATIONS</p>
             </a>
           </li>
           <li>

@@ -62,65 +62,64 @@ include("db_config.php");
         <form action ="edit_cheque.php" method="POST">
           <div class="col-md-12">
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <input type="hidden" class="form-control" name = "ch_id" value="<?php echo $data['cheque_id']?>">
                 <label>Customer</label>
                   <input type="text" class="form-control" name = "cust_id" value="<?php echo $data['cust_id']?>" readonly>
               </div>
             </div>
-            <div class="col-md-1">
+          </div>
+          <div class="row">
+            <div class="col-md-7 pr-3">
+              <div class="form-group">
+                <label>Bank</label>
+                <input type="text" class="form-control" placeholder="Bank name" name = "bank" value="<?php echo $data['bank']?>">
+              </div>
             </div>
-                <div class="col-md-5 pl-1">
-                  <div class="form-group">
-                    <label>Bank</label>
-                    <input type="text" class="form-control" placeholder="Bank name" name = "bank" value="<?php echo $data['bank']?>">
-                  </div>
-                </div>
-            </div>
-            <div class="row">
-            <div class="col-md-5 pr-1">
+          </div>
+          <div class="row">
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Cheque Number</label>
                 <input type="text" class="form-control" placeholder="Cheque Number" name = "cheque_no" value="<?php echo $data['cheque_no']?>">
               </div>
-            </div>  
-            <div class="col-md-1">
-            </div>                  
-            <div class="col-md-5 pl-1">
+            </div>
+          </div> 
+          <div class="row">                 
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Valid Date</label>
-                <!--input type="text" class="form-control" disabled="" name = "id"-->
-                <input type="date" class="form-control" name = "v_date" value="<?php echo $data['v_date']?>">
+                <input type="date" class="form-control" name = "v_date" value="<?php echo $data['valid_date']?>">
               </div>
             </div>
-            </div>
+          </div>
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Value Of the Cheque</label>
                 <input type="text" class="form-control" placeholder="LKR" name = "cheque_amt" id = "cheque_amt" onkeyup="get_exchange_amt()" value="<?php echo $data['cheque_value']?>">
               </div>
-            </div>  
-            <div class="col-md-1">
-            </div>                  
-            <div class="col-md-5 pl-1">
+            </div>
+          </div>  
+          <div class="row">                
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Date Of Change</label>
                 <input type="date" class="form-control" name = "c_date" value="<?php echo $data['exchange_date']?>">
               </div>
             </div>
-            </div>
+          </div>
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Interest (%)</label>
                 <input type="text" class="form-control" placeholder="Interest" name = "c_interest" id="c_interest" onkeyup="get_exchange_amt()" value="<?php echo $data['interest']?>">
               </div>
             </div>
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-5 pl-1">
+          </div>
+          <div class="row">
+            <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Exchange Amount</label>
                 <input type="text" class="form-control" placeholder="LKR" name="exchange_amt" id="exchange_amt" value="<?php echo $data['exchange_amt']?>">
@@ -128,11 +127,11 @@ include("db_config.php");
             </div>
           </div>
           <div class="row">                    
-            <div class="col-md-5 pr-1">
+            <div class="col-md-7 pr-3">
             <div class="form-group">
                 <label>Status</label>
-                <select class="form-control form-selectBox" name = "status" value="<?php echo $data['status']?>">
-                    <option>--Select Status--</option>
+                <select class="form-control form-selectBox" name = "status">
+                    <option><?php echo $data['status']?></option>
                     <option>Completed</option>
                     <option>NYC</option>
                   </select>

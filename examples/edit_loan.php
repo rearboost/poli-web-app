@@ -113,13 +113,13 @@
             <div class="row">
               <div class="col-md-10 pr-3">
               <div class="form-group" id="rates">
-                  <label><input type="radio" id="r1" name="l_method" value="daily"> Daily</label><br>
-                  <label><input type="radio" id="r2" name="l_method" value="monthly"> Monthly</label><br>
-                  <label><input type="radio" id="r3" name="l_method" value="declining"> Declining Balance Method</label>
+                  <label><input type="radio" id="r1" name="l_method" value="daily" <?php if($data['l_method']=="daily"){ echo "checked";}?>>Daily</label><br>
+                  <label><input type="radio" id="r2" name="l_method" value="monthly" <?php if($data['l_method']=="monthly"){ echo "checked";}?>> Monthly</label><br>
+                  <label><input type="radio" id="r3" name="l_method" value="declining" <?php if($data['l_method']=="declining"){ echo "checked";}?>> Declining Balance Method</label>
                 </div>
               </div>
             </div>
-
+            
             <div class="row">
               <div class="col-md-7 pr-3">
                 <div class="form-group">

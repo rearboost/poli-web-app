@@ -1,11 +1,11 @@
 <?php
-include("db_config.php");
+    include("db_config.php");
     $con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
 	mysqli_select_db($con, DB_NAME);
 
 	$customer_id = $_POST['id'];
 
-	$get_loan = mysqli_query($con,"SELECT l.loan_no, l.total_amt FROM customer c , loan l WHERE c.cust_id = l.cust_id AND l.cust_id = '$customer_id'");
+	$get_loan = mysqli_query($con,"SELECT loan_no, total_amt FROM loan l WHERE cust_id = '$customer_id'");
 
 	$loan_no 	= $get_loan['loan_no'];
 	$loan_amt 	= $get_loan['total_amt'];
@@ -14,7 +14,7 @@ include("db_config.php");
 
 	$remaining_amt = $check_no['remaining_amt'];
 
-	if(!$loan_no)
+	if(!$check_no)
 	{
 		$remain_amt = $loan_amt;
 			
