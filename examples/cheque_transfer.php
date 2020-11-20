@@ -379,7 +379,7 @@ mysqli_select_db($con,DB_NAME);
   <script>
  
 
-    $('.cal_exAmt').on('keypress',function(){
+    $('.cal_exAmt').on('keyup',function(){
 
         calAmt()
 

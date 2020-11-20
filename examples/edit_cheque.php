@@ -106,7 +106,7 @@ include("db_config.php");
             <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Value Of the Cheque</label>
-                <input type="text" class="form-control" placeholder="LKR" name = "cheque_amt" id = "cheque_val1" value="<?php echo $data['cheque_value']?>">
+                <input type="text" class="form-control cal_exAmt1" placeholder="LKR" name = "cheque_amt" id = "cheque_val1" value="<?php echo $data['cheque_value']?>">
               </div>
             </div>
           </div>
@@ -114,7 +114,7 @@ include("db_config.php");
             <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Interest (%)</label>
-                <input type="text" class="form-control" placeholder="Interest" name = "c_interest" id="int1" value="<?php echo $data['interest']?>">
+                <input type="text" class="form-control cal_exAmt1" placeholder="Interest" name = "c_interest" id="int1" value="<?php echo $data['interest']?>">
               </div>
             </div>
           </div>
@@ -153,13 +153,28 @@ include("db_config.php");
 </div>
 
 <script>
-    $('#int1').keyup(function(){
-          var amount = $('#cheque_val1').val();
-          var int  = $('#int1').val();
-          var exchange_amt;
+  $('.cal_exAmt1').on('keyup',function(){
+
+        calAmt1()
+
+    })
+
+    function calAmt1(){
+
+      var amount = $('#cheque_val1').val();
+      var int  = $('#int1').val();
+      var exchange_amt;
 
           exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
           $('#exchange_val1').val(exchange_amt.toFixed(2));
-    }); 
+    }
+    // $('#int1').keyup(function(){
+    //       var amount = $('#cheque_val1').val();
+    //       var int  = $('#int1').val();
+    //       var exchange_amt;
+
+    //       exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
+    //       $('#exchange_val1').val(exchange_amt.toFixed(2));
+    // }); 
 
 </script>
