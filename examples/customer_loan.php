@@ -98,7 +98,7 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>
@@ -192,7 +192,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest (%)</label>
-                        <input type="number" class="form-control" placeholder="Interest" id="int" name="interest">
+                        <input type="text" class="form-control" placeholder="Interest" id="int" name="interest">
                       </div>
                     </div>
                   </div>

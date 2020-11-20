@@ -99,7 +99,7 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>
@@ -209,7 +209,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Value of the cheque</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="cheque_val" name="cheque_value">
+                        <input type="text" class="form-control cal_exAmt" placeholder="LKR" id="cheque_val" name="cheque_value">
                       </div>
                     </div>
                   </div>
@@ -217,7 +217,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest(%)</label>
-                        <input type="text" class="form-control" placeholder="0" id="int" name = "interest">
+                        <input type="text" class="form-control cal_exAmt" placeholder="0" id="int" name = "interest">
                       </div>
                     </div>
                   </div>
@@ -379,21 +379,32 @@ mysqli_select_db($con,DB_NAME);
   <script>
  
 
-    $('#int').keyup(function(){
-          var amount = $('#cheque_val').val();
-          var int  = $('#int').val();
-          var exchange_amt;
+    $('.cal_exAmt').on('keypress',function(){
+
+        calAmt()
+
+    })
+
+    function calAmt(){
+
+      var amount = $('#cheque_val').val();
+      var int  = $('#int').val();
+      var exchange_amt;
 
           exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
           $('#exchange_val').val(exchange_amt.toFixed(2));
-    });  
+    }
 
-    // function change_amt(){
-    //   var amount = $('#cheque_val').val();
+
+    // $('#int').keyup(function(){
+    //       var amount = $('#cheque_val').val();
     //       var int  = $('#int').val();
+    //       var exchange_amt;
 
-    //       $('#exchange_val').val(Number(amount)-(Number(amount)*(Number(int)/100)).toFixed(2));
-    // }
+    //       exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
+    //       $('#exchange_val').val(exchange_amt.toFixed(2));
+    // });  
+
     ////////////////////  
 
     // Form edit 

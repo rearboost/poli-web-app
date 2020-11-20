@@ -101,7 +101,7 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>

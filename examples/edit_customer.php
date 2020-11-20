@@ -51,7 +51,7 @@
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer ID</label>
-                  <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>">
+                  <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" disabled>
                 </div>
               </div>
             </div>

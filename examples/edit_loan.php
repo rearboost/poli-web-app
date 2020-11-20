@@ -96,7 +96,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest (%)</label>
-                  <input type="number" class="form-control" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
+                  <input type="text" class="form-control" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
                 </div>
               </div>
             </div>
