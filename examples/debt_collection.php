@@ -389,7 +389,10 @@ mysqli_select_db($con,DB_NAME);
           var obj = JSON.parse(response);
          // $('#remain_amt').val(obj.remain_amt);
           var remain_amt   =  obj.remain_amt
-
+          alert("installement_amt",installement_amt)
+        alert("interest_amt",interest_amt)
+        alert("remain_amt",remain_amt)
+        
           remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
       
            $('#remain_amt').val(remain_amt.toFixed(2));
