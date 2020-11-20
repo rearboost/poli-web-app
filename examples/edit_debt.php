@@ -128,7 +128,7 @@ include("db_config.php");
 
     ////////////////////  Update the Functions
 
-    $('.checkAmt1').on('keypress',function(){
+    $('.checkAmt1').on('keyup',function(){
         checkAmt1()
     })
 

@@ -87,7 +87,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Loan Amount</label>
-                  <input type="text" class="form-control" placeholder="LKR" id="amount1" name = "l_amt" value="<?php echo $data['amount']?>">
+                  <input type="text" class="form-control customerAmt1" placeholder="LKR" id="amount1" name = "l_amt" value="<?php echo $data['amount']?>">
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest (%)</label>
-                  <input type="text" class="form-control" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
+                  <input type="text" class="form-control customerAmt1" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@
               <div class="col-md-7 pr-3">
               <div class="form-group">
                   <label>No. of Installments</label>
-                  <input type="number" class="form-control" id="no1" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
+                  <input type="number" class="form-control customerAmt1" id="no1" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
                 </div>
               </div>
             </div>
@@ -198,6 +198,54 @@
       $('#inst_val1').val(installement_amt.toFixed(2));
     
     }); 
-    ////////////////////  
+    ////////////////////
+
+    $('.customerAmt1').on('keyup',function(){
+        customerAmt1()
+    }); 
+
+    function customerAmt1(){
+
+      if (document.getElementById('r4').checked) {
+        rate_value = document.getElementById('r4').value;
+      }
+      else if(document.getElementById('r5').checked) {
+        rate_value = document.getElementById('r5').value;
+      }
+      else if(document.getElementById('r6').checked) {
+        rate_value = document.getElementById('r6').value;
+      }
+
+      var amount = $('#amount1').val();
+      var int  = $('#int1').val();
+      var no  = $('#no1').val();
+      var paid_amt;
+      var installement_amt;
+
+      if(rate_value =='daily')
+      { 
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/(no*30);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/(Number(no)*30);
+
+      }else if(rate_value =="monthly")
+      {
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/no);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/Number(no);
+      }
+      else
+      {       
+        paid_amt = Number(0);
+        installement_amt = Number(0);
+      }
+      
+      $('#paid_amt1').val(paid_amt.toFixed(2));
+      $('#inst_val1').val(installement_amt.toFixed(2));
+
+    } 
+    
 
 </script>

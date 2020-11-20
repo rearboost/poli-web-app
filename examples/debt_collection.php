@@ -367,7 +367,7 @@ mysqli_select_db($con,DB_NAME);
      
     // }); 
 
-    $('.checkAmt').on('keypress',function(){
+    $('.checkAmt').on('keyup',function(){
 
         checkAmt()
 

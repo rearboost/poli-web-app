@@ -184,7 +184,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Loan Amount</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="amount" name="l_amt">
+                        <input type="text" class="form-control customerAmt" placeholder="LKR" id="amount" name="l_amt">
                       </div>
                     </div>
                   </div>
@@ -192,7 +192,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest (%)</label>
-                        <input type="text" class="form-control" placeholder="Interest" id="int" name="interest">
+                        <input type="text" class="form-control customerAmt" placeholder="Interest" id="int" name="interest">
                       </div>
                     </div>
                   </div>
@@ -200,7 +200,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>No. of Installments</label>
-                        <input type="number" class="form-control" id="no" name = "ino_inst">
+                        <input type="number" class="form-control customerAmt" id="no" name = "ino_inst">
                       </div>
                     </div>
                   </div>
@@ -422,7 +422,54 @@ mysqli_select_db($con,DB_NAME);
               }
         });
     }
-    ////////////////////  
+    //////////////////// 
+
+    $('.customerAmt').on('keyup',function(){
+        customerAmt()
+    });
+
+    function customerAmt(){
+
+      if (document.getElementById('r1').checked) {
+        rate_value = document.getElementById('r1').value;
+      }
+      else if(document.getElementById('r2').checked) {
+        rate_value = document.getElementById('r2').value;
+      }
+      else if(document.getElementById('r3').checked) {
+        rate_value = document.getElementById('r3').value;
+      }
+
+      var amount = $('#amount').val();
+      var int  = $('#int').val();
+      var no  = $('#no').val();
+      var paid_amt;
+      var installement_amt;
+
+      if(rate_value =='daily')
+      { 
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/(no*30);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/(Number(no)*30);
+
+      }else if(rate_value =="monthly")
+      {
+        // paid_amt = amount + (amount*(int/100)*no);
+        // installement_amt = (paid_amt/no);
+        paid_amt = Number(amount) + (Number(amount)*(Number(int)/100))*Number(no);
+        installement_amt = Number(paid_amt)/Number(no);
+      }
+      else
+      {       
+        paid_amt = Number(0);
+        installement_amt = Number(0);
+      }
+      
+      $('#paid_amt').val(paid_amt.toFixed(2));
+      $('#inst_val').val(installement_amt.toFixed(2));
+    
+    } 
    
   </script>
 
