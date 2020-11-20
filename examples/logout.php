@@ -49,7 +49,8 @@ include("db_config.php");
                 <div class="container-login100-form-btn">
                 <div class="wrap-login100-form-btn">
                   <div class="login100-form-bgbtn"></div>
-                   <button type="submit" class="login100-form-btn"><a href="login.php"  style="text-decoration: none; color: white">Back to Login</a></button>
+                   <a href="login.php"  style="text-decoration: none; color: white">
+                    <button type="submit" class="login100-form-btn">Back to Login</button></a>
                 </div>
               </div>
 

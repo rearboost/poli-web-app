@@ -57,7 +57,7 @@ mysqli_select_db($con,DB_NAME);
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="dashboard.php">
+            <a href="index.php">
               <i class="nc-icon nc-bank"></i>
               <p>DASHBOARD</p>
             </a>

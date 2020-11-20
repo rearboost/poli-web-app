@@ -30,7 +30,7 @@ include("db_config.php");
 
                   ?><div class='alert alert-danger'> 
                     <strong>Alert : </strong> one user found, directed to Panel page</div><?php 
-                    header('Location: dashboard.php');                  
+                    header('Location: index.php');                  
                 break;
               default:
                   ?><div class='alert alert-danger'> 

@@ -11,8 +11,6 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
       die('Could not connect: ' . mysqli_error($con));
   }
 mysqli_select_db($con,DB_NAME);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +49,7 @@ mysqli_select_db($con,DB_NAME);
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          POLY APP
+          Creative Tim
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -59,13 +57,13 @@ mysqli_select_db($con,DB_NAME);
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li>
+          <li class="active">
             <a href="index.php">
               <i class="nc-icon nc-bank"></i>
               <p>DASHBOARD</p>
             </a>
           </li>
-          <li class="active">
+          <li>
             <a href="customer.php">
               <i class="nc-icon nc-single-02"></i>
               <p>CUSTOMERS</p>
@@ -94,14 +92,14 @@ mysqli_select_db($con,DB_NAME);
               <i class="nc-icon nc-bell-55"></i>
               <p>NOTIFICATIONS</p>
               <?php
-              	if($numRows>0){
-              		echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
-              	}
+                if($numRows>0){
+                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
+                }
               ?>
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>
@@ -128,58 +126,127 @@ mysqli_select_db($con,DB_NAME);
       </nav>
       <!-- End Navbar -->
       <div class="content">
-      <div class="row">
-          <div class="col-md-12">         
-            <div class="card">
-              <div class="row">
-              <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-12"><!-- Begin profile-->
+            <div class="card card-user">
               <div class="card-header">
-                <h3 class="card-title"> You have to exchange following cheques.</h3>                    
-              </div>
-              </div>
+                <h5 class="card-title">Edit Login Credintials</h5>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class="text-primary">
-                      <th>  Customer</th>
-                      <th>  Bank</th>
-                      <th>  Cheque No</th>
-                      <th>  Valid Date</th>
-                      <th>  Cheque value</th>
-                    </thead>
-                    <tbody>
-                      <?php
+                <div class= "col-md-6">
+                  <h5>Change username</h5>
+                <form action="" method="post">
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="form-group">
+                        <label>Current Username</label>
+                        <input type="text" class="form-control"  placeholder="current username" name="old_user">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="form-group">
+                        <label>New Username</label>
+                        <input type="text" class="form-control"  placeholder="New username" name="new_user">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" name = "update_user" class="btn btn-primary btn-round">Update Username</button>
 
-                      // $sql=mysqli_query($con,"SELECT * FROM cheque WHERE valid_date = CURDATE() OR valid_date = date_add(curdate(),interval 1 day) AND status = 'NYC' ORDER BY valid_date ASC");
+                        <?php
+                          if(isset($_POST['update_user'])){
+                            $old_user = $_POST['old_user'];
+                            $new_user = $_POST['new_user'];
 
-                      // $numRows = mysqli_num_rows($sql); 
-                 
-                      if($numRows > 0) {
-                        while($row = mysqli_fetch_assoc($sql)) {
-                          ?>
-                          <tr>
-                            <td>                      <?php echo $row['cust_id'] ?>       </td>
-                            <td>                      <?php echo $row['bank'] ?>          </td>
-                            <td>                      <?php echo $row['cheque_no']?>      </td>
-                            <td>                      <?php echo $row['valid_date']  ?>   </td>
-                            <td>                      <?php echo $row['cheque_value']  ?> </td>
-                          </tr>
-                    </tbody>
-                           <?php
-                        }
-                      }
-                    ?>                      
-                    </table>
-                  <?php
-                  mysqli_close($con);
-                  ?>
-                </div>
+                          $get_user = mysqli_query($con,"SELECT * FROM user WHERE username = '$old_user'");
+                          if(mysqli_num_rows($get_user) == 0){
+                            echo "</br><p style='color:red;'>Invalid Username.</p>";
+
+                          }else{
+                              $row_1 = mysqli_fetch_assoc($get_user);
+                              $id = $row_1['id'];
+                          
+                          $user = "UPDATE user SET username = '$new_user' WHERE id = $id ";
+                          mysqli_query($con,$user);
+                          }
+                          }
+
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
-            </div>
-          </div>
-          </div>
+              <div class= "col-md-6">
+                  <h5>Change Password</h5>
+                <form action="" method="post">
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="text" class="form-control"  placeholder="current password" name="old_pw">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="form-group">
+                        <label>New password</label>
+                        <input type="text" class="form-control"  placeholder="New password" name="new_pw">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="form-group">
+                        <label>Confirm password</label>
+                        <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-8 pr-1">
+                      <div class="update ml-auto mr-auto">
+                        <button type="submit" name="update_pw" class="btn btn-primary btn-round">Update Password</button>
 
+                        <?php
+                          if(isset($_POST['update_pw'])){
+                            $old_pw     = $_POST['old_pw'];
+                            $new_pw     = $_POST['new_pw'];
+                            $confirm_pw = $_POST['confirm_pw'];
+
+                          $get_pw = mysqli_query($con,"SELECT * FROM user WHERE password = '$old_pw'");
+                          if(mysqli_num_rows($get_pw) == 0){
+                              echo "</br><p style='color:red;'>Invalid Password.</p>";
+
+                          }else if($new_pw != $confirm_pw){
+                              echo "</br><p style='color:red;'>Confirmation failed, Confirmation password does not match.</p>";
+
+                          }else{
+                              $row = mysqli_fetch_assoc($get_pw);
+                              $id = $row['id'];
+                          
+                          $pw = "UPDATE user SET password = '$new_pw' WHERE id = $id ";
+                          mysqli_query($con,$pw);
+                          }
+                          }
+
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              </div>
+              <?php
+                  mysqli_close($con);
+              ?>
+            </div>
+          </div><!-- end profile-->
         </div>
       </div>
       <footer class="footer footer-black  footer-white ">
@@ -197,7 +264,6 @@ mysqli_select_db($con,DB_NAME);
       </footer>
     </div>
   </div>
-
   <!--   Core JS Files   -->
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
@@ -212,7 +278,6 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-
 </body>
 
 </html>

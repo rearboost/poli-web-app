@@ -49,7 +49,7 @@ if (!isset($_SESSION['loged_user'])) {
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active">
-            <a href="dashboard.php">
+            <a href="index.php">
               <i class="nc-icon nc-bank"></i>
               <p>DASHBOARD</p>
             </a>
@@ -90,7 +90,7 @@ if (!isset($_SESSION['loged_user'])) {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>

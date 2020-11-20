@@ -93,14 +93,6 @@ include("db_config.php");
                 <input type="date" class="form-control" name = "v_date" value="<?php echo $data['valid_date']?>">
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-7 pr-3">
-              <div class="form-group">
-                <label>Value Of the Cheque</label>
-                <input type="text" class="form-control" placeholder="LKR" name = "cheque_amt" id = "cheque_amt" onkeyup="get_exchange_amt()" value="<?php echo $data['cheque_value']?>">
-              </div>
-            </div>
           </div>  
           <div class="row">                
             <div class="col-md-7 pr-3">
@@ -113,8 +105,16 @@ include("db_config.php");
           <div class="row">
             <div class="col-md-7 pr-3">
               <div class="form-group">
+                <label>Value Of the Cheque</label>
+                <input type="text" class="form-control" placeholder="LKR" name = "cheque_amt" id = "cheque_val1" value="<?php echo $data['cheque_value']?>">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7 pr-3">
+              <div class="form-group">
                 <label>Interest (%)</label>
-                <input type="text" class="form-control" placeholder="Interest" name = "c_interest" id="c_interest" onkeyup="get_exchange_amt()" value="<?php echo $data['interest']?>">
+                <input type="text" class="form-control" placeholder="Interest" name = "c_interest" id="int1" value="<?php echo $data['interest']?>">
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ include("db_config.php");
             <div class="col-md-7 pr-3">
               <div class="form-group">
                 <label>Exchange Amount</label>
-                <input type="text" class="form-control" placeholder="LKR" name="exchange_amt" id="exchange_amt" value="<?php echo $data['exchange_amt']?>">
+                <input type="text" class="form-control" placeholder="LKR" name="exchange_amt" id="exchange_val1" value="<?php echo $data['exchange_amt']?>">
               </div>
             </div>
           </div>
@@ -151,3 +151,15 @@ include("db_config.php");
     </div>
   </div>
 </div>
+
+<script>
+    $('#int1').keyup(function(){
+          var amount = $('#cheque_val1').val();
+          var int  = $('#int1').val();
+          var exchange_amt;
+
+          exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
+          $('#exchange_val1').val(exchange_amt.toFixed(2));
+    }); 
+
+</script>

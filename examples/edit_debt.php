@@ -80,7 +80,7 @@ include("db_config.php");
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Installment amount</label>
-                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="i_amt" name = "i_amt" value = "<?php echo $data['installement_amt'] ?>">
+                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="i_amt1" name = "i_amt" value = "<?php echo $data['installement_amt'] ?>">
                 </div>
               </div>
             </div>  
@@ -88,7 +88,7 @@ include("db_config.php");
               <div class="col-md-7 pr-3">
                 <div class="form-group">
                   <label>Interest amount</label>
-                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="int_amt" name = "int_amt" value = "<?php echo $data['interest_amt'] ?>">
+                  <input type="text" class="form-control checkAmt1" placeholder="LKR" id="int_amt1" name = "int_amt" value = "<?php echo $data['interest_amt'] ?>">
                 </div>
               </div>
             </div>
@@ -134,8 +134,8 @@ include("db_config.php");
 
     function checkAmt1(){
 
-      var installement_amt  = $('#i_amt').val();
-      var interest_amt      = $('#int_amt').val();
+      var installement_amt  = $('#i_amt1').val();
+      var interest_amt      = $('#int_amt1').val();
       var remain_amt;
       var id =  $('#cust_id1').val();
 
