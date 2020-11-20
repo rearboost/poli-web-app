@@ -1,5 +1,6 @@
 <?php
 include("db_config.php");
+include("msg_show.php");
 session_start();
 if (!isset($_SESSION['loged_user'])) {
     //echo "Access Denied";
@@ -89,6 +90,11 @@ mysqli_select_db($con,DB_NAME);
             <a href="notification.php">
               <i class="nc-icon nc-bell-55"></i>
               <p>NOTIFICATIONS</p>
+              <?php
+                if($numRows>0){
+                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
+                }
+              ?>
             </a>
           </li>
           <li>
