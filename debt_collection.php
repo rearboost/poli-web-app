@@ -255,8 +255,8 @@ mysqli_select_db($con,DB_NAME);
                       <th class="text-right"> Interest amt 		</th>
                       <th class="text-right"> Remaining amt 	</th>
                       <th class="text-right"> Loan no 			</th>
-                      <th>                    Edit 				</th>
-                      <th>                    Delete 			</th>
+                      <th class="text-center">                    Edit 				</th>
+                      <th class="text-center">                    Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
@@ -279,11 +279,11 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-center">  
                             	<!-- <a href="edit_debt.php?id=<?php //echo $row['id']; ?>" name="edit"> -->
                               <a href="#" onclick="editView(<?php echo $row['id']; ?>)" name="edit">
-                            	<span class="glyphicon glyphicon-edit"></span></a>
+                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                           	</td>
                           	<td class="text-center">  
                             	<a href="delete_debt.php?id=<?php echo $row['id']; ?>" name="delete">
-                            	<span class="glyphicon glyphicon-trash"></span></a>
+                            	<i class="fa fa-trash-o" aria-hidden="true"></i></a>
                           	</td>
                            </tr>
                            </tbody>

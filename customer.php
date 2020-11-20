@@ -226,6 +226,8 @@ mysqli_select_db($con,DB_NAME);
                       <th>                    Type</th>
                       <th>                    Name</th>
                       <th>                    Address</th>
+                      <th class="text-center">                    Edit 				</th>
+                      <th class="text-center">                    Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
@@ -243,11 +245,11 @@ mysqli_select_db($con,DB_NAME);
                             <td>                      <?php echo $row['address']  ?>           </td>
                             <td class="text-center">  
                              <a href="#" onclick="editView('<?php echo $row['cust_id']; ?>')" name="edit">
-                              <span class="glyphicon glyphicon-edit"></span></a>
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                             </td>
                             <td class="text-center">  
                               <a href="delete_customer.php?id=<?php echo $row['cust_id']; ?>" name="delete">
-                              <span class="glyphicon glyphicon-trash"></span></a>
+                              <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                             </td>
                           </tr>
                     </tbody>
