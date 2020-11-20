@@ -1,9 +1,9 @@
 <?php
 include("db_config.php");
 
-  ob_start();
-  session_start();
-  $outputmsg = "";
+    ob_start();
+    session_start();
+    $outputmsg = "";
 
     $msg = '';
             
@@ -13,7 +13,7 @@ include("db_config.php");
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = md5($_POST['password']);
         $sql="SELECT * FROM user WHERE password='$password' AND username='$username'";
 
         if ($result=mysqli_query($con,$sql)){
@@ -21,7 +21,7 @@ include("db_config.php");
             switch ($rowcount) {
               case 0:
                   ?><div class='alert alert-danger'> 
-                    <strong>Login Error : </strong> Invalid Username or Password </div>"<?php
+                    <strong>Login Error : </strong> Invalid Username or Password </div><?php
                   break;
               case 1:
                 //session_start();
@@ -30,7 +30,7 @@ include("db_config.php");
 
                   ?><div class='alert alert-danger'> 
                     <strong>Alert : </strong> one user found, directed to Panel page</div><?php 
-                    header('Location: index.php');                  
+                    header('Location: index');                  
                 break;
               default:
                   ?><div class='alert alert-danger'> 
@@ -46,23 +46,23 @@ include("db_config.php");
 
 <html lang = "en">
 <head>
-      <title>.:: Poly App ::.</title>
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="css/login.css">
+      <title>Poli App - Login</title>
+      <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+      <!-- <link rel="stylesheet" href="css/login.css"> -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>          
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1"> 
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/fonts/iconic/css/material-design-iconic-font.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/animate/animate.css"> 
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/css-hamburgers/hamburgers.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/animsition/css/animsition.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/select2/select2.min.css">  
-      <link rel="stylesheet" type="text/css" href="assets/login/vendor/daterangepicker/daterangepicker.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/css/util.css">
-      <link rel="stylesheet" type="text/css" href="assets/login/css/main.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/fonts/iconic/css/material-design-iconic-font.min.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/animate/animate.css"> 
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/css-hamburgers/hamburgers.min.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/animsition/css/animsition.min.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/select2/select2.min.css">  
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/vendor/daterangepicker/daterangepicker.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/css/util.css">
+      <link rel="stylesheet" type="text/css" href="assetsLog/login/css/main.css">
 </head>
 <body>
 <div class="limiter">
@@ -101,14 +101,14 @@ include("db_config.php");
     </div> 
   </div>
 </div>
-<script src="assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
-<script src="assets/login/vendor/animsition/js/animsition.min.js"></script>
-<script src="assets/login/vendor/bootstrap/js/popper.js"></script>
-<script src="assets/login/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/login/vendor/select2/select2.min.js"></script>
-<script src="assets/login/vendor/daterangepicker/moment.min.js"></script>
-<script src="assets/login/vendor/daterangepicker/daterangepicker.js"></script>
-<script src="assets/login/vendor/countdowntime/countdowntime.js"></script>
-<script src="assets/login/js/main.js"></script>
+<script src="assetsLog/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="assetsLog/login/vendor/animsition/js/animsition.min.js"></script>
+<script src="assetsLog/login/vendor/bootstrap/js/popper.js"></script>
+<script src="assetsLog/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assetsLog/login/vendor/select2/select2.min.js"></script>
+<script src="assetsLog/login/vendor/daterangepicker/moment.min.js"></script>
+<script src="assetsLog/login/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="assetsLog/login/vendor/countdowntime/countdowntime.js"></script>
+<script src="assetsLog/login/js/main.js"></script>
 </body>
 </html>

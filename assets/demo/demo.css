@@ -190,3 +190,9 @@
 .form-selectBox {
   height: 40px !important;
 }
+.nav-link {
+  padding-top: 17px !important;
+}
+.add-btn {
+  float: right !important;
+}

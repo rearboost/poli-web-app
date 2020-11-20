@@ -24,16 +24,14 @@ mysqli_select_db($con,DB_NAME);
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    POLY APP Dashboard by Rearboost Innovations
+    Poli App - NOTIFICATION 
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link rel="stylesheet" href="../assets/css/bootstrap.css" />
-  <!-- <link href="../assets/css/bootstrap.min.css" rel="stylesheet" /> -->
-  <link href="../assets/css-4.0/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
@@ -56,37 +54,37 @@ mysqli_select_db($con,DB_NAME);
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="index.php">
+            <a href="index">
               <i class="nc-icon nc-bank"></i>
               <p>DASHBOARD</p>
             </a>
           </li>
           <li class="">
-            <a href="customer.php">
+            <a href="customer">
               <i class="nc-icon nc-single-02"></i>
               <p>CUSTOMERS</p>
             </a>
           </li>
           <li class="">
-            <a href="customer_loan.php">
+            <a href="customer_loan">
               <i class="nc-icon nc-badge"></i>
-              <p>Customer Loans</p>
+              <p>CUSTOMER LOANS</p>
             </a>
           </li>
           <li>
-            <a href="debt_collection.php">
+            <a href="debt_collection">
               <i class="nc-icon nc-book-bookmark"></i>
               <p>DEBT COLLECTION</p>
             </a>
           </li>
           <li>
-            <a href="cheque_transfer.php">
+            <a href="cheque_transfer">
               <i class="nc-icon nc-tap-01"></i>
               <p>CHEQUE TRANSFER</p>
             </a>
           </li>
           <li>
-            <a href="user.php">
+            <a href="user">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
             </a>
@@ -104,12 +102,7 @@ mysqli_select_db($con,DB_NAME);
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
               <li class="nav-item">
-                Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
-                <a href="logout.php" class="btn btn-danger square-btn-adjust">Logout</a> 
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="notification.php">
+                <a class="nav-link" href="notification">
                   <i class="nc-icon nc-bell-55"></i>
                   <h6 style='color:red;'>
                     <?php
@@ -119,6 +112,10 @@ mysqli_select_db($con,DB_NAME);
                     ?>
                   </h6>
                 </a>
+              </li>
+              <li class="nav-item">
+                Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
+                <a href="logout" class="btn btn-danger square-btn-adjust">Logout</a> 
               </li>
             </ul>
           </div>
