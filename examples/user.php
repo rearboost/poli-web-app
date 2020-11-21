@@ -42,22 +42,18 @@ mysqli_select_db($con,DB_NAME);
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
-          <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+        <a href="#" class="simple-text logo-normal">
+          POLY APP
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="active">
+          <li>
             <a href="index.php">
               <i class="nc-icon nc-bank"></i>
               <p>DASHBOARD</p>
@@ -87,18 +83,7 @@ mysqli_select_db($con,DB_NAME);
               <p>CHEQUE TRANSFER</p>
             </a>
           </li>
-          <li>
-            <a href="notification.php">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>NOTIFICATIONS</p>
-              <?php
-                if($numRows>0){
-                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
-                }
-              ?>
-            </a>
-          </li>
-          <li>
+          <li class = "active">
             <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
@@ -120,6 +105,18 @@ mysqli_select_db($con,DB_NAME);
                 Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
                 <a href="logout.php" class="btn btn-danger square-btn-adjust">Logout</a> 
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="notification.php">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <h6 style='color:red;'>
+                    <?php
+                    if($numRows>0){
+                      echo " " . $numRows . " NEW ";
+                    }
+                    ?>
+                  </h6>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -140,7 +137,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-8 pr-1">
                       <div class="form-group">
                         <label>Current Username</label>
-                        <input type="text" class="form-control"  placeholder="current username" name="old_user">
+                        <input type="text" class="form-control"  placeholder="current username" name="old_user" required>
                       </div>
                     </div>
                   </div>
@@ -148,7 +145,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-8 pr-1">
                       <div class="form-group">
                         <label>New Username</label>
-                        <input type="text" class="form-control"  placeholder="New username" name="new_user">
+                        <input type="text" class="form-control"  placeholder="New username" name="new_user" required>
                       </div>
                     </div>
                   </div>
@@ -188,7 +185,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-8 pr-1">
                       <div class="form-group">
                         <label>Current Password</label>
-                        <input type="text" class="form-control"  placeholder="current password" name="old_pw">
+                        <input type="text" class="form-control"  placeholder="current password" name="old_pw" required>
                       </div>
                     </div>
                   </div>
@@ -196,7 +193,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-8 pr-1">
                       <div class="form-group">
                         <label>New password</label>
-                        <input type="text" class="form-control"  placeholder="New password" name="new_pw">
+                        <input type="text" class="form-control"  placeholder="New password" name="new_pw" required>
                       </div>
                     </div>
                   </div>
@@ -204,7 +201,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-8 pr-1">
                       <div class="form-group">
                         <label>Confirm password</label>
-                        <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw">
+                        <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw" required>
                       </div>
                     </div>
                   </div>

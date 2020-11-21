@@ -42,17 +42,14 @@ mysqli_select_db($con,DB_NAME);
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           POLY APP
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -88,17 +85,6 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="notification.php">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>NOTIFICATIONS</p>
-              <?php
-                if($numRows>0){
-                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
-                }
-              ?>
-            </a>
-          </li>
-          <li>
             <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
@@ -119,6 +105,19 @@ mysqli_select_db($con,DB_NAME);
               <li class="nav-item">
                 Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
                 <a href="logout.php" class="btn btn-danger square-btn-adjust">Logout</a> 
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="notification.php">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <h6 style='color:red;'>
+                    <?php
+                    if($numRows>0){
+                      echo " " . $numRows . " NEW ";
+                    }
+                    ?>
+                  </h6>
+                </a>
               </li>
             </ul>
           </div>
@@ -153,7 +152,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="col-md-7 pr-1">
                             <div class="form-group">
                               <label>Customer Type</label>
-                                <select class="form-control form-selectBox" id="customerType" name ="type">
+                                <select class="form-control form-selectBox" id="customerType" name ="type" required>
                                   <option>--Select Customer Type--</option>
                                   <option>Daily</option>
                                   <option>Monthly</option>
@@ -165,7 +164,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="col-md-7 pr-1">
                             <div class="form-group">
                               <label>Customer ID</label>
-                              <input type="text" class="form-control" name ="id" id="customerID" readonly>
+                              <input type="text" class="form-control" name ="id" id="customerID" readonly required>
                             </div>
                           </div>
                           </div>
@@ -173,7 +172,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="col-md-7 pr-1">
                             <div class="form-group">
                               <label>Customer Name</label>
-                              <input type="text" class="form-control" placeholder="Name" name = "name">
+                              <input type="text" class="form-control" placeholder="Name" name = "name" required>
                             </div>
                           </div>
                           </div>
@@ -181,7 +180,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="col-md-7 pr-1">
                             <div class="form-group">
                               <label>Address</label>
-                              <input type="text" class="form-control" placeholder="Address" name = "address">
+                              <input type="text" class="form-control" placeholder="Address" name = "address" required>
                             </div>
                           </div>
                           </div>

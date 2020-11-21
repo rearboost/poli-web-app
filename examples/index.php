@@ -33,17 +33,13 @@ if (!isset($_SESSION['loged_user'])) {
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
-          <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           POLY APP
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -79,17 +75,6 @@ if (!isset($_SESSION['loged_user'])) {
             </a>
           </li>
           <li>
-            <a href="notification.php">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>NOTIFICATIONS</p>
-              <?php
-                if($numRows>0){
-                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
-                }
-              ?>
-            </a>
-          </li>
-          <li>
             <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
@@ -118,42 +103,25 @@ if (!isset($_SESSION['loged_user'])) {
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <!--form>
-              <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <i class="nc-icon nc-zoom-split"></i>
-                  </div>
-                </div>
-              </div>
-            </form-->
+            
             <ul class="navbar-nav">
               <li class="nav-item">
                 Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
                 <a href="logout.php" class="btn btn-danger square-btn-adjust">Logout</a> 
               </li>
-              <!--li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
+
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+                <a class="nav-link" href="notification.php">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <h6 style='color:red;'>
+                    <?php
+                    if($numRows>0){
+                      echo " " . $numRows . " NEW ";
+                    }
+                    ?>
+                  </h6>
                 </a>
-              </li-->
+              </li>
             </ul>
           </div>
         </div>

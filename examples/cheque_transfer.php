@@ -42,17 +42,13 @@ mysqli_select_db($con,DB_NAME);
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
-          <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           POLY APP
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -88,17 +84,6 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
-            <a href="notification.php">
-              <i class="nc-icon nc-bell-55"></i>
-              <p>NOTIFICATIONS</p>
-              <?php
-                if($numRows>0){
-                  echo "<h6 style='color:red;'>" . $numRows . " NEW </h6>";
-                }
-              ?>
-            </a>
-          </li>
-          <li>
             <a href="user.php">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
@@ -119,6 +104,19 @@ mysqli_select_db($con,DB_NAME);
               <li class="nav-item">
                 Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
                 <a href="logout.php" class="btn btn-danger square-btn-adjust">Logout</a> 
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="notification.php">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <h6 style='color:red;'>
+                    <?php
+                    if($numRows>0){
+                      echo " " . $numRows . " NEW ";
+                    }
+                    ?>
+                  </h6>
+                </a>
               </li>
             </ul>
           </div>
@@ -153,7 +151,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" name = "id">
+                          <select class="form-control form-selectBox" name = "id" required>
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -177,7 +175,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Bank</label>
-                        <input type="text" placeholder="Bank name" name="bank" class="form-control">
+                        <input type="text" placeholder="Bank name" name="bank" class="form-control" required>
                       </div>
                     </div>
                   </div>
@@ -185,7 +183,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Cheque Number</label>
-                        <input type="text" class="form-control" placeholder="cheque number" name="cheque_no">
+                        <input type="text" class="form-control" placeholder="cheque number" name="cheque_no" required>
                       </div>
                     </div>
                   </div>
@@ -193,7 +191,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Valid Date</label>
-                        <input type="date" class="form-control" name="v_date">
+                        <input type="date" class="form-control" name="v_date" required>
                       </div>
                     </div>
                   </div>
@@ -201,7 +199,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>Exchange Date</label>
-                        <input type="date" class="form-control" name = "change_date">
+                        <input type="date" class="form-control" name = "change_date" required>
                       </div>
                     </div>
                   </div>
@@ -209,7 +207,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Value of the cheque</label>
-                        <input type="text" class="form-control cal_exAmt" placeholder="LKR" id="cheque_val" name="cheque_value">
+                        <input type="text" class="form-control cal_exAmt" placeholder="LKR" id="cheque_val" name="cheque_value" required>
                       </div>
                     </div>
                   </div>
@@ -217,7 +215,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Interest(%)</label>
-                        <input type="text" class="form-control cal_exAmt" placeholder="0" id="int" name = "interest">
+                        <input type="text" class="form-control cal_exAmt" placeholder="0" id="int" name = "interest" required>
                       </div>
                     </div>
                   </div>
@@ -225,7 +223,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Exchange Value</label>
-                        <input type="text" class="form-control" placeholder="LKR" id="exchange_val" name="exchange_value" readonly>
+                        <input type="text" class="form-control" placeholder="LKR" id="exchange_val" name="exchange_value" readonly required>
                       </div>
                     </div>
                   </div>
@@ -233,7 +231,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                     <div class="form-group">
                         <label>Status</label>
-                        <select class="form-control form-selectBox" name = "status">
+                        <select class="form-control form-selectBox" name = "status" required>
                             <option>--Select Status--</option>
                             <option>Completed</option>
                             <option>NYC</option>
