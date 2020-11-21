@@ -91,45 +91,7 @@ mysqli_select_db($con,DB_NAME);
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-           <div class="navbar-toggle">
-              <button type="button" class="navbar-toggler">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </button>
-            </div>
-            <a class="navbar-brand" href="javascript:;">Dashboard</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="notification">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <h6 style='color:red;'>
-                    <?php
-                    if($numRows>0){
-                      echo " " . $numRows . " NEW ";
-                    }
-                    ?>
-                  </h6>
-                </a>
-              </li>
-              <li class="nav-item">
-                Loged as <?php echo $_SESSION['loged_user'] ?>&nbsp; 
-                <a href="logout" class="btn btn-danger square-btn-adjust">Logout</a> 
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <?php include('include/nav.php');  ?>
       <!-- End Navbar -->
       <div class="content">
       <div class="row">
@@ -295,7 +257,7 @@ mysqli_select_db($con,DB_NAME);
                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                           	</td>
                           	<td class="text-center">  
-                            	<a href="delete_debt.php?id=<?php echo $row['id']; ?>" name="delete">
+                            	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">
                             	<i class="fa fa-trash-o" aria-hidden="true"></i></a>
                           	</td>
                            </tr>
@@ -317,19 +279,9 @@ mysqli_select_db($con,DB_NAME);
           </div>
           </div>
         </div>
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="credits ml-auto">
-              <span class="copyright">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Rearboost Innovations
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <!-- FOOTER -->
+       <?php include('include/footer.php');  ?>
+      <!-- FOOTER -->
     </div>
   </div>
 
@@ -449,6 +401,45 @@ mysqli_select_db($con,DB_NAME);
         });
 
       });
+      
+    ////////////////////  
+
+    // Form delete 
+    function delete_debt(id){
+
+      $.ajax({
+              url:"delete_debt",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                  swal({
+                  title: "Good job !",
+                  text: data,
+                  icon: "success",
+                  button: "Ok !",
+                  });
+                  setTimeout(function(){ location.reload(); }, 2500);
+      
+              }
+        });
+    }
+
+    // delete confirmation javascript
+    function confirmation(e,id) {
+        swal({
+        title: "Are you sure?",
+        text: "Want to Delete this recode !",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+               delete_debt(id)
+            } 
+        });
+    }
+    ////////////////////  
     
   </script>
 </body>

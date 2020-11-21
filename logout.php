@@ -43,7 +43,7 @@ include("db_config.php");
         	<!-- <h2>You have cleaned session</h2> -->
 
 
-                <div class="container-login100-form-btn">
+              <div class="container-login100-form-btn">
                 <div class="wrap-login100-form-btn">
                   <div class="login100-form-bgbtn"></div>
                    <a href="login"  style="text-decoration: none; color: white">
