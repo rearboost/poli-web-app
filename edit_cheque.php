@@ -59,7 +59,7 @@ include("db_config.php");
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE DEBT COLLECTIONS</h5>
         </div> 
-        <form action ="edit_cheque.php" method="POST">
+        <form  id="chequeEdit">
           <div class="col-md-12">
           <div class="row">
             <div class="col-md-7 pr-3">
@@ -141,7 +141,8 @@ include("db_config.php");
           
           <div class="row">
             <div class="update ml-auto mr-auto">
-              <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
+              <input type="hidden" name ="update" value="update"/>
+              <button type="submit" class="btn btn-primary btn-round">Update</button>
               <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
             </div>
           </div>
@@ -176,5 +177,34 @@ include("db_config.php");
     //       exchange_amt = (Number(amount)-(Number(amount)*(Number(int)/100)));
     //       $('#exchange_val1').val(exchange_amt.toFixed(2));
     // }); 
+
+    ////////////////////  
+
+     $(function () {
+
+        $('#chequeEdit').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'edit_cheque.php',
+            data: $('#chequeEdit').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
+
+
 
 </script>

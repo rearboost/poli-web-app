@@ -54,8 +54,7 @@
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE CUSTOMER LOANS</h5>
         </div> 
-
-        <form action ="edit_loan.php" method="POST">
+        <form id="loanEdit">
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-5 pr-3">
@@ -140,7 +139,8 @@
 
             <div class="row">
               <div class="update ml-auto mr-auto">
-                <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
+                <input type="hidden" name ="update" value="update"/>
+                <button type="submit" class="btn btn-primary btn-round">Update</button>
                 <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -246,6 +246,33 @@
       $('#inst_val1').val(installement_amt.toFixed(2));
 
     } 
+    
+    ///////////////////////////////////////////////////
+
+    $(function () {
+
+        $('#loanEdit').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'edit_loan.php',
+            data: $('#loanEdit').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
     
 
 </script>

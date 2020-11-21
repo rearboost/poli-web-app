@@ -45,13 +45,13 @@
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE CUSTOMERS</h5>
         </div> 
 
-        <form action ="edit_customer.php" method="POST">
+        <form  id="customerEdit" >
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer ID</label>
-                  <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" disabled>
+                  <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" readonly>
                 </div>
               </div>
             </div>
@@ -81,6 +81,7 @@
               </div>
               <div class="row">
               <div class="update ml-auto mr-auto">
+                <input type="hidden" name ="update" value="update"/>
                 <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
                 <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
               </div>
@@ -91,3 +92,37 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+   ///////////////////////////////////////////////////
+
+    $(function () {
+
+        $('#customerEdit').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'edit_customer.php',
+            data: $('#customerEdit').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
+    
+
+
+</script>

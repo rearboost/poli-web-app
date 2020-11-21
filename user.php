@@ -140,114 +140,75 @@ mysqli_select_db($con,DB_NAME);
                 <h5 class="card-title">Edit Login Credintials</h5>
               </div>
               <div class="card-body">
-                <div class= "col-md-6">
-                  <h5>Change username</h5>
-                <form action="" method="post">
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="form-group">
-                        <label>Current Username</label>
-                        <input type="text" class="form-control"  placeholder="current username" name="old_user" required>
-                      </div>
-                    </div>
+               <div class="row">
+                  <div class= "col-md-6">
+                      <h5>Change username</h5>
+                      <form id="changeUsername">
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
+                              <label>Current Username</label>
+                              <input type="text" class="form-control"  placeholder="current username" name="old_user" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
+                              <label>New Username</label>
+                              <input type="text" class="form-control"  placeholder="New username" name="new_user" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="update ml-auto mr-auto">
+                              <p style="color: red" id="res_update_user"></p> 
+                              <input type="hidden" name ="update_user" value="update_user"/>
+                              <button type="submit" class="btn btn-primary btn-round">Update Username</button>
+                          </div>
+                        </div>
+                      </form>
                   </div>
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="form-group">
-                        <label>New Username</label>
-                        <input type="text" class="form-control"  placeholder="New username" name="new_user" required>
+                  <div class= "col-md-6">
+                    <h5>Change Password</h5>
+                    <form id="changePassword">
+                      <div class="row">
+                        <div class="col-md-8 pr-1">
+                          <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="text" class="form-control"  placeholder="current password" name="old_pw" required>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="update ml-auto mr-auto">
-                        <button type="submit" name = "update_user" class="btn btn-primary btn-round">Update Username</button>
-
-                        <?php
-                          if(isset($_POST['update_user'])){
-                            $old_user = $_POST['old_user'];
-                            $new_user = $_POST['new_user'];
-
-                          $get_user = mysqli_query($con,"SELECT * FROM user WHERE username = '$old_user'");
-                          if(mysqli_num_rows($get_user) == 0){
-                            echo "</br><p style='color:red;'>Invalid Username.</p>";
-
-                          }else{
-                              $row_1 = mysqli_fetch_assoc($get_user);
-                              $id = $row_1['id'];
-                          
-                          $user = "UPDATE user SET username = '$new_user' WHERE id = $id ";
-                          mysqli_query($con,$user);
-                          }
-                          }
-
-                        ?>
+                      <div class="row">
+                        <div class="col-md-8 pr-1">
+                          <div class="form-group">
+                            <label>New password</label>
+                            <input type="text" class="form-control"  placeholder="New password" name="new_pw" required>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class= "col-md-6">
-                  <h5>Change Password</h5>
-                <form action="" method="post">
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="form-group">
-                        <label>Current Password</label>
-                        <input type="text" class="form-control"  placeholder="current password" name="old_pw" required>
+                      <div class="row">
+                        <div class="col-md-8 pr-1">
+                          <div class="form-group">
+                            <label>Confirm password</label>
+                            <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw" required>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="form-group">
-                        <label>New password</label>
-                        <input type="text" class="form-control"  placeholder="New password" name="new_pw" required>
+                      <div class="row">
+                        <div class="col-md-8 pr-1">
+                          <div class="update ml-auto mr-auto">
+                            <p style="color: red" id="res_update_pw"></p>
+                            <input type="hidden" name ="update_pw" value="update_pw"/> 
+                            <button type="submit" class="btn btn-primary btn-round">Update Password</button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="form-group">
-                        <label>Confirm password</label>
-                        <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw" required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-8 pr-1">
-                      <div class="update ml-auto mr-auto">
-                        <button type="submit" name="update_pw" class="btn btn-primary btn-round">Update Password</button>
-
-                        <?php
-                          if(isset($_POST['update_pw'])){
-                            $old_pw     = $_POST['old_pw'];
-                            $new_pw     = md5( $_POST['new_pw']);
-                            $confirm_pw = $_POST['confirm_pw'];
-
-                          $get_pw = mysqli_query($con,"SELECT * FROM user WHERE password = '$old_pw'");
-                          if(mysqli_num_rows($get_pw) == 0){
-                              echo "</br><p style='color:red;'>Invalid Password.</p>";
-
-                          }else if($new_pw != $confirm_pw){
-                              echo "</br><p style='color:red;'>Confirmation failed, Confirmation password does not match.</p>";
-
-                          }else{
-                              $row = mysqli_fetch_assoc($get_pw);
-                              $id = $row['id'];
-                          
-                              $pw = "UPDATE user SET password = '$new_pw' WHERE id = $id ";
-                              mysqli_query($con,$pw);
-                          }
-                          }
-
-                        ?>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
+               </div>
               </div>
               <?php
                   mysqli_close($con);
@@ -285,9 +246,77 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
+  <!-- sweetalert message -->
+  <script src="assets/js/sweetalert.min.js"></script>
 </body>
 
 </html>
 <?php
 }
 ?>
+
+
+<script>
+
+       $(function () {
+        $('#changeUsername').on('submit', function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: 'post',
+            url: 'edit_user.php',
+            data: $('#changeUsername').serialize(),
+            success: function (data) {
+
+              if(data==1){
+
+                swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+
+              }else{
+
+                $('#res_update_user').html(data)
+              } 
+            }
+          });
+        });
+      });
+
+      ///////////////////////////////////////////////////
+
+      $(function () {
+        $('#changePassword').on('submit', function (e) {
+          e.preventDefault();
+          $.ajax({
+            type: 'post',
+            url: 'edit_user.php',
+            data: $('#changePassword').serialize(),
+            success: function (data) {
+
+              if(data==1){
+
+                swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+
+              }else{
+
+                $('#res_update_pw').html(data)
+              } 
+            }
+          });
+        });
+      });
+
+
+      
+
+</script>

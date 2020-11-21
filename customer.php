@@ -156,7 +156,7 @@ mysqli_select_db($con,DB_NAME);
                       <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Customer Registration Form</h5>
                       </div> 
-                      <form action ="" method="POST">
+                      <form id="customerAdd">
                         <div class="col-md-12">
                         <div class="row">
                           <div class="col-md-7 pr-1">
@@ -196,7 +196,8 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           <div class="row">
                           <div class="update ml-auto mr-auto">
-                            <button type="submit" name="submit" class="btn btn-primary btn-round">Register</button>
+                            <input type="hidden" name ="submit" value="submit"/>
+                            <button type="submit" class="btn btn-primary btn-round">Register</button>
                             <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
 
                             <?php
@@ -302,6 +303,9 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
+  <!-- sweetalert message -->
+  <script src="assets/js/sweetalert.min.js"></script>
+
   <script>
 
     $('#customerType').on('change', function() {
@@ -336,6 +340,35 @@ mysqli_select_db($con,DB_NAME);
         });
     }
     ////////////////////  
+
+
+    ///////////////////////////////////////////////////
+
+    $(function () {
+
+        $('#customerAdd').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'customer.php',
+            data: $('#customerAdd').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
+   
    
   </script>
 </body>

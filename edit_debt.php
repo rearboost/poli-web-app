@@ -54,7 +54,7 @@ include("db_config.php");
           <h5 class="modal-title" id="staticBackdropLabel">UPDATE DEBT COLLECTIONS</h5>
         </div> 
 
-        <form action ="edit_debt.php" method="POST">
+        <form id="debtEdit">
           <div class="col-md-12">
             <div class="row">
                 <div class="form-group">
@@ -112,7 +112,8 @@ include("db_config.php");
             </div>                  
             <div class="row">
               <div class="update ml-auto mr-auto">
-                <button type="submit" name="update" class="btn btn-primary btn-round">Update</button>
+                <input type="hidden" name ="update" value="update"/>
+                <button type="submit" class="btn btn-primary btn-round">Update</button>
                 <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
               </div>
             </div>
@@ -158,6 +159,31 @@ include("db_config.php");
     }
 
     ////////////////////  
+
+     $(function () {
+
+        $('#debtEdit').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'edit_debt.php',
+            data: $('#debtEdit').serialize(),
+            success: function () {
+              swal({
+                title: "Good job !",
+                text: "Successfully Submited",
+                icon: "success",
+                button: "Ok !",
+                });
+                setTimeout(function(){ location.reload(); }, 2500);
+               }
+          });
+
+        });
+
+      });
 
 
 </script>
