@@ -102,8 +102,8 @@ mysqli_select_db($con,DB_NAME);
                 <h5 class="card-title">Edit Login Credintials</h5>
               </div>
               <div class="card-body">
-               <div class="row">
-                  <div class= "col-md-6">
+                  <div class="row">
+                    <div class= "col-md-6">
                       <h5>Change username</h5>
                       <form id="changeUsername">
                         <div class="row">
@@ -128,53 +128,54 @@ mysqli_select_db($con,DB_NAME);
                               <p style="color: red" id="res_update_user"></p> 
                               <input type="hidden" name ="update_user" value="update_user"/>
                               <button type="submit" class="btn btn-primary btn-round">Update Username</button>
+                            </div>
                           </div>
                         </div>
                       </form>
+                    </div>
+                    <div class= "col-md-6">
+                      <h5>Change Password</h5>
+                      <form id="changePassword">
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
+                              <label>Current Password</label>
+                              <input type="text" class="form-control"  placeholder="current password" name="old_pw" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
+                              <label>New password</label>
+                              <input type="text" class="form-control"  placeholder="New password" name="new_pw" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="form-group">
+                              <label>Confirm password</label>
+                              <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw" required>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-8 pr-1">
+                            <div class="update ml-auto mr-auto">
+                              <p style="color: red" id="res_update_pw"></p>
+                              <input type="hidden" name ="update_pw" value="update_pw"/> 
+                              <button type="submit" class="btn btn-primary btn-round">Update Password</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                  <div class= "col-md-6">
-                    <h5>Change Password</h5>
-                    <form id="changePassword">
-                      <div class="row">
-                        <div class="col-md-8 pr-1">
-                          <div class="form-group">
-                            <label>Current Password</label>
-                            <input type="text" class="form-control"  placeholder="current password" name="old_pw" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8 pr-1">
-                          <div class="form-group">
-                            <label>New password</label>
-                            <input type="text" class="form-control"  placeholder="New password" name="new_pw" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8 pr-1">
-                          <div class="form-group">
-                            <label>Confirm password</label>
-                            <input type="text" class="form-control"  placeholder="Confirm password" name="confirm_pw" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-8 pr-1">
-                          <div class="update ml-auto mr-auto">
-                            <p style="color: red" id="res_update_pw"></p>
-                            <input type="hidden" name ="update_pw" value="update_pw"/> 
-                            <button type="submit" class="btn btn-primary btn-round">Update Password</button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-               </div>
-              </div>
               <?php
                   mysqli_close($con);
               ?>
+              </div>
             </div>
           </div><!-- end profile-->
         </div>

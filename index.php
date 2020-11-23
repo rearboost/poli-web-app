@@ -1,12 +1,18 @@
 <?php
 include("db_config.php");
 include("msg_show.php");
+include("card.php");
 session_start();
 if (!isset($_SESSION['loged_user'])) {
     //echo "Access Denied";
     header('location: login.php');
 }else {
-    ?>
+  // $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
+  // if (!$con) {
+  //     die('Could not connect: ' . mysqli_error($con));
+  // }
+  // mysqli_select_db($con,DB_NAME);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,13 +101,17 @@ if (!isset($_SESSION['loged_user'])) {
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
+                      <i class="nc-icon nc-single-02 text-warning"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Capacity</p>
-                      <p class="card-title">150GB<p>
+                      <p class="card-category">Customers</p>
+                      <p class="card-title">
+                        <?php
+                          echo $card_1;
+                        ?>
+                      <p>
                     </div>
                   </div>
                 </div>
@@ -110,7 +120,7 @@ if (!isset($_SESSION['loged_user'])) {
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update Now
+                  Available Customers
                 </div>
               </div>
             </div>
@@ -121,13 +131,17 @@ if (!isset($_SESSION['loged_user'])) {
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-success"></i>
+                      <i class="nc-icon nc-badge text-success"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Revenue</p>
-                      <p class="card-title">$ 1,345<p>
+                      <p class="card-category">Loans</p>
+                      <p class="card-title">
+                        <?php
+                          echo $card_2;
+                        ?>
+                      <p>
                     </div>
                   </div>
                 </div>
@@ -147,13 +161,17 @@ if (!isset($_SESSION['loged_user'])) {
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
+                      <i class="nc-icon nc-tap-01 text-danger"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Errors</p>
-                      <p class="card-title">23<p>
+                      <p class="card-category">Valid Cheques</p>
+                      <p class="card-title">
+                        <?php
+                          echo $card_3;
+                        ?>
+                      <p>
                     </div>
                   </div>
                 </div>
@@ -162,7 +180,7 @@ if (!isset($_SESSION['loged_user'])) {
                 <hr>
                 <div class="stats">
                   <i class="fa fa-clock-o"></i>
-                  In the last hour
+                  Not yet exchange
                 </div>
               </div>
             </div>
@@ -173,14 +191,19 @@ if (!isset($_SESSION['loged_user'])) {
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
+                      <i class="nc-icon nc-money-coins text-primary"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Followers</p>
-                      <p class="card-title">+45K<p>
+                      <p class="card-category">Outstanding</p>
                     </div>
+                      <p class="card-title" style="text-align:right;margin-top:6px;">
+                        <?php
+                          echo "<b> LKR. </b>". $card_4 ;
+                          
+                        ?>
+                      <p>
                   </div>
                 </div>
               </div>
@@ -188,7 +211,7 @@ if (!isset($_SESSION['loged_user'])) {
                 <hr>
                 <div class="stats">
                   <i class="fa fa-refresh"></i>
-                  Update now
+                  Total cheque Amount
                 </div>
               </div>
             </div>
@@ -213,7 +236,7 @@ if (!isset($_SESSION['loged_user'])) {
             </div>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-4">
             <div class="card ">
               <div class="card-header ">
@@ -258,7 +281,7 @@ if (!isset($_SESSION['loged_user'])) {
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- FOOTER -->
        <?php include('include/footer.php');  ?>
@@ -286,11 +309,13 @@ if (!isset($_SESSION['loged_user'])) {
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       demo.initChartsPages();
     });
+
   </script>
 </body>
 
 </html>
 
 <?php
+// mysqli_close($con);
 }
 ?>
