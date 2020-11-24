@@ -235,23 +235,45 @@ if (!isset($_SESSION['loged_user'])) {
                     <?php 
 
                         $year =  date("Y");
-                        $query="SELECT 
-/*SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)AS  monthName,*/
-                        DATE_FORMAT(loan.l_date,'%m') as month,  
-                        SUM(loan.amount) AS loan, 
-                        SUM(loan_installement.installement_amt) AS debt
-                        FROM loan,loan_installement  
-                        WHERE YEAR(loan.l_date)='$year' AND YEAR(loan_installement.li_date)='$year'
-                        GROUP BY month" ;
+//                         $query="SELECT 
+// /*SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)AS  monthName,*/
+//                         DATE_FORMAT(loan.l_date,'%m') as month,  
+//                         SUM(loan.amount) AS loan, 
+//                         SUM(loan_installement.installement_amt) AS debt
+//                         FROM loan,loan_installement  
+//                         WHERE loan.loan_no = loan_installement.loan_no AND
+//                         YEAR(loan.l_date)='$year' AND YEAR(loan_installement.li_date)='$year'
+//                         GROUP BY month" ;
 
-                        $result=mysqli_query($con,$query);
-                        while($row=mysqli_fetch_array($result)){
+                        $query1=mysqli_query($con,"SELECT 
+                        DATE_FORMAT(l_date,'%m') as month,  
+                        SUM(amount) AS loan, 
+                        SUM(total_amt) AS income
+                        FROM loan
+                        WHERE YEAR(l_date)='$year' 
+                        GROUP BY month") ;
+
+                        $query2=mysqli_query($con,"SELECT 
+                        DATE_FORMAT(li_date,'%m') as month,  
+                        SUM(installement_amt+interest_amt) AS debt
+                        FROM loan_installement
+                        WHERE YEAR(li_date)='$year' 
+                        GROUP BY month") ;
+
+                        // get loan amount and total amount for each months
+                        while($row=mysqli_fetch_array($query1)){
                           //echo $row['monthName'] . "   /   ";
                           echo $row['month'] . "   /   ";
                           echo $row['loan']. "   /   ";
-                          echo $row['debt'] . "</br>";
+                          echo $row['income'] . "</br>";
 
-                          //$chart_data .= "{ y:'".$row["monthName"]."', a:".$row["loan"].", b:".$row["debt"]."}, ";
+                        }
+                        // get debt collection for each months
+                        while($row1=mysqli_fetch_array($query2)){
+                          echo $row1['month'] . "   /   ";
+                          echo $row1['debt'] . "</br>";
+
+                          //$chart_data .= "{ y:'".$row["month"]."', a:".$row["loan"].", b:".$row["debt"]."}, ";
                         }
 
                     ?>
@@ -404,7 +426,7 @@ if (!isset($_SESSION['loged_user'])) {
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
+  <!-- <script src="assets/js/plugins/chartjs.min.js"></script> -->
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
@@ -412,37 +434,44 @@ if (!isset($_SESSION['loged_user'])) {
   <script src="assets/demo/demo.js"></script>
     <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
+  <!-- chart JS -->
+  <script src="assets/js/chart/chart-area-demo.js"></script>
+  <!-- <script src="assets/js/chart/chart-pie-demo.js"></script> -->
   <script>
-    // $(document).ready(function() {
-    //   // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-    //   demo.initChartsPages();
-    // });
-var data = [
-  <?php echo $chart_data; ?>
-],
-config = {
-  data: data,
-  xkey: 'y',
-  ykeys: ['a', 'b'],
-  labels: ['Total loans', 'Total Debts'],
-  fillOpacity: 0.6,
-  hideHover: 'auto',
-  behaveLikeLine: true,
-  resize: true,
-  pointFillColors:['#ffffff'],
-  pointStrokeColors: ['black'],
-  lineColors:['gray','red']
-  };
 
-  config.element = 'myfirstchart';
-  Morris.Bar(config);
-  config.element = 'stacked';
-  config.stacked = true;
+  // $(document).ready(function() {
+  //   // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+  //   demo.initChartsPages();
+  // });
+
+  var data = [
+    <?php echo $chart_data; ?>
+  ],
+  config = {
+    data: data,
+    xkey: 'y',
+    ykeys: ['a', 'b'],
+    labels: ['Total loans', 'Total income'],
+    fillOpacity: 0.6,
+    hideHover: 'auto',
+    behaveLikeLine: true,
+    resize: true,
+    pointFillColors:['#ffffff'],
+    pointStrokeColors: ['black'],
+    lineColors:['gray','red']
+    };
+
+    config.element = 'myfirstchart';
+    Morris.Bar(config);
+    config.element = 'stacked';
+    config.stacked = true;
 
   </script>
+
 </body>
 
 </html>
+
 
 <?php
 mysqli_close($con);
