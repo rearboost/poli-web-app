@@ -201,6 +201,64 @@ mysqli_select_db($con,DB_NAME);
                             $int_amt = $_POST['int_amt'];
                             $remain_amt= $_POST['remain_amt'];
 
+                            $year =  date("Y");
+                            $month = date("m");
+                            $createDate = date("Y-m-d");
+                  
+                            $querySummary = "SELECT id ,debtAMT FROM summary WHERE year='$year' AND month='$month' ";
+                            $resultSummary = mysqli_query($con ,$querySummary);
+
+                            $countSummary =mysqli_num_rows($resultSummary);
+
+                            if($countSummary>0){
+
+                                while($rowSummary = mysqli_fetch_array($resultSummary)){
+
+                                    $oldDebtAMT = $rowSummary['debtAMT'];
+                                    $id = $rowSummary['id'];
+                                }
+
+                                $newDebtAMT = ($oldDebtAMT +$i_amt);
+
+                                $queryRow ="UPDATE summary SET debtAMT='$newDebtAMT' WHERE id='$id' ";
+                                $rowRow =mysqli_query($con,$queryRow);
+
+                            }else{
+
+                                $query ="INSERT INTO  summary (year,month,debtAMT,createDate)  VALUES (?,?,?,?)";
+
+                                $stmt =mysqli_stmt_init($con);
+                                if(!mysqli_stmt_prepare($stmt,$query))
+                                {
+                                    echo "SQL Error";
+                                }
+                                else
+                                {
+                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$i_amt,$createDate);
+                                    $result =  mysqli_stmt_execute($stmt);
+                                }
+
+                                for ($x = 1; $x < 13; $x++) {
+                              
+                                    if($month !=str_pad($x, 2, "0", STR_PAD_LEFT)){
+
+                                      $queryDefult ="INSERT INTO  summary (year,month,createDate)  VALUES (?,?,?)";
+
+                                      $stmt =mysqli_stmt_init($con);
+                                      if(!mysqli_stmt_prepare($stmt,$queryDefult))
+                                      {
+                                          echo "SQL Error";
+                                      }
+                                      else
+                                      {
+                                          mysqli_stmt_bind_param($stmt,"sss",$year,str_pad($x, 2, "0", STR_PAD_LEFT),$createDate);
+                                          $result =  mysqli_stmt_execute($stmt);
+                                      }
+
+                                    }
+                                }
+                            }
+
                           $data = mysqli_query($con,"SELECT l.loan_no, l.amount FROM customer c , loan l WHERE c.cust_id = l.cust_id AND l.cust_id = '$custom_id'");
                           		$row_l = mysqli_fetch_assoc($data);
                           		$loan_no = $row_l['loan_no'];

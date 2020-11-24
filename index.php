@@ -28,6 +28,13 @@ if (!isset($_SESSION['loged_user'])) {
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+   <!-- Chart Link  -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
   <!-- CSS Files -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
@@ -235,45 +242,16 @@ if (!isset($_SESSION['loged_user'])) {
                     <?php 
 
                         $year =  date("Y");
-//                         $query="SELECT 
-// /*SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)AS  monthName,*/
-//                         DATE_FORMAT(loan.l_date,'%m') as month,  
-//                         SUM(loan.amount) AS loan, 
-//                         SUM(loan_installement.installement_amt) AS debt
-//                         FROM loan,loan_installement  
-//                         WHERE loan.loan_no = loan_installement.loan_no AND
-//                         YEAR(loan.l_date)='$year' AND YEAR(loan_installement.li_date)='$year'
-//                         GROUP BY month" ;
 
-                        $query1=mysqli_query($con,"SELECT 
-                        DATE_FORMAT(l_date,'%m') as month,  
-                        SUM(amount) AS loan, 
-                        SUM(total_amt) AS income
-                        FROM loan
-                        WHERE YEAR(l_date)='$year' 
-                        GROUP BY month") ;
+                        $query="SELECT  SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)
+                        AS  monthName,loanAMT , debtAMT
+                        FROM  summary WHERE year='$year'" ;
+                        $result=mysqli_query($con,$query);
+                        $chart_data_supplier_order='';
+                        //$row=$result->fetch_assoc();
+                        while($row=mysqli_fetch_array($result)){
 
-                        $query2=mysqli_query($con,"SELECT 
-                        DATE_FORMAT(li_date,'%m') as month,  
-                        SUM(installement_amt+interest_amt) AS debt
-                        FROM loan_installement
-                        WHERE YEAR(li_date)='$year' 
-                        GROUP BY month") ;
-
-                        // get loan amount and total amount for each months
-                        while($row=mysqli_fetch_array($query1)){
-                          //echo $row['monthName'] . "   /   ";
-                          echo $row['month'] . "   /   ";
-                          echo $row['loan']. "   /   ";
-                          echo $row['income'] . "</br>";
-
-                        }
-                        // get debt collection for each months
-                        while($row1=mysqli_fetch_array($query2)){
-                          echo $row1['month'] . "   /   ";
-                          echo $row1['debt'] . "</br>";
-
-                          //$chart_data .= "{ y:'".$row["month"]."', a:".$row["loan"].", b:".$row["debt"]."}, ";
+                            $chart_data .= "{ y:'".$row["monthName"]."', a:".$row["loanAMT"].", b:".$row["debtAMT"]."}, ";
                         }
 
                     ?>
@@ -422,7 +400,7 @@ if (!isset($_SESSION['loged_user'])) {
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
@@ -434,9 +412,7 @@ if (!isset($_SESSION['loged_user'])) {
   <script src="assets/demo/demo.js"></script>
     <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
-  <!-- chart JS -->
-  <script src="assets/js/chart/chart-area-demo.js"></script>
-  <!-- <script src="assets/js/chart/chart-pie-demo.js"></script> -->
+  
   <script>
 
   // $(document).ready(function() {
@@ -447,6 +423,8 @@ if (!isset($_SESSION['loged_user'])) {
   var data = [
     <?php echo $chart_data; ?>
   ],
+
+  //console.log("data",data)
   config = {
     data: data,
     xkey: 'y',
