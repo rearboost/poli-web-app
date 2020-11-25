@@ -244,10 +244,10 @@ if (!isset($_SESSION['loged_user'])) {
                         $year =  date("Y");
 
                         $query="SELECT  SUBSTRING('JAN FEB MAR APR MAY JUN JUL AUG SEP OCT NOV DEC ', (month * 4) - 3, 3)
-                        AS  monthName,loanAMT , debtAMT
-                        FROM  summary WHERE year='$year'" ;
+                        AS  monthName,loanAMT,debtAMT
+                        FROM  summary WHERE year='$year' ORDER BY month ASC ";
                         $result=mysqli_query($con,$query);
-                        $chart_data_supplier_order='';
+                        $chart_data='';
                         //$row=$result->fetch_assoc();
                         while($row=mysqli_fetch_array($result)){
 
@@ -429,7 +429,7 @@ if (!isset($_SESSION['loged_user'])) {
     data: data,
     xkey: 'y',
     ykeys: ['a', 'b'],
-    labels: ['Total loans', 'Total income'],
+    labels: ['Total loans', 'Total Collection'],
     fillOpacity: 0.6,
     hideHover: 'auto',
     behaveLikeLine: true,
