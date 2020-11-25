@@ -22,8 +22,8 @@ mysqli_select_db($con,DB_NAME);
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Poli App - CUSTOMER LOANS
-  </title>
+    Poli App - REPORT
+   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -117,7 +117,7 @@ mysqli_select_db($con,DB_NAME);
                         <div class="col-md-8 pl-1">
                           <div class="form-group">
                             <label>SELECT METHOD</label>
-                              <select class="form-control form-selectBox" id="customer_method" name ="method" onchange="search()" required>
+                              <select class="form-control form-selectBox" id="customer_method" name ="method"  required>
                                 <option value="default">--Select method--</option>
                                 <option value="monthly">Monthly</option>
                                 <option value="daily">Daily</option>
@@ -173,23 +173,22 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/sweetalert.min.js"></script>
 
   <script>
+
     $('#customer_method').on('change', function() {
 
-      
-    }); 
-
-    function search(){
-
-      $.ajax({
+        $.ajax({
               url:"view_report.php",
               method:"POST",
-              //data:{"id":id},
+              data:{"method":this.value},
               data: $('#get_data').serialize(),
-              success:function(){
-                $('#show_report').html();
+              success:function(data){
+
+                alert(data)
+                $('#show_report').html(data);
               }
         });
-    }
+    }); 
+
   </script>
 
 </body>
