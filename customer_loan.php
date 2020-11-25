@@ -101,7 +101,8 @@ mysqli_select_db($con,DB_NAME);
               <div class="row">
               <div class="col-md-9">
               <div class="card-header">
-                <h4 class="card-title"> CUSTOMER LOANS</h4>                    
+                <h4 class="card-title"> CUSTOMER LOANS</h4>    
+                <input class="form-control myInput" id="myInput" type="text" placeholder="Search..">                                
               </div>
               </div>
               <div class="col-md-3">
@@ -299,7 +300,7 @@ mysqli_select_db($con,DB_NAME);
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table" id="myTable">
                     <thead class="text-primary">
                       <th>                    ID</th>
                       <th>                    Date</th>
@@ -389,6 +390,18 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/sweetalert.min.js"></script>
 
 <script>
+
+  /////////////////////////////////////// Table Search 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
+    ///////////////////////////////////////////
 
     //////  radio button onchange catch  ########## Insert 
     $('#rates').change(function(){

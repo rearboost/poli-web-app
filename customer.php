@@ -34,6 +34,8 @@ mysqli_select_db($con,DB_NAME);
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
 
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="">
@@ -101,7 +103,8 @@ mysqli_select_db($con,DB_NAME);
               <div class="row">
               <div class="col-md-9">
               <div class="card-header">
-                <h4 class="card-title"> CUSTOMER</h4>                    
+                <h4 class="card-title"> CUSTOMER</h4>    
+                <input class="form-control myInput" id="myInput" type="text" placeholder="Search..">                
               </div>
               </div>
               <div class="col-md-3">
@@ -183,7 +186,7 @@ mysqli_select_db($con,DB_NAME);
               </div><!-- card body-->
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table" id="myTable">
                     <thead class="text-primary">
                       <th>                    ID</th>
                       <th>                    Type</th>
@@ -258,7 +261,22 @@ mysqli_select_db($con,DB_NAME);
   <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
 
+   <!-- DataTbale Link -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
   <script>
+
+    /////////////////////////////////////// Table Search 
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+    ///////////////////////////////////////////
 
     $('#customerType').on('change', function() {
 
