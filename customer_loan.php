@@ -136,11 +136,11 @@ mysqli_select_db($con,DB_NAME);
                             <?php
                           
                             //// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
-                              $custom = "SELECT C.cust_id AS cust_id, C.name AS name
+                                $custom = "SELECT C.cust_id AS cust_id, C.name AS name
                                           FROM customer C 
                                           LEFT JOIN  loan L
                                           ON C.cust_id = L.cust_id
-                                          WHERE L.l_status <> 1";
+                                          WHERE L.l_status = 0";
 
                                 $result1 = mysqli_query($con,$custom);
                                 $numRows1 = mysqli_num_rows($result1); 

@@ -13,9 +13,9 @@
 
 	if(empty($cust_id))
 	{	
-	echo "You can get a loan";	
+	    echo "You can get a loan";	
 	}else{
-	echo "Already You have a loan";
+	    echo "Already You have a loan";
 	}
 
 ?>

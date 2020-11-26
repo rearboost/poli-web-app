@@ -126,7 +126,6 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                         </div>
                       </div>
-
                       <div class="col-md-4">
                         <div class="col-md-12 pr-1">
                           <div class="form-group" >
