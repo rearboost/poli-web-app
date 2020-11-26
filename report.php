@@ -159,7 +159,7 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/core/jquery.min.js"></script>
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script> -->
   <!--  Google Maps Plugin    -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script> -->
   <!-- Chart JS -->
@@ -180,7 +180,6 @@ mysqli_select_db($con,DB_NAME);
               url:"view_report.php",
               method:"POST",
               data:{"method":this.value},
-              data: $('#get_data').serialize(),
               success:function(data){
 
                 alert(data)

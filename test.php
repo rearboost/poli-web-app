@@ -1,5 +1,5 @@
 <?php
-  error_reporting(0);
+
   include("db_config.php");
   $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD,DB_NAME);
     if (!$con) {
@@ -28,10 +28,10 @@
   //$get_loan = mysqli_query($con,"SELECT name, address, loan_no, total_amt FROM customer, loan  WHERE customer.cust_id = loan.cust_id");
   // $get_loan = mysqli_query($con,"SELECT name, address, loan_no, total_amt FROM customer, loan  WHERE customer.cust_id = loan.cust_id AND l_method='$method'");
 
-  $get_loan = mysqli_query($con,"SELECT C.name AS name, C.address AS  address , L.loan_no AS loan_no, L.total_amt AS total_amt
+  $get_loan = mysqli_query($con,"SELECT C.name AS name, C.address AS  address , L.loan_no AS loan_no, L.total_amt AS 
   FROM customer C
   INNER JOIN loan L
-  ON C.cust_id = L.cust_id WHERE L.l_method = '".$method."'");
+  ON C.cust_id = L.cust_id WHERE L.l_method = '$method'");
 
 
   //$get_loan = mysqli_query($con,"SELECT name, address, loan_no, total_amt FROM customer, loan  WHERE customer.cust_id = loan.cust_id AND l_method='$method' AND l_date='$date");
