@@ -181,8 +181,6 @@ mysqli_select_db($con,DB_NAME);
               method:"POST",
               data:{"method":this.value},
               success:function(data){
-
-                alert(data)
                 $('#show_report').html(data);
               }
         });
