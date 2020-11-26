@@ -81,6 +81,12 @@ mysqli_select_db($con,DB_NAME);
               <p>CHEQUE TRANSFER</p>
             </a>
           </li>
+          <li>
+            <a href="report">
+              <i class="nc-icon nc-single-copy-04"></i>
+              <p>SUMMARY REPORT</p>
+            </a>
+          </li>
           <li class = "active">
             <a href="user">
               <i class="nc-icon nc-single-02"></i>

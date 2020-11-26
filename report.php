@@ -11,8 +11,6 @@ $con = mysqli_connect(DB_HOSTNAME,DB_USERNAME,DB_PASSWORD);
       die('Could not connect: ' . mysqli_error($con));
   }
 mysqli_select_db($con,DB_NAME);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +22,7 @@ mysqli_select_db($con,DB_NAME);
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Poli App - NOTIFICATION 
+    Poli App - CUSTOMER LOANS
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -59,13 +57,13 @@ mysqli_select_db($con,DB_NAME);
               <p>DASHBOARD</p>
             </a>
           </li>
-          <li class="">
+          <li>
             <a href="customer">
               <i class="nc-icon nc-single-02"></i>
               <p>CUSTOMERS</p>
             </a>
           </li>
-          <li class="">
+          <li>
             <a href="customer_loan">
               <i class="nc-icon nc-badge"></i>
               <p>CUSTOMER LOANS</p>
@@ -83,7 +81,7 @@ mysqli_select_db($con,DB_NAME);
               <p>CHEQUE TRANSFER</p>
             </a>
           </li>
-          <li>
+          <li class="active">
             <a href="report">
               <i class="nc-icon nc-single-copy-04"></i>
               <p>SUMMARY REPORT</p>
@@ -103,65 +101,59 @@ mysqli_select_db($con,DB_NAME);
       <?php include('include/nav.php');  ?>
       <!-- End Navbar -->
       <div class="content">
-      <div class="row">
+        <div class="row">
           <div class="col-md-12">         
             <div class="card">
               <div class="row">
-              <div class="col-md-10">
-              <div class="card-header">
-                <h3 class="card-title"> You have to exchange following cheques.</h3>                    
-              </div>
-              </div>
+                <div class="card-header">
+                  <h5 class="card-title pl-3">&nbsp;&nbsp;SUMMARY REPORT</h5>                    
+                </div>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class="text-primary">
-                      <th>  Customer</th>
-                      <th>  Bank</th>
-                      <th>  Cheque No</th>
-                      <th>  Valid Date</th>
-                      <th>  Cheque value</th>
-                    </thead>
-                    <tbody>
-                      <?php
+                <form action="" method="POST">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="col-md-8 pl-1">
+                          <div class="form-group">
+                            <label>SELECT METHOD</label>
+                              <select class="form-control form-selectBox" id="customer_method" name ="method" onchange="search()" required>
+                                <option value="default">--Select method--</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="daily">Daily</option>
+                                <option value="declining">Declining</option>
+                              </select>
+                          </div>
+                        </div>
+                      </div>
 
-                      // $sql=mysqli_query($con,"SELECT * FROM cheque WHERE valid_date = CURDATE() OR valid_date = date_add(curdate(),interval 1 day) AND status = 'NYC' ORDER BY valid_date ASC");
+                      <div class="col-md-4">
+                        <div class="col-md-12 pr-1">
+                          <div class="form-group" >
+                            <label>Date of obtaining loan</label>
+                            <input type="date" id = "date" name="ldate" class="form-control" required>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </form>
+              
+              <div class="table-responsive">
+                <div id="show_report">
 
-                      // $numRows = mysqli_num_rows($sql); 
-                 
-                      if($numRows > 0) {
-                        while($row = mysqli_fetch_assoc($sql)) {
-                          ?>
-                          <tr>
-                            <td>                      <?php echo $row['cust_id'] ?>       </td>
-                            <td>                      <?php echo $row['bank'] ?>          </td>
-                            <td>                      <?php echo $row['cheque_no']?>      </td>
-                            <td>                      <?php echo $row['valid_date']  ?>   </td>
-                            <td>                      <?php echo $row['cheque_value']  ?> </td>
-                          </tr>
-                    </tbody>
-                           <?php
-                        }
-                      }
-                    ?>                      
-                    </table>
-                  <?php
-                  mysqli_close($con);
-                  ?>
                 </div>
               </div>
             </div>
-          </div>
-          </div>
-
+          </div><!--card -->
         </div>
       </div>
-      <!-- FOOTER -->
-       <?php include('include/footer.php');  ?>
-      <!-- FOOTER -->
-    </div>
-  </div>
+    </div>  
+  <!-- FOOTER -->
+   <?php include('include/footer.php');  ?>
+  <!-- FOOTER -->
+  </div> <!-- end main panel -->
+</div> <!-- end wrapper -->
 
   <!--   Core JS Files   -->
   <script src="assets/js/core/jquery.min.js"></script>
@@ -177,6 +169,28 @@ mysqli_select_db($con,DB_NAME);
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="assets/demo/demo.js"></script>
+  <!-- sweetalert message -->
+  <script src="assets/js/sweetalert.min.js"></script>
+
+  <script>
+    $('#customer_method').on('change', function() {
+
+      
+    }); 
+
+    function search(){
+
+      $.ajax({
+              url:"view_report.php",
+              method:"POST",
+              //data:{"id":id},
+              data: $('#get_data').serialize(),
+              success:function(){
+                $('#show_report').html();
+              }
+        });
+    }
+  </script>
 
 </body>
 

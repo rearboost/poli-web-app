@@ -82,6 +82,12 @@ mysqli_select_db($con,DB_NAME);
             </a>
           </li>
           <li>
+            <a href="report">
+              <i class="nc-icon nc-single-copy-04"></i>
+              <p>SUMMARY REPORT</p>
+            </a>
+          </li>
+          <li>
             <a href="user">
               <i class="nc-icon nc-single-02"></i>
               <p>USER PROFILE</p>
@@ -124,7 +130,7 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" name = "id" required>
+                          <select class="form-control form-selectBox" name = "cust_id" required>
                             <option value="default">--Select Customer--</option>
                             <?php
                               $custom = "SELECT cust_id, name FROM customer";
@@ -216,7 +222,7 @@ mysqli_select_db($con,DB_NAME);
 
                       <?php
                           if(isset($_POST['submit'])){
-                            $id       = $_POST['id'];
+                            $cust_id  = $_POST['cust_id'];
                             $l_date   = $_POST['l_date'];
                             $l_amt    = $_POST['l_amt'];
                             $interest = $_POST['interest'];
@@ -284,7 +290,7 @@ mysqli_select_db($con,DB_NAME);
                             }
 
                             $insert2 = "INSERT INTO loan (l_date,amount,interest,l_method,total_amt,installment_value,no_of_installments,cust_id) 
-                              VALUES ('$l_date',$l_amt,$interest,'$l_method',$p_amt,$i_amt,$ino_inst,'$id')";                         
+                              VALUES ('$l_date',$l_amt,$interest,'$l_method',$p_amt,$i_amt,$ino_inst,'$cust_id')";                         
                             mysqli_query($con,$insert2);
 
                           }
