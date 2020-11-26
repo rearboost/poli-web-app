@@ -117,7 +117,7 @@ mysqli_select_db($con,DB_NAME);
                         <div class="col-md-8 pl-1">
                           <div class="form-group">
                             <label>SELECT LOAN PAYMENT METHOD</label>
-                              <select class="form-control form-selectBox" id="customer_method" name ="method"  required>
+                              <select class="form-control form-selectBox customer_rep" id="customer_method" name ="method" >
                                 <option value="default">--Select method--</option>
                                 <option value="monthly">Monthly</option>
                                 <option value="daily">Daily</option>
@@ -130,7 +130,7 @@ mysqli_select_db($con,DB_NAME);
                         <div class="col-md-12 pr-1">
                           <div class="form-group" >
                             <label>Date of obtaining loan</label>
-                            <input type="date" id = "date" name="ldate" class="form-control" required>
+                            <input type="date" id = "date" name="ldate" class="form-control customer_rep" value="<?php echo date('Y-m-d'); ?>">
                           </div>
                         </div>
                       </div>
@@ -178,19 +178,21 @@ mysqli_select_db($con,DB_NAME);
         change_report()
 
     })
-    //function change_report(){
-    $('#customer_method').on('change', function() {
+
+    $('.customer_rep').on('change', function() {
+
+        var customer_method = $('#customer_method').val();
+        var ldate  = $('#date').val();
 
         $.ajax({
               url:"view_report.php",
               method:"POST",
-              data:{"method":this.value},
+              data:{"method":customer_method,ldate:ldate},
               success:function(data){
                 $('#show_report').html(data);
               }
         });
     }); 
-  //}
 
   </script>
 

@@ -5,7 +5,6 @@
     if (!$con) {
       die('Could not connect: ' . mysqli_error($con));
     }
-
 ?>
 
   <table class="table" id="get_data">
@@ -21,25 +20,26 @@
 
   if(isset($_POST['method'])){
 
-     $method = $_POST['method'];
-     //$date = $_POST['ldate'];
-     
-     ///// where clause contain like this -----> WHERE li_date <= '".$date."' AND l_method ='".$method."' ORDER BY I.id DESC LIMIT 1 
+    $method = $_POST['method'];
+    $date = $_POST['ldate'];
 
-    $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
-    FROM customer C
-    INNER JOIN loan L
-        on C.cust_id = L.cust_id
-    LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE l_method ='".$method."'");
+    if(empty($method)){
 
+      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
+      FROM customer C
+      INNER JOIN loan L
+          on C.cust_id = L.cust_id
+      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE L.l_date ='".$date."'");
 
+    }else{
 
-    // $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
-    // FROM customer C
-    // INNER JOIN loan L
-    //     on C.cust_id = L.cust_id
-    // LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE li_date <= '".$date."' AND l_method ='".$method."' ORDER BY I.id DESC LIMIT 1");
-
+      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
+      FROM customer C
+      INNER JOIN loan L
+          on C.cust_id = L.cust_id
+      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE L.l_date ='".$date."' AND L.l_method ='".$method."'");
+    }
+    
     $numRows1 = mysqli_num_rows($get_loan);
 
         if($numRows1 > 0) {
