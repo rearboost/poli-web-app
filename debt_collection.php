@@ -138,7 +138,8 @@ mysqli_select_db($con,DB_NAME);
                               $custom = "SELECT C.cust_id AS cust_id  , C.name AS name
                                           FROM customer C 
                                           INNER JOIN  loan L
-                                          ON C.cust_id = L.cust_id;";
+                                          ON C.cust_id = L.cust_id
+                                          WHERE L.l_status = 1;";
 
                                 $result1 = mysqli_query($con,$custom);
                                 $numRows1 = mysqli_num_rows($result1); 
@@ -266,13 +267,17 @@ mysqli_select_db($con,DB_NAME);
                                 }
                             }
 
-                          $data = mysqli_query($con,"SELECT l.loan_no, l.amount FROM customer c , loan l WHERE c.cust_id = l.cust_id AND l.cust_id = '$custom_id'");
+                          $data = mysqli_query($con,"SELECT l.loan_no, l.amount FROM customer c , loan l WHERE c.cust_id = l.cust_id AND l.cust_id = '$custom_id' AND l.l_status = 1");
                           		$row_l = mysqli_fetch_assoc($data);
                           		$loan_no = $row_l['loan_no'];
                           		$loan_amount = $row_l['amount'];
 
                           $insert = "INSERT INTO loan_installement (li_date,installement_amt,interest_amt,remaining_amt,loan_no) VALUES ('$li_date',$i_amt,$int_amt,$remain_amt,$loan_no)";
                           mysqli_query($con,$insert);
+
+                          if($remain_amt <= 0){
+                            $update_status = mysqli_query($con,"UPDATE loan SET l_status =0 WHERE loan_no=$loan_no");
+                          }
                           
                           }
 

@@ -131,10 +131,16 @@ mysqli_select_db($con,DB_NAME);
                     <div class="col-md-7 pr-3">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" name = "cust_id" required>
+                          <select class="form-control form-selectBox" id="customer_loan" name = "cust_id" required>
                             <option value="default">--Select Customer--</option>
                             <?php
-                              $custom = "SELECT cust_id, name FROM customer";
+                          
+                            //// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
+                              $custom = "SELECT C.cust_id AS cust_id, C.name AS name
+                                          FROM customer C 
+                                          LEFT JOIN  loan L
+                                          ON C.cust_id = L.cust_id
+                                          WHERE L.l_status <> 1";
 
                                 $result1 = mysqli_query($con,$custom);
                                 $numRows1 = mysqli_num_rows($result1); 
@@ -148,6 +154,9 @@ mysqli_select_db($con,DB_NAME);
                             ?>
                             
                           </select>
+                          <div id="show">
+                            
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -290,8 +299,8 @@ mysqli_select_db($con,DB_NAME);
                                 }
                             }
 
-                            $insert2 = "INSERT INTO loan (l_date,amount,interest,l_method,total_amt,installment_value,no_of_installments,cust_id) 
-                              VALUES ('$l_date',$l_amt,$interest,'$l_method',$p_amt,$i_amt,$ino_inst,'$cust_id')";                         
+                            $insert2 = "INSERT INTO loan (l_date,amount,interest,l_method,total_amt,installment_value,no_of_installments,cust_id,l_status) 
+                              VALUES ('$l_date',$l_amt,$interest,'$l_method',$p_amt,$i_amt,$ino_inst,'$cust_id',1)";                         
                             mysqli_query($con,$insert2);
 
                           }
@@ -396,6 +405,21 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/js/sweetalert.min.js"></script>
 
 <script>
+    /////////////////CHECK IF THE CUSTOMER LOAN EXIST//////////////////////////
+
+    // $('#customer_loan').on('change', function() {
+
+    //   $.ajax({
+    //     url: 'cust_loan_verify.php',
+    //     method:"POST",
+    //     data:{cust_id:this.value},
+    //     success: function (response) {//response is value returned from php 
+    //       //alert(data)
+    //       $('#show').html(data);
+    //   });
+    // });  
+
+  ////////////////////  
 
   /////////////////////////////////////// Table Search 
     $(document).ready(function(){

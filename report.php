@@ -116,7 +116,7 @@ mysqli_select_db($con,DB_NAME);
                       <div class="col-md-8">
                         <div class="col-md-8 pl-1">
                           <div class="form-group">
-                            <label>SELECT METHOD</label>
+                            <label>SELECT LOAN PAYMENT METHOD</label>
                               <select class="form-control form-selectBox" id="customer_method" name ="method"  required>
                                 <option value="default">--Select method--</option>
                                 <option value="monthly">Monthly</option>
@@ -174,6 +174,12 @@ mysqli_select_db($con,DB_NAME);
 
   <script>
 
+    $('.change_report').on('change',function(){
+
+        change_report()
+
+    })
+    //function change_report(){
     $('#customer_method').on('change', function() {
 
         $.ajax({
@@ -185,6 +191,7 @@ mysqli_select_db($con,DB_NAME);
               }
         });
     }); 
+  //}
 
   </script>
 
