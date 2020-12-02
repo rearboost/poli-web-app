@@ -129,7 +129,7 @@ mysqli_select_db($con,DB_NAME);
                       <div class="col-md-4">
                         <div class="col-md-12 pr-1">
                           <div class="form-group" >
-                            <label>Date of obtaining loan</label>
+                            <label>Date </label>
                             <input type="date" id = "date" name="ldate" class="form-control customer_rep" value="<?php echo date('Y-m-d'); ?>">
                           </div>
                         </div>
@@ -173,11 +173,11 @@ mysqli_select_db($con,DB_NAME);
 
   <script>
 
-    $('.change_report').on('change',function(){
+    // $('.change_report').on('change',function(){
 
-        change_report()
+    //     change_report()
 
-    })
+    // })
 
     $('.customer_rep').on('change', function() {
 

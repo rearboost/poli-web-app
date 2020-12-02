@@ -25,19 +25,19 @@
 
     if(empty($method)){
 
-      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
+      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt
       FROM customer C
       INNER JOIN loan L
           on C.cust_id = L.cust_id
-      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE L.l_date ='".$date."'");
+      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE I.li_date <='".$date."' GROUP BY L.loan_no ORDER BY I.id DESC LIMIT 1;");
 
     }else{
 
-      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt 
+      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt
       FROM customer C
       INNER JOIN loan L
           on C.cust_id = L.cust_id
-      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE L.l_date ='".$date."' AND L.l_method ='".$method."'");
+      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE I.li_date <='".$date."' AND L.l_method ='".$method."' GROUP BY L.loan_no ORDER BY I.id DESC LIMIT 1;");
     }
     
     $numRows1 = mysqli_num_rows($get_loan);
