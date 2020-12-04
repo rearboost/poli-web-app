@@ -132,15 +132,19 @@ mysqli_select_db($con,DB_NAME);
                       <div class="form-group">
                         <label>Customer</label>
                           <select class="form-control form-selectBox" id="customer_loan" name = "cust_id" required>
-                            <option value="default">--Select Customer--</option>
+                            <option value="">--Select Customer--</option>
                             <?php
                           
                             //// need to fetch customer who not a debtor [only drop customers who have l_status - 1]
+                                // $custom = "SELECT C.cust_id AS cust_id, C.name AS name
+                                //           FROM customer C 
+                                //           LEFT JOIN  loan L
+                                //           ON C.cust_id = L.cust_id
+                                //           WHERE L.l_status = 0";
+
                                 $custom = "SELECT C.cust_id AS cust_id, C.name AS name
                                           FROM customer C 
-                                          LEFT JOIN  loan L
-                                          ON C.cust_id = L.cust_id
-                                          WHERE L.l_status = 0";
+                                          ";
 
                                 $result1 = mysqli_query($con,$custom);
                                 $numRows1 = mysqli_num_rows($result1); 
@@ -154,7 +158,7 @@ mysqli_select_db($con,DB_NAME);
                             ?>
                             
                           </select>
-                          <div id="show">
+                          <div id="show" class="loan-validtion">
                             
                           </div>
                       </div>
@@ -407,17 +411,28 @@ mysqli_select_db($con,DB_NAME);
 <script>
     /////////////////CHECK IF THE CUSTOMER LOAN EXIST//////////////////////////
 
-    // $('#customer_loan').on('change', function() {
+    $('#customer_loan').on('change', function() {
 
-    //   $.ajax({
-    //     url: 'cust_loan_verify.php',
-    //     method:"POST",
-    //     data:{cust_id:this.value},
-    //     success: function (response) {//response is value returned from php 
-    //       //alert(data)
-    //       $('#show').html(data);
-    //   });
-    // });  
+      $.ajax({
+        url: 'cust_loan_verify.php',
+        method:"POST",
+        data:{cust_id:this.value},
+        success: function (response) {//response is value returned from php 
+          //alert(data)
+          //$('#show').html(response);
+          $("#show").removeAttr('class');
+          if(response==1){
+             $('#show').html("You can get a loan");
+             $("#show").css({"color": "green"});
+          }else{
+             $('#show').html("Already You have a loan");
+             $("#show").css({"color": "red"});
+             setTimeout(function(){ $("#customer_loan").val("");  $('#show').html("") }, 1500);
+          }
+          $("#show").css({"padding": "5px" , "font-size":"small"});
+        }
+      });
+    });  
 
   ////////////////////  
 
