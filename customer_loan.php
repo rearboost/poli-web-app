@@ -410,9 +410,6 @@ mysqli_select_db($con,DB_NAME);
 
           $('#c_type').val(type);
 
-          var start_date = $('#l_date').val();
-
-          const date = new Date(start_date);
             if(type=="Daily"){
                 $('.daily_section').prop('hidden', false);
                 $('.monthly_section').prop('hidden', true);
@@ -421,26 +418,12 @@ mysqli_select_db($con,DB_NAME);
                 $('#paid_amt').prop('required', true);
                 $('#inst_val').prop('required', true);
 
-                date.setDate(date.getDate() + 2); 
             }else{
                 $('.daily_section').prop('hidden', true);
                 $('.monthly_section').prop('hidden', false);
 
                 $('#int_val').prop('required', true);
-
-                date.setDate(date.getDate() + 31); 
-            }
-     
-          const zeroPad = (num, places) => String(num).padStart(places, '0') 
-        
-          var dd = date.getDate();
-          var mm = date.getMonth() + 1;
-          var y = date.getFullYear();
-
-          var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
-
-          $('#i_date').val(end_date);
-          
+            }          
         }
       });
     });  
@@ -486,24 +469,35 @@ mysqli_select_db($con,DB_NAME);
       var method = $('#c_type').val();
       var start_date = $('#l_date').val();
 
-      const date = new Date(start_date);
-        if(method=="Daily"){
-          date.setDate(date.getDate() + 2); 
-        }else{
-          date.setDate(date.getDate() + 31); 
-        }
- 
+      const date = new Date(start_date); 
+
       const zeroPad = (num, places) => String(num).padStart(places, '0') 
-    
-      var dd = date.getDate();
-      var mm = date.getMonth() + 1;
-      var y = date.getFullYear();
 
-      var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+        if(method=="Daily"){
 
-      $('#i_date').val(end_date);
+          setdt = date.getFullYear()+'-'+  zeroPad(date.getMonth()+1,2)+'-'+zeroPad((date.getDate()+2),2);
+
+          $('#i_date').val(setdt); 
+
+        }else{
+          
+          dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+          console.log(add_months(dt, 1).toString());
+
+          gdt = new Date(add_months(dt, 1).toString()); 
+
+          getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad((gdt.getDate()+1),2);
+
+          $('#i_date').val(getdt);
+        }
+
 
     });
+
+    function add_months(dt, n) 
+    {
+      return new Date(dt.setMonth(dt.getMonth() + n));        
+    }
 
     ///////////////////////////////////////////////////
 

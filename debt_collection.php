@@ -94,9 +94,12 @@ mysqli_select_db($con,DB_NAME);
                         <label>Remaining amount</label>
                         <input type="text" class="form-control" id="remain_amt" name="remain_amt" value="" readonly required>
                         <!-- start hidden area -->
-                        <input type="hidden" class="form-control" id="tot_int" name="tot_int" readonly>
-                        <input type="hidden" class="form-control" id="new_loan" name="new_loan" readonly>
-                        <input type="hidden" class="form-control" id="new_int" name="new_int" readonly>
+                        <label>Total int till rental date</label>
+                        <input type="text" class="form-control" id="tot_int" name="tot_int" readonly>
+                        <label>Remaining loan</label>
+                        <input type="text" class="form-control" id="new_loan" name="new_loan" readonly>
+                        <label>New interest </label>
+                        <input type="text" class="form-control" id="new_int" name="new_int" readonly>
                         <!-- <input type="text" class="form-control" id="real_remain_amt" name="real_remain_amt" readonly> -->
                         <!-- end hidden area -->
                       </div>
@@ -106,8 +109,10 @@ mysqli_select_db($con,DB_NAME);
                         <label>Loan Amount</label>
                         <input type="text" class="form-control" id="loan_amt" name="l_amt" readonly>
                         <!-- start hidden area -->
-                        <input type="hidden" class="form-control" id="c_type"readonly>
-                        <input type="hidden" class="form-control" id="end_date"readonly>
+                        <label>Customer Type</label>
+                        <input type="text" class="form-control" id="c_type"readonly>
+                        <label>On date (Should be pay)</label>
+                        <input type="text" class="form-control" id="end_date"readonly>
                         <!-- end hidden area -->
                       </div>
                     </div>
@@ -378,36 +383,9 @@ mysqli_select_db($con,DB_NAME);
           $('#pre_date').val(obj.fix_date);
           $('#end_date').val(obj.end_date);
 
-          var l_method = obj.l_method
-          $('#c_type').val(l_method);
-
-          var start_date = obj.end_date
-
-          const date = new Date(start_date);
-            if(l_method=="Daily"){
-                $('.daily_section').prop('hidden', false);
-                $('.monthly_section').prop('hidden', true);
-
-                date.setDate(date.getDate() + 2); 
-            }else{
-                $('.daily_section').prop('hidden', true);
-                $('.monthly_section').prop('hidden', false);
-
-                $('#int_amount').prop('required', true);
-
-                date.setDate(date.getDate() + 31); 
-            }
-     
-          const zeroPad = (num, places) => String(num).padStart(places, '0') 
-        
-          var dd = date.getDate();
-          var mm = date.getMonth() + 1;
-          var y = date.getFullYear();
-
-          var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
-
-          $('#next_idate').val(end_date);
-
+          // var l_method = obj.l_method
+          // $('#c_type').val(l_method);
+          
         }
       });
     });  
@@ -434,24 +412,31 @@ mysqli_select_db($con,DB_NAME);
 
           const firstDate = new Date(pre_date);
           const secondDate = new Date(now_date);
-
-          monthDiff = monthDiff(firstDate,secondDate);
-          alert(monthDiff);
-
+          
+          const monthDiff = diff_months(secondDate,firstDate);
+    
           /// need to calculate number of months in above date range (firstDate and secondDate)
           
-          const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+          // const diffDays = Math.round(Math.abs((secondDate - firstDate) / oneDay));
+
+          // var diff =diffDays;
+
+          // alert(diff)
+          // diff /= (7 * 4);
+          // alert(diff)
+
           if(l_method=='Monthly'){
-              var a = Number(diffDays);
-              var b = 30;
-              var c = a % b;
-              var x;
-                if(c>=1){
-                  x = (a - c) / b;
-                }else{
-                  x = a / b;
-                }
-                tot_int = Number(int_val)*x;
+              // var a = Number(diffDays);
+              // var b = 30;
+              // var c = a % b;
+              // var x;
+              //   if(c>=1){
+              //     x = (a - c) / b;
+              //   }else{
+              //     x = a / b;
+              //   }
+              alert(monthDiff)
+                tot_int = Number(int_val)*monthDiff;
                 new_remain = Number(remain_amt)+Number(tot_int);
 
               $('#tot_int').val(tot_int.toFixed(2));
@@ -459,17 +444,17 @@ mysqli_select_db($con,DB_NAME);
           }
 
            /////////// calc end date //////////
-            //var start_date = $('#li_date').val();
             var start_date = obj.end_date
 
             const date = new Date(start_date);
-
-            alert(start_date);
-
-            alert(l_method)
+            const zeroPad = (num, places) => String(num).padStart(places, '0')
 
               if(l_method=="Daily"){
-                date.setDate(date.getDate() + 2); 
+
+                setdt = date.getFullYear()+'-'+  zeroPad(date.getMonth()+1,2)+'-'+zeroPad((date.getDate()+2),2);
+                
+                $('#next_idate').val(setdt);
+
               }else{
                 //////// need to add one month to const date
 
@@ -478,25 +463,11 @@ mysqli_select_db($con,DB_NAME);
 
                 gdt = new Date(add_months(dt, 1).toString()); 
 
-                const zeroPad = (num, places) => String(num).padStart(places, '0')
+                getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad((gdt.getDate()+1),2);
 
-                getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad(gdt.getDate(),2);
-
-                alert(getdt)
-                
-
-              //  date.setDate(date.getDate() + 31); 
+                $('#next_idate').val(getdt);
               }
-       
-            // const zeroPad = (num, places) => String(num).padStart(places, '0') 
-          
-            // var dd = date.getDate();
-            // var mm = date.getMonth() + 1;
-            // var y = date.getFullYear();
 
-            // var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
-
-            $('#next_idate').val(getdt);
 
         }
       });
@@ -509,13 +480,23 @@ mysqli_select_db($con,DB_NAME);
     }
 
     // Month Diff Fun
-    function monthDiff(d1, d2) {
-      var months;
-      months = (d2.getFullYear() - d1.getFullYear()) * 12;
-      months -= d1.getMonth() + 1;
-      months += d2.getMonth();
-      return months <= 0 ? 0 : months;
-    }
+    // function monthDiff(d1, d2) {
+    //   var months;
+    //   months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    //   months -= d1.getMonth() + 1;
+    //   months += d2.getMonth();
+    //   return months <= 0 ? 0 : months;
+    // }
+
+    function diff_months(dt2, dt1) 
+     {
+
+      var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+      diff /= (60 * 60 * 24 * 7 * 4);
+      //return Math.abs(Math.round(diff));
+      return Math.abs(diff);
+      
+     }
 
     /////////////////calc amounts ////////////////////
 

@@ -130,10 +130,10 @@ include("db_config.php");
             <div class="col-md-6 pr-1">
             <div class="form-group">
                 <label>Status</label>
-                <select class="form-control form-selectBox" name = "status">
+                <select class="form-control form-selectBox" name="status">
                     <option><?php echo $data['status']?></option>
-                    <option>Completed</option>
-                    <option>NYC</option>
+                    <option value="Completed">Completed</option>
+                    <option value="NYC">NYC</option>
                   </select>
               </div>
             </div>

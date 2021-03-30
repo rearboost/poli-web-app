@@ -133,8 +133,8 @@ mysqli_select_db($con,DB_NAME);
                     <div class="form-group">
                         <label>Status</label>
                         <select class="form-control form-selectBox" name="status" required>
-                            <option>--Select Status--</option>
-                            <option value="completed">Completed</option>
+                            <option selected="" disabled="">--Select Status--</option>
+                            <option value="Completed">Completed</option>
                             <option value="NYC">NYC</option>
                           </select>
                       </div>
@@ -216,7 +216,7 @@ mysqli_select_db($con,DB_NAME);
                           <td class="text-center"> 
                             <?php 
                             $state = $row['status'];
-                              if($state=='completed'){
+                              if($state=='Completed '){
                                 echo '<label class="btn-sm" style="background-color:#3333ff; border: 0px; color: #ffffff; font-size: 12px; padding-top: 4px;">'."COMPLETED".'</label>';
                               }else{
                                 echo '<label class="btn-sm" style="background-color:#ff4d4d; border: 0px; color: #ffffff; font-size: 12px; padding-top: 4px;">'."NYC".'</label>';
