@@ -431,10 +431,12 @@ mysqli_select_db($con,DB_NAME);
           var now_date  =  $('#li_date').val();
 
           const oneDay = 24 * 60 * 60 * 1000; //hours*minutes*seconds*milliseconds
+
           const firstDate = new Date(pre_date);
           const secondDate = new Date(now_date);
 
           /// need to calculate number of months in above date range (firstDate and secondDate)
+          
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
           if(l_method=='Monthly'){
               var a = Number(diffDays);
