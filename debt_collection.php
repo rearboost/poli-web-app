@@ -412,6 +412,7 @@ mysqli_select_db($con,DB_NAME);
 
           const firstDate = new Date(pre_date);
           const secondDate = new Date(now_date);
+
           
           const monthDiff = diff_months(secondDate,firstDate);
     
@@ -435,7 +436,7 @@ mysqli_select_db($con,DB_NAME);
               //   }else{
               //     x = a / b;
               //   }
-              alert(monthDiff)
+          //    alert(monthDiff)
                 tot_int = Number(int_val)*monthDiff;
                 new_remain = Number(remain_amt)+Number(tot_int);
 
@@ -443,32 +444,29 @@ mysqli_select_db($con,DB_NAME);
               $('#remain_amt').val(new_remain.toFixed(2));
           }
 
-           /////////// calc end date //////////
-            var start_date = obj.end_date
+              /////////// calc end date //////////
+              var start_date = obj.end_date
 
-            const date = new Date(start_date);
-            const zeroPad = (num, places) => String(num).padStart(places, '0')
+              const date = new Date(start_date);
+              //  const zeroPad = (num, places) => String(num).padStart(places, '0')
 
               if(l_method=="Daily"){
 
-                setdt = date.getFullYear()+'-'+  zeroPad(date.getMonth()+1,2)+'-'+zeroPad((date.getDate()+2),2);
+                var day = 60 * 60 * 24 * 1000;
+
+                const endDate = new Date(date.getTime() + day);
                 
-                $('#next_idate').val(setdt);
+                $('#next_idate').val(convert(endDate));
 
               }else{
                 //////// need to add one month to const date
 
                 dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
-                console.log(add_months(dt, 1).toString());
 
                 gdt = new Date(add_months(dt, 1).toString()); 
 
-                getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad((gdt.getDate()+1),2);
-
-                $('#next_idate').val(getdt);
+                $('#next_idate').val(convert(gdt));
               }
-
-
         }
       });
     });  
@@ -479,24 +477,48 @@ mysqli_select_db($con,DB_NAME);
       return new Date(dt.setMonth(dt.getMonth() + n));        
     }
 
-    // Month Diff Fun
-    // function monthDiff(d1, d2) {
-    //   var months;
-    //   months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    //   months -= d1.getMonth() + 1;
-    //   months += d2.getMonth();
-    //   return months <= 0 ? 0 : months;
-    // }
-
+    //Month Diff Fun
     function diff_months(dt2, dt1) 
      {
+      var months;
+      y1 = dt1.getFullYear();
+      y2 = dt2.getFullYear();
 
-      var diff =(dt2.getTime() - dt1.getTime()) / 1000;
-      diff /= (60 * 60 * 24 * 7 * 4);
-      //return Math.abs(Math.round(diff));
-      return Math.abs(diff);
-      
+      m1 = dt1.getMonth();
+      m2 = dt2.getMonth();
+
+      d1 = dt1.getDate();
+      d2 = dt2.getDate();
+
+      if(y1==y2 && d1==d2){
+        months = m2 - m1;
+      }else if(y1!=y2 && d1==d2 ){
+          if((y2-y1)==1){
+            m0 = 12-m1;
+            months = m2+y0;
+          }else{
+            y0 = y2-y1;
+            m0 = 12-m1;
+            months = m0 + m2+(y0-1)*12;
+          }
+      }else if(y1==y2 && d1!=d2 ){
+
+        d0 = d2/2;
+        if(Math.round(d0)<=d1){
+          months = m2 - m1-1;
+        }else{
+          months = m2 - m1
+        }
+      }
+      return months;
      }
+
+    function convert(str) {
+      var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+      return [date.getFullYear(), mnth, day].join("-");
+    }
 
     /////////////////calc amounts ////////////////////
 

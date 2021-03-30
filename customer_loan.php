@@ -471,28 +471,34 @@ mysqli_select_db($con,DB_NAME);
 
       const date = new Date(start_date); 
 
-      const zeroPad = (num, places) => String(num).padStart(places, '0') 
+      //const zeroPad = (num, places) => String(num).padStart(places, '0') 
 
         if(method=="Daily"){
 
-          setdt = date.getFullYear()+'-'+  zeroPad(date.getMonth()+1,2)+'-'+zeroPad((date.getDate()+2),2);
+          var day = 60 * 60 * 24 * 1000;
 
-          $('#i_date').val(setdt); 
+          const endDate = new Date(date.getTime() + day);
+
+          $('#i_date').val(convert(endDate)); 
 
         }else{
           
           dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
-          console.log(add_months(dt, 1).toString());
 
           gdt = new Date(add_months(dt, 1).toString()); 
 
-          getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad((gdt.getDate()+1),2);
-
-          $('#i_date').val(getdt);
+          $('#i_date').val(convert(gdt));
         }
 
 
     });
+
+    function convert(str) {
+      var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+      return [date.getFullYear(), mnth, day].join("-");
+    }
 
     function add_months(dt, n) 
     {
