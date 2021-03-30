@@ -16,88 +16,11 @@ mysqli_select_db($con,DB_NAME);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Poli App - CUSTOMERS
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
-
-    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
-
-</head>
+<?php  include('./include/head.php');   ?>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          POLY APP
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="index">
-              <i class="nc-icon nc-bank"></i>
-              <p>DASHBOARD</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="customer">
-              <i class="nc-icon nc-single-02"></i>
-              <p>CUSTOMERS</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="customer_loan">
-              <i class="nc-icon nc-badge"></i>
-              <p>CUSTOMER LOANS</p>
-            </a>
-          </li>
-          <li>
-            <a href="debt_collection">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>DEBT COLLECTION</p>
-            </a>
-          </li>
-          <li>
-            <a href="cheque_transfer">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>CHEQUE TRANSFER</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>SUMMARY REPORT</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    <?php include("include/sidebar.php"); ?>
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>
@@ -130,7 +53,7 @@ mysqli_select_db($con,DB_NAME);
                       <form id="customerAdd">
                         <div class="col-md-12">
                         <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-7 pr-10">
                             <div class="form-group">
                               <label>Customer Type</label>
                                 <select class="form-control form-selectBox" id="customerType" name ="type" required>
@@ -142,7 +65,7 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           </div>
                           <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-7 pr-10">
                             <div class="form-group">
                               <label>Customer ID</label>
                               <input type="text" class="form-control" name ="id" id="customerID" readonly required>
@@ -150,7 +73,7 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           </div>
                         <div class="row">
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-7 pr-10">
                             <div class="form-group">
                               <label>Customer Name</label>
                               <input type="text" class="form-control" placeholder="Name" name = "name" required>
@@ -158,10 +81,18 @@ mysqli_select_db($con,DB_NAME);
                           </div>
                           </div>
                           <div class="row">                  
-                          <div class="col-md-7 pr-1">
+                          <div class="col-md-7 pr-10">
                             <div class="form-group">
                               <label>Address</label>
                               <input type="text" class="form-control" placeholder="Address" name = "address" required>
+                            </div>
+                          </div>
+                          </div>
+                          <div class="row">                  
+                          <div class="col-md-7 pr-10">
+                            <div class="form-group">
+                              <label>Contact No</label>
+                              <input type="text" class="form-control" placeholder="+94 " name = "contact" required>
                             </div>
                           </div>
                           </div>
@@ -169,7 +100,7 @@ mysqli_select_db($con,DB_NAME);
                           <div class="update ml-auto mr-auto">
                             <input type="hidden" name ="submit" value="submit"/>
                             <button type="submit" class="btn btn-primary btn-round">Register</button>
-                            <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
+                            <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
 
                             <?php
                                 if(isset($_POST['submit'])){
@@ -177,8 +108,9 @@ mysqli_select_db($con,DB_NAME);
                                   $type     = $_POST['type'];
                                   $name     = $_POST['name'];
                                   $address  = $_POST['address'];
+                                  $contact  = $_POST['contact'];
 
-                                $insert1 = "INSERT INTO customer (cust_id,type,name,address) VALUES ('$id','$type','$name','$address')";
+                                $insert1 = "INSERT INTO customer (cust_id,type,name,address,contact) VALUES ('$id','$type','$name','$address','$contact')";
                                 mysqli_query($con,$insert1);
                                 }
                             ?>
@@ -198,8 +130,9 @@ mysqli_select_db($con,DB_NAME);
                       <th>                    Type</th>
                       <th>                    Name</th>
                       <th>                    Address</th>
-                      <th class="text-center">                    Edit 				</th>
-                      <th class="text-center">                    Delete 			</th>
+                      <th>                    Contact</th>
+                      <th class="text-center"> Edit 				</th>
+                      <th class="text-center"> Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
@@ -211,10 +144,11 @@ mysqli_select_db($con,DB_NAME);
                         while($row = mysqli_fetch_assoc($sql)) {
                           ?>
                           <tr>
-                            <td>                      <?php echo $row['cust_id'] ?>            </td>
-                            <td>                      <?php echo $row['type'] ?>               </td>
-                            <td>                      <?php echo $row['name']?>                </td>
-                            <td>                      <?php echo $row['address']  ?>           </td>
+                            <td> <?php echo $row['cust_id'] ?>     </td>
+                            <td> <?php echo $row['type'] ?>        </td>
+                            <td> <?php echo $row['name']?>         </td>
+                            <td> <?php echo $row['address']  ?>    </td>
+                            <td> <?php echo $row['contact']  ?>    </td>
                             <td class="text-center">  
                              <a href="#" onclick="editView('<?php echo $row['cust_id']; ?>')" name="edit">
                               <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -266,12 +200,14 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/demo/demo.js"></script>
   <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
-
-   <!-- DataTbale Link -->
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+   <!-- DataTables JS -->
+  <script src="assets/js/jquery.dataTables.js"></script>
 
   <script>
+    //////////////////////  DataTable //////////////////
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+    });
 
     /////////////////////////////////////// Table Search 
     $(document).ready(function(){
@@ -288,34 +224,42 @@ mysqli_select_db($con,DB_NAME);
 
       const zeroPad = (num, places) => String(num).padStart(places, '0');
 
-      $.ajax({
-        url: 'func_custid.php',
-        method:"POST",
-        data:{type:this.value},
-        success: function (response) {//response is value returned from php (for your example it's "bye bye"
-          var lastNumber = Number(response.substr(1))+1;
-          var type  = response.charAt(0);
-          $('#customerID').val(type+zeroPad(lastNumber, 4));
-        }
-      });
+        var custType = this.value;
+        var type  = custType.charAt(0);
+
+        $.ajax({
+          url: 'func_custid.php',
+          method:"POST",
+          data:{type:this.value},
+          success: function (response) {//response is value returned from php (for your example it's "bye bye"
+            var lastNumber = Number(response.substr(1))+1;
+            $('#customerID').val(type+zeroPad(lastNumber, 4));
+          }
+        });
     });  
 
     ////////////////////  
 
     // Form edit 
     function editView(id){
-
+      
       $.ajax({
-              url:"edit_customer.php",
+              url:"edit_customer",
               method:"POST",
               data:{"id":id},
               success:function(data){
                 $('#show_view').html(data);
-                $('#Form3').modal('show');
+                $('#Form3').modal('toggle');
               }
         });
     }
     ////////////////////  
+    
+
+    ///////// Form values reset /////////
+    function form_reset(){
+      document.getElementById("customerAdd").reset();
+    }
 
     ////////////////////  
 

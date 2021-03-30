@@ -9,10 +9,9 @@
 
   <table class="table" id="get_data">
     <thead class="text-primary">
-      <th>                    CUSTOMER              </th>
-      <th>                    ADDRESS               </th>
-      <th class="text-right"> LOAN AMOUNT + INTEREST</th>
-      <th class="text-right"> REMAINING AMOUNT      </th>
+      <th>                    CUSTOMER          </th>
+      <th>                    BORROWED DATE     </th>
+      <th class="text-right"> LOAN              </th>
     </thead>
     <tbody>
 
@@ -21,41 +20,32 @@
   if(isset($_POST['method'])){
 
     $method = $_POST['method'];
-    $date = $_POST['ldate'];
 
-    if(empty($method)){
+    $get_loan = mysqli_query($con, "SELECT * FROM customer C,loan L WHERE C.cust_id=L.cust_id AND L.l_method ='$method' GROUP BY L.loan_no");
 
-      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt
-      FROM customer C
-      INNER JOIN loan L
-          on C.cust_id = L.cust_id
-      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE I.li_date <='".$date."' GROUP BY L.loan_no ORDER BY I.id DESC LIMIT 1;");
-
-    }else{
-
-      $get_loan = mysqli_query($con, "SELECT C.name AS name, C.address AS  address , I.remaining_amt AS remaining_amt, L.total_amt AS total_amt
-      FROM customer C
-      INNER JOIN loan L
-          on C.cust_id = L.cust_id
-      LEFT JOIN loan_installement I on L.loan_no = I.loan_no WHERE I.li_date <='".$date."' AND L.l_method ='".$method."' GROUP BY L.loan_no ORDER BY I.id DESC LIMIT 1;");
-    }
     
     $numRows1 = mysqli_num_rows($get_loan);
 
-        if($numRows1 > 0) {
-          while($row1 = mysqli_fetch_assoc($get_loan)) {
+    if($numRows1 > 0) {
+      while($row1 = mysqli_fetch_assoc($get_loan)) {
 
-                ?>
-                          <tr>
-                            <td>                      <?php echo $row1['name'] ?>          </td>
-                            <td>                      <?php echo $row1['address'] ?>       </td>
-                            <td class="text-right">   <?php echo $row1['total_amt'] ?>     </td>
-                            <td class="text-right">   <?php echo $row1['remaining_amt'] ?> </td>
-                          </tr>
-                    </tbody>
-                <?php
-          }
-        }
+    ?>
+          <tr>
+            <td>                      <?php echo $row1['name'] ?>          </td>
+            <td>                      <?php echo $row1['address'] ?>       </td>
+            <td class="text-right">   <?php echo $row1['amount'] ?>     </td>
+            <td class="text-right">    
+             <a href="#" onclick="View('<?php echo $row1['loan_no']; ?>')" name="view">History </a>
+            </td>
+          </tr>
+          <div id = "show_view">
+            
+          </div>
+
+    </tbody>
+            <?php
+      }
+    }
 
     ?> 
       
@@ -67,3 +57,20 @@
   }
 
  ?>
+<script>
+    // VIEW HISTORY
+    function View(id){
+
+      $.ajax({
+              url:"view_history.php",
+              method:"POST",
+              data:{"id":id},
+              success:function(data){
+                $('#show_view').html(data);
+                $('#get_data2').modal('show');
+                //$('#get_data1').hide();
+              }
+        });
+    }
+    ////////////////////  
+</script>

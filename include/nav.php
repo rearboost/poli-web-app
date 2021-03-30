@@ -8,7 +8,7 @@
             <span class="navbar-toggler-bar bar3"></span>
             </button>
         </div>
-        <a class="navbar-brand" href="javascript:;">Dashboard</a>
+        <a class="navbar-brand" href="index">Dashboard</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -20,14 +20,14 @@
         <ul class="navbar-nav">
             <li class="nav-item">
             <a class="nav-link" href="notification">
-                <i class="nc-icon nc-bell-55"></i>
-                <h6 style='color:red;'>
+                <p style='color:red;'><b>
                 <?php
                 if($numRows>0){
                     echo " " . $numRows . " NEW ";
                 }
                 ?>
-                </h6>
+                </b></p>
+                <i class="nc-icon nc-bell-55"></i>
             </a>
             </li>
             <li class="nav-item">

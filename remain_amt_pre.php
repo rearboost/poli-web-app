@@ -1,4 +1,5 @@
 <?php
+	
 	error_reporting(0);
 	include("db_config.php");
     $con = mysqli_connect(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
@@ -11,9 +12,10 @@
 	$data = mysqli_fetch_array($get_loan); 
 
 	$loan_no 	= $data['loan_no'];
+	//$amount 	= $data['amount'];
 	$interest 	= $data['interest'];
 	$l_method 	= $data['l_method'];
-	$loan_amt 	= $data['total_amt'];
+	//$loan_amt 	= $data['total_amt'];
 	$int_val 	= $data['int_val'];
 	$fix_ldate 	= $data['l_date'];
 	$end_ldate 	= $data['i_date'];
@@ -27,23 +29,33 @@
 	$end_lidate 	= $data1['next_idate'];
 	$new_loan 		= $data1['new_loan'];
 
+	if($l_method=='Daily'){
+		$loan= $data['total_amt'];
+		$loan_remain = $data['total_amt'];
+	}else{
+		$loan= $data['amount'];
+		//$loan_remain = $amount+$int_val;
+		$loan_remain = $data['amount'];
+	}
+
 	if(empty($remaining_amt))
 	{
-		$remain_amt = $loan_amt;	
+		//$remain_amt = $loan_remain;	
 		$fix_date 	= $fix_ldate;
 		$end_date 	= $end_ldate;
-		$old_loan 	= $loan_amt;
+		$old_loan 	= $amount;
 	}
 	else
 	{
-	    $remain_amt = $remaining_amt;	
+	    //$remain_amt = $remaining_amt;	
 		$fix_date 	= $fix_lidate;
 		$end_date 	= $end_lidate;
 		$old_loan 	= $new_loan;
 	}
 
-	$myObj->remain_amt 	= $remain_amt;
-	$myObj->loan_amt 	= $loan_amt;
+	$myObj->loan_remain = $loan_remain;
+	$myObj->remain_amt 	= $remaining_amt;
+	$myObj->loan_amt 	= $loan;
 	$myObj->l_method 	= $l_method;
 	$myObj->interest 	= $interest;
 	$myObj->int_val 	= $int_val;

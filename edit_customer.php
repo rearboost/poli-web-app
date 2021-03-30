@@ -18,10 +18,12 @@
         $type      = $_POST['type1'];
         $name      = $_POST['name1'];
         $address   = $_POST['address1'];
+        $contact   = $_POST['contact1'];
       
         $edit = mysqli_query($con,"UPDATE customer 
                                           SET name  ='$name', 
-                                              address ='$address' 
+                                              address ='$address', 
+                                              contact ='$contact' 
                                           WHERE cust_id='$cust_id'");
       
         if($edit)
@@ -51,7 +53,7 @@
               <div class="col-md-7 pr-1">
                 <div class="form-group">
                   <label>Customer ID</label>
-                  <input type="text" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" readonly>
+                  <input type="hide" class="form-control" name ="c_id1" value="<?php echo $data['cust_id']?>" readonly>
                 </div>
               </div>
             </div>
@@ -76,6 +78,14 @@
                 <div class="form-group">
                   <label>Address</label>
                   <input type="text" class="form-control" name ="address1" value="<?php echo $data['address']?>">
+                </div>
+              </div>
+              </div>             
+              <div class="row">                  
+              <div class="col-md-7 pr-1">
+                <div class="form-group">
+                  <label>Contact No</label>
+                  <input type="text" class="form-control"  name="contact1" value="<?php echo $data['contact']?>" required>
                 </div>
               </div>
               </div>

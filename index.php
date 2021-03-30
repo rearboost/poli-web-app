@@ -44,64 +44,7 @@ if (!isset($_SESSION['loged_user'])) {
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          POLY APP
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li class="active">
-            <a href="index">
-              <i class="nc-icon nc-bank"></i>
-              <p>DASHBOARD</p>
-            </a>
-          </li>
-          <li>
-            <a href="customer">
-              <i class="nc-icon nc-single-02"></i>
-              <p>CUSTOMERS</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="customer_loan">
-              <i class="nc-icon nc-badge"></i>
-              <p>Customer Loans</p>
-            </a>
-          </li>
-          <li>
-            <a href="debt_collection">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>DEBT COLLECTION</p>
-            </a>
-          </li>
-          <li>
-            <a href="cheque_transfer">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>CHEQUE TRANSFER</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>SUMMARY REPORT</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    <?php include("include/sidebar.php"); ?>
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>
@@ -132,8 +75,10 @@ if (!isset($_SESSION['loged_user'])) {
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Available Customers
+                  <a href="customer" style="text-decoration:none;">
+                    <i class="fa fa-refresh"></i>
+                    Available Customers
+                  </a>
                 </div>
               </div>
             </div>
@@ -162,8 +107,10 @@ if (!isset($_SESSION['loged_user'])) {
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-calendar-o"></i>
-                  Last day
+                  <a href="customer_loan" style="text-decoration:none;">
+                    <i class="fa fa-calendar-o"></i>
+                    Last day
+                  </a>
                 </div>
               </div>
             </div>
@@ -179,21 +126,23 @@ if (!isset($_SESSION['loged_user'])) {
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Valid Cheques</p>
-                      <p class="card-title">
+                      <p class="card-category">Installements</p>
+                    </div>
+                      <p class="card-title"  style="text-align:right;margin-top:6px;">
                         <?php
-                          echo $card_3;
+                          echo "<b> LKR. </b>". $card_3;
                         ?>
                       <p>
-                    </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-clock-o"></i>
-                  Not yet exchange
+                  <a href="customer_list" style="text-decoration:none;">
+                    <i class="fa fa-clock-o"></i>
+                    Total for today
+                  </a>
                 </div>
               </div>
             </div>
@@ -223,8 +172,10 @@ if (!isset($_SESSION['loged_user'])) {
               <div class="card-footer ">
                 <hr>
                 <div class="stats">
-                  <i class="fa fa-refresh"></i>
-                  Total cheque Amount
+                  <a href="cheque_transfer" style="text-decoration:none;">
+                    <i class="fa fa-refresh"></i>
+                    Not yet exchange cheque
+                  </a>
                 </div>
               </div>
             </div>

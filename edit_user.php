@@ -5,13 +5,15 @@
     if (!$con) {
       die('Could not connect: ' . mysqli_error($con));
     }
+    session_start();
+    $user = $_SESSION['loged_user'];
 
    if(isset($_POST['update_user'])){
 
     $old_user = $_POST['old_user'];
     $new_user = $_POST['new_user'];
 
-    $get_user = mysqli_query($con,"SELECT * FROM user WHERE username = '$old_user'");
+    $get_user = mysqli_query($con,"SELECT * FROM user WHERE username = '$old_user' AND username='$user'");
     if(mysqli_num_rows($get_user) == 0){
         echo "Invalid Username.";
 
@@ -29,11 +31,12 @@
 
     if(isset($_POST['update_pw'])){
         
-        $old_pw     = $_POST['old_pw'];
-        $new_pw     = md5( $_POST['new_pw']);
-        $confirm_pw = $_POST['confirm_pw'];
+        $old_pw     = md5($_POST['old_pw']);
+        $new_pw     = md5($_POST['new_pw']);
+        $confirm_pw = md5($_POST['confirm_pw']);
 
-        $get_pw = mysqli_query($con,"SELECT * FROM user WHERE password = '$old_pw'");
+        $get_pw = mysqli_query($con,"SELECT * FROM user WHERE password = '$old_pw' AND username='$user' ");
+        
         if(mysqli_num_rows($get_pw) == 0){
             echo "Invalid Password.";
 

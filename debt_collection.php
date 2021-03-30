@@ -16,85 +16,11 @@ mysqli_select_db($con,DB_NAME);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="assets/img/favicon.png">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Poli App - DEBT COLLECTION
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-  <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
-</head>
+<?php  include('./include/head.php');   ?>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          POLY APP
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="index">
-              <i class="nc-icon nc-bank"></i>
-              <p>DASHBOARD</p>
-            </a>
-          </li>
-          <li>
-            <a href="customer">
-              <i class="nc-icon nc-single-02"></i>
-              <p>CUSTOMERS</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="customer_loan">
-              <i class="nc-icon nc-badge"></i>
-              <p>CUSTOMER LOANS</p>
-            </a>
-          </li>
-          <li class="active">
-            <a href="debt_collection">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>DEBT COLLECTION</p>
-            </a>
-          </li>
-          <li>
-            <a href="cheque_transfer">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>CHEQUE TRANSFER</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>SUMMARY REPORT</p>
-            </a>
-          </li>
-          <li>
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    <?php include("include/sidebar.php"); ?>
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>
@@ -127,10 +53,10 @@ mysqli_select_db($con,DB_NAME);
                 <form id="collectionDebt">
                   <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-7 pr-3">
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Customer</label>
-                          <select class="form-control form-selectBox" id="custom_id" name = "id" required>
+                          <select class="form-control form-selectBox" id="custom_id" name="id" required>
                             <option value="default">--Select Customer--</option>
                             <?php
                               //$custom = "SELECT cust_id, name FROM customer ";
@@ -154,60 +80,86 @@ mysqli_select_db($con,DB_NAME);
                           </select>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-7 pr-3">
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>Date</label>
-                        <input type="date" class="form-control" name = "li_date" required>
+                        <input type="date" class="form-control form-selectBox" name="li_date" id="li_date" required>
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
-                    <div class="col-md-7 pr-3">
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Installment amount</label>
-                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="inst_amt" name = "i_amt" required>
+                        <label>Remaining amount</label>
+                        <input type="text" class="form-control" id="remain_amt" name="remain_amt" value="" readonly required>
+                        <!-- start hidden area -->
+                        <input type="hidden" class="form-control" id="tot_int" name="tot_int" readonly>
+                        <input type="hidden" class="form-control" id="new_loan" name="new_loan" readonly>
+                        <input type="hidden" class="form-control" id="new_int" name="new_int" readonly>
+                        <!-- <input type="text" class="form-control" id="real_remain_amt" name="real_remain_amt" readonly> -->
+                        <!-- end hidden area -->
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Loan Amount</label>
+                        <input type="text" class="form-control" id="loan_amt" name="l_amt" readonly>
+                        <!-- start hidden area -->
+                        <input type="hidden" class="form-control" id="c_type"readonly>
+                        <input type="hidden" class="form-control" id="end_date"readonly>
+                        <!-- end hidden area -->
                       </div>
                     </div>
                   </div>  
-                  <div class="row">                
-                    <div class="col-md-7 pr-3">
+
+                  <div class="row">
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Installment amount</label>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="inst_amt" name="i_amt" required>
+                      </div>
+                    </div>               
+                    <div class="col-md-6 pr-1 monthly_section" hidden="">
                       <div class="form-group">
                         <label>Interest amount</label>
-                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="int_amount" name = "int_amt" required>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="int_amount" name="int_amt">
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
-                    <div class="col-md-7 pr-3">
+                    <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Remaining amount</label>
-                        <input type="text" class="form-control" id="remain_amt" name = "remain_amt" value="" readonly required>
+                        <label>Next Installment Date</label>
+                        <input type="text" class="form-control" id="next_idate" name="next_idate" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Previous Rental Date</label>
+                        <input type="text" class="form-control" id="pre_date"readonly>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-7 pr-3">
-                      <div class="form-group">
-                        <label>Loan Amount</label>
-                        <input type="text" class="form-control" id="loan_amt" name = "l_amt" disabled = "" id = "loan_amount" readonly required>
-                      </div>
-                    </div>
-                  </div>                  
+
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <input type="hidden" name ="submit" value="submit"/>
                       <button type="submit" class="btn btn-primary btn-round">Submit</button>
-                      <button type="reset" name="close" class="btn btn-danger btn-round" data-dismiss="modal">Close</button>
+                      <Input type="button" onclick="form_reset()" class="btn btn-danger btn-round" data-dismiss="modal" value="Close">
 
                       <?php
                           if(isset($_POST['submit'])){
-                            $custom_id = $_POST['id'];
-                            $li_date = $_POST['li_date'];
-                            $i_amt = $_POST['i_amt'];
-                            $int_amt = $_POST['int_amt'];
-                            $remain_amt= $_POST['remain_amt'];
+                            $custom_id  = $_POST['id'];
+                            $li_date    = $_POST['li_date'];
+                            $remain_amt = $_POST['remain_amt'];
+                            $new_loan   = $_POST['new_loan'];
+                            $new_int    = $_POST['new_int'];//update query
+                            $i_amt      = $_POST['i_amt'];
+                            $int_amt    = $_POST['int_amt'];
+                            
+                            $next_idate = date('Y-m-d', strtotime($_POST['next_idate']));
 
                             $year =  date("Y");
                             $month = date("m");
@@ -226,7 +178,7 @@ mysqli_select_db($con,DB_NAME);
                                     $id = $rowSummary['id'];
                                 }
 
-                                $newDebtAMT = ($oldDebtAMT +$i_amt);
+                                $newDebtAMT = ($oldDebtAMT+$i_amt+$int_amt);
 
                                 $queryRow ="UPDATE summary SET debtAMT='$newDebtAMT' WHERE id='$id' ";
                                 $rowRow =mysqli_query($con,$queryRow);
@@ -272,8 +224,9 @@ mysqli_select_db($con,DB_NAME);
                           		$loan_no = $row_l['loan_no'];
                           		$loan_amount = $row_l['amount'];
 
-                          $insert = "INSERT INTO loan_installement (li_date,installement_amt,interest_amt,remaining_amt,loan_no) VALUES ('$li_date',$i_amt,$int_amt,$remain_amt,$loan_no)";
-                          mysqli_query($con,$insert);
+                          $insert = mysqli_query($con,"INSERT INTO loan_installement (li_date,installement_amt,interest_amt,remaining_amt,loan_no,next_idate,new_loan) VALUES ('$li_date',$i_amt,$int_amt,$remain_amt,$loan_no,'$next_idate',$new_loan)");
+                          ///// update interest amount /////
+                          $update_int = mysqli_query($con,"UPDATE loan SET int_val='$new_int' WHERE loan_no='$loan_no' ");
 
                           if($remain_amt <= 0){
                             $update_status = mysqli_query($con,"UPDATE loan SET l_status =0 WHERE loan_no=$loan_no");
@@ -294,18 +247,19 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                   	<thead class="text-primary">
-                  	  <th>                    ID 				</th>
-                      <th>                    Installement Date </th>
-                      <th class="text-right"> Installement amt 	</th>
-                      <th class="text-right"> Interest amt 		</th>
-                      <th class="text-right"> Remaining amt 	</th>
-                      <th class="text-right"> Loan no 			</th>
-                      <th class="text-center">                    Edit 				</th>
-                      <th class="text-center">                    Delete 			</th>
+                  	  <th>                    ID 				  </th>
+                      <th>                    Date        </th>
+                      <th class="text-right"> Rental 	    </th>
+                      <th class="text-right"> Interest 		</th>
+                      <th class="text-right"> Remaining 	</th>
+                      <th>                    NEXT Rental </th>
+                      <th class="text-right"> Loan   			</th>
+                      <!-- <th class="text-center">Edit 				</th> -->
+                      <th class="text-center">Delete 			</th>
                     </thead>
                     <tbody>
                       <?php
-                      $sql="SELECT * FROM loan_installement";
+                      $sql="SELECT * FROM loan_installement ORDER BY id DESC";
                       
                       $result = mysqli_query($con,$sql);
                       $numRows = mysqli_num_rows($result); 
@@ -315,17 +269,30 @@ mysqli_select_db($con,DB_NAME);
                         	?>
                             
                             <tr>
-                            <td>                      <?php echo $row['id']  ?>              </td>
-                            <td>                      <?php echo $row['li_date']  ?>         </td>
-                            <td class="text-right">   <?php echo $row['installement_amt']  ?></td>
-                            <td class="text-right">   <?php echo $row['interest_amt'] ?>     </td>
-                            <td class="text-right">   <?php echo $row['remaining_amt'] ?>    </td>
-                            <td class="text-right">   <?php echo $row['loan_no']  ?>         </td>
-                            <td class="text-center">  
+                            <td>                      
+                              <?php echo $row['id']  ?>              
+                            </td>
+                            <td>                      
+                              <?php echo $row['li_date']  ?>         
+                            </td>
+                            <td class="text-right">   
+                              <?php echo number_format($row['installement_amt'],2,'.',',')  ?>
+                            </td>
+                            <td class="text-right">   
+                              <?php echo number_format($row['interest_amt'],2,'.',',') ?>     
+                            </td>
+                            <td class="text-right">   
+                              <?php echo number_format($row['remaining_amt'],2,'.',',') ?>    
+                            </td>
+                            <td><?php echo $row['next_idate']  ?> </td>
+                            <td class="text-center">   
+                              <?php echo $row['loan_no']  ?>         
+                            </td>
+                            <!-- <td class="text-center">   -->
                             	<!-- <a href="edit_debt.php?id=<?php //echo $row['id']; ?>" name="edit"> -->
-                              <a href="#" onclick="editView(<?php echo $row['id']; ?>)" name="edit">
-                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                          	</td>
+                             <!--  <a href="#" onclick="editView(<?php // echo $row['id']; ?>)" name="edit">
+                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> -->
+                          	<!-- </td> -->
                           	<td class="text-center">  
                             	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">
                             	<i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -375,8 +342,16 @@ mysqli_select_db($con,DB_NAME);
   <script src="assets/demo/demo.js"></script>
   <!-- sweetalert message -->
   <script src="assets/js/sweetalert.min.js"></script>
+   <!-- DataTables JS -->
+  <script src="assets/js/jquery.dataTables.js"></script>
+  
   <script>
 
+  //////////////////////  DataTable //////////////////
+    $(document).ready( function () {
+      $('#myTable').DataTable();
+      //$('new_remain_amt').prop('hidden', true);
+    });
   /////////////////////////////////////// Table Search 
   $(document).ready(function(){
     $("#myInput").on("keyup", function() {
@@ -400,28 +375,128 @@ mysqli_select_db($con,DB_NAME);
           var obj = JSON.parse(response);
           $('#remain_amt').val(obj.remain_amt);
           $('#loan_amt').val(obj.loan_amt);
+          $('#pre_date').val(obj.fix_date);
+          $('#end_date').val(obj.end_date);
+
+          var l_method = obj.l_method
+          $('#c_type').val(l_method);
+
+          var start_date = obj.end_date
+
+          const date = new Date(start_date);
+            if(l_method=="Daily"){
+                $('.daily_section').prop('hidden', false);
+                $('.monthly_section').prop('hidden', true);
+
+                date.setDate(date.getDate() + 2); 
+            }else{
+                $('.daily_section').prop('hidden', true);
+                $('.monthly_section').prop('hidden', false);
+
+                $('#int_amount').prop('required', true);
+
+                date.setDate(date.getDate() + 31); 
+            }
+     
+          const zeroPad = (num, places) => String(num).padStart(places, '0') 
+        
+          var dd = date.getDate();
+          var mm = date.getMonth() + 1;
+          var y = date.getFullYear();
+
+          var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+
+          $('#next_idate').val(end_date);
+
         }
       });
     });  
 
-  // calculate new remain amount when fill the installement value and interest value
-    // $('#int_amount').change(function(){
+  $('#li_date').on('change', function() {
+
+      var customer_id = $('#custom_id').val();
+      var new_remain;
+
+      $.ajax({
+        url: 'remain_amt.php',
+        method:"POST",
+        data:{id:customer_id},
+        success: function (response) {
+          var obj = JSON.parse(response);
+          var int_val   =  obj.int_val
+          var l_method  =  obj.l_method
+          var remain_amt=  obj.remain_amt
+          var tot_int;
+          var pre_date  =  $('#pre_date').val();
+          var now_date  =  $('#li_date').val();
+
+          const oneDay = 24 * 60 * 60 * 1000; //hours*minutes*seconds*milliseconds
+          const firstDate = new Date(pre_date);
+          const secondDate = new Date(now_date);
+
+          /// need to calculate number of months in above date range (firstDate and secondDate)
+          const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+          if(l_method=='Monthly'){
+              var a = Number(diffDays);
+              var b = 30;
+              var c = a % b;
+              var x;
+                if(c>=1){
+                  x = (a - c) / b;
+                }else{
+                  x = a / b;
+                }
+                tot_int = Number(int_val)*x;
+                new_remain = Number(remain_amt)+Number(tot_int);
+
+              $('#tot_int').val(tot_int.toFixed(2));
+              $('#remain_amt').val(new_remain.toFixed(2));
+          }
+
+           /////////// calc end date //////////
+            //var start_date = $('#li_date').val();
+            var start_date = obj.end_date
+
+            const date = new Date(start_date);
+
+              if(l_method=="Daily"){
+                date.setDate(date.getDate() + 2); 
+              }else{
+                //////// need to add one month to const date
+                date.setDate(date.getDate() + 31); 
+              }
+       
+            const zeroPad = (num, places) => String(num).padStart(places, '0') 
+          
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var y = date.getFullYear();
+
+            var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+
+            $('#next_idate').val(end_date);
+
+        }
+      });
 
      
-    // }); 
+});  
+  /////////////////calc amounts ////////////////////
 
     $('.checkAmt').on('keyup',function(){
-
         checkAmt()
-
     })
 
     function checkAmt(){
 
+      var l_method          = $('#c_type').val();
       var installement_amt  = $('#inst_amt').val();
       var interest_amt      = $('#int_amount').val();
-      var remain_amt;
-      var id =  $('#custom_id').val();
+      var tot_int           = $('#tot_int').val();;
+      var id                = $('#custom_id').val();
+      var new_loan;
+      var new_int;
+
 
       $.ajax({
         url: 'remain_amt.php',
@@ -430,20 +505,37 @@ mysqli_select_db($con,DB_NAME);
         success: function (response) {
 
           var obj = JSON.parse(response);
-         // $('#remain_amt').val(obj.remain_amt);
-          var remain_amt   =  obj.remain_amt
+          var remain_amt   = obj.remain_amt
+          var old_loan     = obj.old_loan
+          var interest     = obj.interest
 
-          remain_amt = Number(remain_amt) - (Number(installement_amt)+Number(interest_amt));  
+          if(l_method=='Daily')
+          {
+            remain_amt = Number(remain_amt)-Number(installement_amt);  
       
-           $('#remain_amt').val(remain_amt.toFixed(2));
+            $('#remain_amt').val(remain_amt.toFixed(2));
+            $('#int_amount').val(0);         
+            $('#new_int').val(0); 
+            $('#new_loan').val(0);  
+          }
+          else
+          {
+            new_loan = Number(old_loan)-Number(installement_amt);
+            new_int = Number(new_loan)*(Number(interest)/100);
+
+            remain_amt = (Number(remain_amt)+Number(tot_int))-(Number(installement_amt)+Number(interest_amt));  
+      
+            $('#new_loan').val(new_loan.toFixed(2));           
+            $('#new_int').val(new_int.toFixed(2));           
+            $('#remain_amt').val(remain_amt.toFixed(2));                
+          }
+          /// end if ///
         }
 
       });
-    }
-
-    ////////////////////  
-
-    // Form edit 
+    }  
+ 
+    ////////// Form edit ////////////
     function editView(id){
 
       $.ajax({
@@ -481,9 +573,7 @@ mysqli_select_db($con,DB_NAME);
 
         });
 
-      });
-      
-    ////////////////////  
+      }); 
 
     // Form delete 
     function delete_debt(id){
@@ -521,6 +611,11 @@ mysqli_select_db($con,DB_NAME);
         });
     }
     ////////////////////  
+
+    ///////// Form values reset /////////
+    function form_reset(){
+      document.getElementById("collectionDebt").reset();
+    }
     
   </script>
 </body>

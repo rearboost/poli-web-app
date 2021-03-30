@@ -38,64 +38,7 @@ mysqli_select_db($con,DB_NAME);
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="white" data-active-color="danger">
-      <div class="logo">
-        <a href="#" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img src="assets/img/logo-small.png">
-          </div>
-        </a>
-        <a href="#" class="simple-text logo-normal">
-          POLY APP
-        </a>
-      </div>
-      <div class="sidebar-wrapper">
-        <ul class="nav">
-          <li>
-            <a href="index">
-              <i class="nc-icon nc-bank"></i>
-              <p>DASHBOARD</p>
-            </a>
-          </li>
-          <li>
-            <a href="customer">
-              <i class="nc-icon nc-single-02"></i>
-              <p>CUSTOMERS</p>
-            </a>
-          </li>
-          <li class="">
-            <a href="customer_loan">
-              <i class="nc-icon nc-badge"></i>
-              <p>CUSTOMER LOANS</p>
-            </a>
-          </li>
-          <li>
-            <a href="debt_collection">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p>DEBT COLLECTION</p>
-            </a>
-          </li>
-          <li>
-            <a href="cheque_transfer">
-              <i class="nc-icon nc-tap-01"></i>
-              <p>CHEQUE TRANSFER</p>
-            </a>
-          </li>
-          <li>
-            <a href="report">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>SUMMARY REPORT</p>
-            </a>
-          </li>
-          <li class = "active">
-            <a href="user">
-              <i class="nc-icon nc-single-02"></i>
-              <p>USER PROFILE</p>
-            </a>
-          </li>         
-        </ul>
-      </div>
-    </div>
+    <?php include("include/sidebar.php"); ?>
     <div class="main-panel">
       <!-- Navbar -->
       <?php include('include/nav.php');  ?>

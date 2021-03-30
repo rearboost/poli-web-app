@@ -109,7 +109,7 @@ mysqli_select_db($con,DB_NAME);
               <div class="row">
               <div class="col-md-10">
               <div class="card-header">
-                <h3 class="card-title"> You have to exchange following cheques.</h3>                    
+                <center><p style="font-size: 24px; font-family: calibri; color: navy;"><b> You have to exchange following cheques.</b></p> </center>                   
               </div>
               </div>
               </div>
