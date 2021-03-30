@@ -435,6 +435,9 @@ mysqli_select_db($con,DB_NAME);
           const firstDate = new Date(pre_date);
           const secondDate = new Date(now_date);
 
+          monthDiff = monthDiff(firstDate,secondDate);
+          alert(monthDiff);
+
           /// need to calculate number of months in above date range (firstDate and secondDate)
           
           const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
@@ -461,29 +464,60 @@ mysqli_select_db($con,DB_NAME);
 
             const date = new Date(start_date);
 
+            alert(start_date);
+
+            alert(l_method)
+
               if(l_method=="Daily"){
                 date.setDate(date.getDate() + 2); 
               }else{
                 //////// need to add one month to const date
-                date.setDate(date.getDate() + 31); 
+
+                dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
+                console.log(add_months(dt, 1).toString());
+
+                gdt = new Date(add_months(dt, 1).toString()); 
+
+                const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+                getdt = gdt.getFullYear()+'-'+  zeroPad(gdt.getMonth(),2)+'-'+zeroPad(gdt.getDate(),2);
+
+                alert(getdt)
+                
+
+              //  date.setDate(date.getDate() + 31); 
               }
        
-            const zeroPad = (num, places) => String(num).padStart(places, '0') 
+            // const zeroPad = (num, places) => String(num).padStart(places, '0') 
           
-            var dd = date.getDate();
-            var mm = date.getMonth() + 1;
-            var y = date.getFullYear();
+            // var dd = date.getDate();
+            // var mm = date.getMonth() + 1;
+            // var y = date.getFullYear();
 
-            var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
+            // var end_date = zeroPad(mm, 2) + '/'+ zeroPad(dd, 2) + '/'+ y;
 
-            $('#next_idate').val(end_date);
+            $('#next_idate').val(getdt);
 
         }
       });
+    });  
 
-     
-});  
-  /////////////////calc amounts ////////////////////
+    // Add months Fun
+    function add_months(dt, n) 
+    {
+      return new Date(dt.setMonth(dt.getMonth() + n));        
+    }
+
+    // Month Diff Fun
+    function monthDiff(d1, d2) {
+      var months;
+      months = (d2.getFullYear() - d1.getFullYear()) * 12;
+      months -= d1.getMonth() + 1;
+      months += d2.getMonth();
+      return months <= 0 ? 0 : months;
+    }
+
+    /////////////////calc amounts ////////////////////
 
     $('.checkAmt').on('keyup',function(){
         checkAmt()
