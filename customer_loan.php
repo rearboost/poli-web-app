@@ -169,7 +169,11 @@ mysqli_select_db($con,DB_NAME);
                             $p_amt    = $_POST['p_amt'];
                             $i_amt    = $_POST['i_amt'];
 
-                            $nextdate = date('Y-m-d', strtotime($_POST['i_date']));
+                            if($_POST['i_date']!="0"){
+                              $nextdate = date('Y-m-d', strtotime($_POST['i_date']));
+                            }else{
+                              $nextdate = "0000-00-00";
+                            }
 
                             $year =  date("Y");
                             $month = date("m");
@@ -436,8 +440,6 @@ mysqli_select_db($con,DB_NAME);
 
       const date = new Date(start_date); 
 
-      //const zeroPad = (num, places) => String(num).padStart(places, '0') 
-
         if(method=="Daily"){
 
           var day = 60 * 60 * 2 * 24 * 1000; // two days
@@ -445,11 +447,10 @@ mysqli_select_db($con,DB_NAME);
           const endDate = new Date(date.getTime() + day);
 
           $('#i_date').val(convert(endDate)); 
-          
+
         }
         else{ 
-
-          $('#i_date').val(convert(date));
+          $('#i_date').val(0);
         }
 
     });
@@ -520,9 +521,7 @@ mysqli_select_db($con,DB_NAME);
           });
 
         });
-
-      });
-
+    });
 
     // Form edit 
     function editView(id){
