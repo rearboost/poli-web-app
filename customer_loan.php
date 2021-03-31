@@ -446,9 +446,12 @@ mysqli_select_db($con,DB_NAME);
 
           $('#i_date').val(convert(endDate)); 
 
-        }else{ 
+        
 
-          $('#i_date').val(0);
+        }
+        else{ 
+
+          $('#i_date').val(convert(date));
         }
 
     });
