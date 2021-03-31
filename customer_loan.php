@@ -445,9 +445,7 @@ mysqli_select_db($con,DB_NAME);
           const endDate = new Date(date.getTime() + day);
 
           $('#i_date').val(convert(endDate)); 
-
-        
-
+          
         }
         else{ 
 
