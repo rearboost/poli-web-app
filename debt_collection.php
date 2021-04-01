@@ -195,7 +195,12 @@ mysqli_select_db($con,DB_NAME);
                             $i_amt      = $_POST['i_amt'];
                             $remain_int = $_POST['remain_int'];
                             
-                            $next_idate = date('Y-m-d', strtotime($_POST['next_idate']));
+                            if($_POST['next_idate']!="0"){
+                              $next_idate = date('Y-m-d', strtotime($_POST['next_idate']));
+                            }else{
+                              $next_idate = "0000-00-00";
+                            }
+
 
                             $year =  date("Y");
                             $month = date("m");

@@ -38,7 +38,17 @@
               <th>                    DATE            </th>
               <th class="text-right"> PAID            </th>
               <th class="text-right"> BROUGHT FORWARD </th>
-              <th class="text-right">                    Arrears / NEXT RENTAL     </th>
+              <?php
+              if($method=='Daily'){
+              ?>
+                <th class="text-right"> NEXT RENTAL   </th>
+              <?php
+              }else{
+              ?>
+                <th class="text-right"> INTEREST ARREARS </th>
+              <?php
+              }
+              ?>
               </thead>
               
               <tbody>
