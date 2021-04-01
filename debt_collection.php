@@ -91,17 +91,8 @@ mysqli_select_db($con,DB_NAME);
                   <div class="row">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Remaining amount</label>
-                        <input type="text" class="form-control" id="remain_amt" name="remain_amt" value="" readonly required>
-                        <!-- start hidden area -->
-                        <label>Total int till rental date</label>
-                        <input type="text" class="form-control" id="tot_int" name="tot_int" readonly>
-                        <label>Remaining loan</label>
-                        <input type="text" class="form-control" id="new_loan" name="new_loan" readonly>
-                        <label>New interest </label>
-                        <input type="text" class="form-control" id="new_int" name="new_int" readonly>
-                        <!-- <input type="text" class="form-control" id="real_remain_amt" name="real_remain_amt" readonly> -->
-                        <!-- end hidden area -->
+                        <label>Previous Rental Date</label>
+                        <input type="text" class="form-control" id="pre_date"readonly>
                       </div>
                     </div>
                     <div class="col-md-6 pr-1">
@@ -109,41 +100,81 @@ mysqli_select_db($con,DB_NAME);
                         <label>Loan Amount</label>
                         <input type="text" class="form-control" id="loan_amt" name="l_amt" readonly>
                         <!-- start hidden area -->
-                        <label>Customer Type</label>
-                        <input type="text" class="form-control" id="c_type"readonly>
-                        <label>On date (Should be pay)</label>
-                        <input type="text" class="form-control" id="end_date"readonly>
+                        <!-- <label>Customer Type</label> -->
+                        <input type="hidden" class="form-control" id="c_type"readonly>
+                        <!-- <label>On date (Should be pay)</label> -->
+                        <input type="hidden" class="form-control" id="end_date"readonly>
                         <!-- end hidden area -->
                       </div>
                     </div>
                   </div>  
 
-                  <div class="row">
+                  <div class="row monthly_section" hidden="">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Installment amount</label>
-                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="inst_amt" name="i_amt" required>
+                        <label>Interest value Per Month</label>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="unit_int" required readonly="">
                       </div>
                     </div>               
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>No of Months</label>
+                        <input type="text" class="form-control checkAmt" placeholder="XX" id="months">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 pr-1 daily_section">
+                      <div class="form-group">
+                        <label>Next Installment Date</label>
+                        <input type="text" class="form-control" id="next_idate" name="next_idate" placeholder="XXXX/XX/XX" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1 monthly_section">
+                      <div class="form-group">
+                        <label>Total interest Amount</label>
+                        <input type="text" class="form-control" id="tot_int"readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Remaining amount</label>
+                        <input type="text" class="form-control" id="remain_amt" name="remain_amt" value="" readonly required>
+                        <!-- start hidden area -->
+                        <!-- <label>New interest</label> -->
+                        <input type="hidden" class="form-control" id="new_int" name="new_int" readonly>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">              
                     <div class="col-md-6 pr-1 monthly_section" hidden="">
                       <div class="form-group">
                         <label>Interest amount</label>
                         <input type="text" class="form-control checkAmt" placeholder="LKR" id="int_amount" name="int_amt">
                       </div>
                     </div>
+                    <div class="col-md-6 pr-1">
+                      <div class="form-group">
+                        <label>Installment amount</label>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="inst_amt" name="i_amt" required>
+                      </div>
+                    </div> 
+
+                    <div class="col-md-6 pr-1 daily_section"  hidden="">
+                      <div class="form-group">
+                        <label>Rental</label>
+                        <input type="text" class="form-control" placeholder="LKR" id="rental" readonly="">
+                      </div>
+                    </div> 
                   </div>
 
-                  <div class="row">
+                  <div class="row monthly_section" hidden="">              
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
-                        <label>Next Installment Date</label>
-                        <input type="text" class="form-control" id="next_idate" name="next_idate" required>
-                      </div>
-                    </div>
-                    <div class="col-md-6 pr-1">
-                      <div class="form-group">
-                        <label>Previous Rental Date</label>
-                        <input type="text" class="form-control" id="pre_date"readonly>
+                        <label>Remaining Interest</label>
+                        <input type="text" class="form-control checkAmt" placeholder="LKR" id="remain_int" name="remain_int">
                       </div>
                     </div>
                   </div>
@@ -159,10 +190,10 @@ mysqli_select_db($con,DB_NAME);
                             $custom_id  = $_POST['id'];
                             $li_date    = $_POST['li_date'];
                             $remain_amt = $_POST['remain_amt'];
-                            $new_loan   = $_POST['new_loan'];
                             $new_int    = $_POST['new_int'];//update query
-                            $i_amt      = $_POST['i_amt'];
                             $int_amt    = $_POST['int_amt'];
+                            $i_amt      = $_POST['i_amt'];
+                            $remain_int = $_POST['remain_int'];
                             
                             $next_idate = date('Y-m-d', strtotime($_POST['next_idate']));
 
@@ -199,7 +230,8 @@ mysqli_select_db($con,DB_NAME);
                                 }
                                 else
                                 {
-                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$i_amt,$createDate);
+                                    $debt = $i_amt+$int_amt;
+                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$debt,$createDate);
                                     $result =  mysqli_stmt_execute($stmt);
                                 }
 
@@ -229,7 +261,7 @@ mysqli_select_db($con,DB_NAME);
                           		$loan_no = $row_l['loan_no'];
                           		$loan_amount = $row_l['amount'];
 
-                          $insert = mysqli_query($con,"INSERT INTO loan_installement (li_date,installement_amt,interest_amt,remaining_amt,loan_no,next_idate,new_loan) VALUES ('$li_date',$i_amt,$int_amt,$remain_amt,$loan_no,'$next_idate',$new_loan)");
+                          $insert = mysqli_query($con,"INSERT INTO loan_installement (li_date,installement_amt,interest_amt,remaining_amt,remain_int,loan_no,next_idate) VALUES ('$li_date',$i_amt,$int_amt,$remain_amt,$remain_int,$loan_no,'$next_idate')");
                           ///// update interest amount /////
                           $update_int = mysqli_query($con,"UPDATE loan SET int_val='$new_int' WHERE loan_no='$loan_no' ");
 
@@ -382,9 +414,19 @@ mysqli_select_db($con,DB_NAME);
           $('#loan_amt').val(obj.loan_amt);
           $('#pre_date').val(obj.fix_date);
           $('#end_date').val(obj.end_date);
+          $('#unit_int').val(obj.int_val);
+          $('#rental').val(obj.rental);
 
-          // var l_method = obj.l_method
-          // $('#c_type').val(l_method);
+          var l_method = obj.l_method
+          $('#c_type').val(l_method);
+
+          if(l_method=="Daily"){
+              $('.daily_section').prop('hidden', false);
+              $('.monthly_section').prop('hidden', true);
+          }else{
+              $('.daily_section').prop('hidden', true);
+              $('.monthly_section').prop('hidden', false);
+          }
           
         }
       });
@@ -406,112 +448,27 @@ mysqli_select_db($con,DB_NAME);
           var remain_amt=  obj.remain_amt
           var tot_int;
           var pre_date  =  $('#pre_date').val();
-          var now_date  =  $('#li_date').val();
 
-          const oneDay = 24 * 60 * 60 * 1000; //hours*minutes*seconds*milliseconds
+          /////////// calc end date //////////
+          var start_date = obj.end_date
 
-          const firstDate = new Date(pre_date);
-          const secondDate = new Date(now_date);
+          const date = new Date(start_date);
 
-          
-          const monthDiff = diff_months(secondDate,firstDate);
-    
-          /// need to calculate number of months in above date range (firstDate and secondDate)
-          
-          // const diffDays = Math.round(Math.abs((secondDate - firstDate) / oneDay));
+          if(l_method=="Daily"){
 
-          // var diff =diffDays;
+            var day = 60 * 60 * 2 * 24 * 1000; // two days
 
-          // alert(diff)
-          // diff /= (7 * 4);
-          // alert(diff)
+            const endDate = new Date(date.getTime() + day);
+            
+            $('#next_idate').val(convert(endDate));
 
-          if(l_method=='Monthly'){
-              // var a = Number(diffDays);
-              // var b = 30;
-              // var c = a % b;
-              // var x;
-              //   if(c>=1){
-              //     x = (a - c) / b;
-              //   }else{
-              //     x = a / b;
-              //   }
-          //    alert(monthDiff)
-                tot_int = Number(int_val)*monthDiff;
-                new_remain = Number(remain_amt)+Number(tot_int);
-
-              $('#tot_int').val(tot_int.toFixed(2));
-              $('#remain_amt').val(new_remain.toFixed(2));
+          }else{
+            $('#next_idate').val(0);
           }
-
-              /////////// calc end date //////////
-              var start_date = obj.end_date
-
-              const date = new Date(start_date);
-              //  const zeroPad = (num, places) => String(num).padStart(places, '0')
-
-              if(l_method=="Daily"){
-
-                var day = 60 * 60 * 24 * 1000;
-
-                const endDate = new Date(date.getTime() + day);
-                
-                $('#next_idate').val(convert(endDate));
-
-              }else{
-                //////// need to add one month to const date
-
-                dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
-
-                gdt = new Date(add_months(dt, 1).toString()); 
-
-                $('#next_idate').val(convert(gdt));
-              }
         }
       });
     });  
 
-    // Add months Fun
-    function add_months(dt, n) 
-    {
-      return new Date(dt.setMonth(dt.getMonth() + n));        
-    }
-
-    //Month Diff Fun
-    function diff_months(dt2, dt1) 
-     {
-      var months;
-      y1 = dt1.getFullYear();
-      y2 = dt2.getFullYear();
-
-      m1 = dt1.getMonth();
-      m2 = dt2.getMonth();
-
-      d1 = dt1.getDate();
-      d2 = dt2.getDate();
-
-      if(y1==y2 && d1==d2){
-        months = m2 - m1;
-      }else if(y1!=y2 && d1==d2 ){
-          if((y2-y1)==1){
-            m0 = 12-m1;
-            months = m2+y0;
-          }else{
-            y0 = y2-y1;
-            m0 = 12-m1;
-            months = m0 + m2+(y0-1)*12;
-          }
-      }else if(y1==y2 && d1!=d2 ){
-
-        d0 = d2/2;
-        if(Math.round(d0)<=d1){
-          months = m2 - m1-1;
-        }else{
-          months = m2 - m1
-        }
-      }
-      return months;
-     }
 
     function convert(str) {
       var date = new Date(str),
@@ -533,7 +490,8 @@ mysqli_select_db($con,DB_NAME);
       var interest_amt      = $('#int_amount').val();
       var tot_int           = $('#tot_int').val();;
       var id                = $('#custom_id').val();
-      var new_loan;
+      var months            = $('#months').val();
+      var unit_int          = $('#unit_int').val();
       var new_int;
 
 
@@ -545,8 +503,8 @@ mysqli_select_db($con,DB_NAME);
 
           var obj = JSON.parse(response);
           var remain_amt   = obj.remain_amt
-          var old_loan     = obj.old_loan
           var interest     = obj.interest
+          var remain_int   = obj.remain_int
 
           if(l_method=='Daily')
           {
@@ -555,19 +513,21 @@ mysqli_select_db($con,DB_NAME);
             $('#remain_amt').val(remain_amt.toFixed(2));
             $('#int_amount').val(0);         
             $('#new_int').val(0); 
-            $('#new_loan').val(0);  
+            $('#remain_int').val(0); 
           }
           else
           {
-            new_loan = Number(old_loan)-Number(installement_amt);
-            new_int = Number(new_loan)*(Number(interest)/100);
-
-            remain_amt = (Number(remain_amt)+Number(tot_int))-(Number(installement_amt)+Number(interest_amt));  
-      
-            $('#new_loan').val(new_loan.toFixed(2));           
+            remain_amt = Number(remain_amt)-Number(installement_amt); 
+            new_int = Number(remain_amt)*(Number(interest)/100);
+            tot_int = Number(remain_int)+(Number(unit_int)*months); 
+            remain_int = Number(tot_int)-Number(interest_amt);
+                
             $('#new_int').val(new_int.toFixed(2));           
-            $('#remain_amt').val(remain_amt.toFixed(2));                
+            $('#remain_amt').val(remain_amt.toFixed(2));
+            $('#tot_int').val(tot_int.toFixed(2));                
+            $('#remain_int').val(remain_int.toFixed(2));                
           }
+          
           /// end if ///
         }
 

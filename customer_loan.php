@@ -141,7 +141,7 @@ mysqli_select_db($con,DB_NAME);
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row daily_section"  hidden="">
                     <div class="col-md-6 pr-1">
                       <div class="form-group">
                         <label>First Installement Date</label>
@@ -204,7 +204,7 @@ mysqli_select_db($con,DB_NAME);
                                 }
                                 else
                                 {
-                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$l_amt,$createDate);
+                                    mysqli_stmt_bind_param($stmt,"ssss",$year,$month,$p_amt,$createDate);
                                     $result =  mysqli_stmt_execute($stmt);
                                 }
 
@@ -428,6 +428,31 @@ mysqli_select_db($con,DB_NAME);
       });
     });  
 
+   ///////////////calc 1st installement date //////////////////
+    $('#l_date').on('change',function(){
+
+      var method = $('#c_type').val();
+      var start_date = $('#l_date').val();
+
+      const date = new Date(start_date); 
+
+      //const zeroPad = (num, places) => String(num).padStart(places, '0') 
+
+        if(method=="Daily"){
+
+          var day = 60 * 60 * 2 * 24 * 1000; // two days
+
+          const endDate = new Date(date.getTime() + day);
+
+          $('#i_date').val(convert(endDate)); 
+
+        }else{ 
+
+          $('#i_date').val(0);
+        }
+
+    });
+
     $('.customerAmt').on('keyup',function(){
         customerAmt()
     });
@@ -463,46 +488,11 @@ mysqli_select_db($con,DB_NAME);
     
     } 
 
-    ///////////////calc 1st installement date //////////////////
-    $('#l_date').on('change',function(){
-
-      var method = $('#c_type').val();
-      var start_date = $('#l_date').val();
-
-      const date = new Date(start_date); 
-
-      //const zeroPad = (num, places) => String(num).padStart(places, '0') 
-
-        if(method=="Daily"){
-
-          var day = 60 * 60 * 24 * 1000;
-
-          const endDate = new Date(date.getTime() + day);
-
-          $('#i_date').val(convert(endDate)); 
-
-        }else{
-          
-          dt = new Date(date.getFullYear(),date.getMonth(),date.getDate());
-
-          gdt = new Date(add_months(dt, 1).toString()); 
-
-          $('#i_date').val(convert(gdt));
-        }
-
-
-    });
-
     function convert(str) {
       var date = new Date(str),
         mnth = ("0" + (date.getMonth() + 1)).slice(-2),
         day = ("0" + date.getDate()).slice(-2);
       return [date.getFullYear(), mnth, day].join("-");
-    }
-
-    function add_months(dt, n) 
-    {
-      return new Date(dt.setMonth(dt.getMonth() + n));        
     }
 
     ///////////////////////////////////////////////////

@@ -23,7 +23,7 @@
             $fetch_method = mysqli_fetch_array($check_method);
             $method=$fetch_method['l_method'];
 
-            $query = mysqli_query($con,"SELECT  I.li_date as li_date, I.installement_amt as installement_amt, I.interest_amt as interest_amt, I.remaining_amt as brought_forward, I.next_idate as next_idate
+            $query = mysqli_query($con,"SELECT  I.li_date as li_date, I.installement_amt as installement_amt, I.interest_amt as interest_amt, I.remaining_amt as brought_forward, I.next_idate as next_idate,I.remain_int as remain_int
               FROM loan L
               INNER JOIN loan_installement I
                 ON L.loan_no = I.loan_no
@@ -38,7 +38,7 @@
               <th>                    DATE            </th>
               <th class="text-right"> PAID            </th>
               <th class="text-right"> BROUGHT FORWARD </th>
-              <th>                    NEXT RENTAL     </th>
+              <th class="text-right">                    Arrears / NEXT RENTAL     </th>
               </thead>
               
               <tbody>
@@ -47,8 +47,10 @@
                 while($row1 = mysqli_fetch_assoc($query)) {
                   if($method=='Daily'){
                     $paid=$row1['installement_amt'];
+                    $colum4 = $row1['next_idate'];
                   }else{
                     $paid=$row1['installement_amt']+$row1['interest_amt'];
+                    $colum4 = number_format($row1['remain_int'],2,".",",");
                   }
 
         ?>
@@ -58,7 +60,7 @@
                 <td>                    <?php echo $row1['li_date'] ?>       </td>
                 <td class="text-right"> <?php echo number_format($paid,2,".",",") ?>  </td>
                 <td class="text-right"> <?php echo number_format($row1['brought_forward'],2,".",",") ?>     </td>
-                <td>                    <?php echo $row1['next_idate'] ?>       </td>
+                <td class="text-right"> <?php echo $colum4 ?>       </td>
               </tr>
             </tbody>
         <?php

@@ -106,25 +106,19 @@
                   <input type="text" class="form-control customerAmt1" placeholder="Interest" id="int1" name = "interest" value="<?php echo $data['interest']?>">
                 </div>
               </div>
-              <div class="col-md-6 pr-1 daily_section" hidden="">
-              <div class="form-group">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
                   <label> No. of Installments</label>
                   <input type="number" class="form-control customerAmt1" id="no1" name = "ino_inst" value="<?php echo $data['no_of_installments']?>">
                 </div>
               </div>
-              <div class="col-md-6 pr-1 monthly_section" hidden="">
-              <div class="form-group">
-                  <label>Interest Value </label>
-                  <input type="text" class="form-control" id="int_val" name="int_val" value="<?php echo $data['int_val']?>">
-                </div>
-              </div>
             </div>
             
-            <div class="row daily_section" hidden="">
+            <div class="row">
               <div class="col-md-6 pr-1">
                 <div class="form-group">
-                  <label> Paid amount with interest</label>
-                  <input type="text" class="form-control" placeholder="LKR" id="paid_amt1" name = "p_amt" value="<?php echo $data['total_amt']?>">
+                  <label>Interest Value </label>
+                  <input type="text" class="form-control" id="int_val" name="int_val" value="<?php echo $data['int_val']?>">
                 </div>
               </div>
               <div class="col-md-6 pr-1">
@@ -136,6 +130,12 @@
             </div>
 
             <div class="row">
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label> Paid amount with interest</label>
+                  <input type="text" class="form-control" placeholder="LKR" id="paid_amt1" name = "p_amt" value="<?php echo $data['total_amt']?>">
+                </div>
+              </div>
               <div class="col-md-6 pr-1">
                 <div class="form-group">
                   <label> First Installement Date</label>

@@ -14,6 +14,7 @@
 	$interest 	= $data['interest'];
 	$l_method 	= $data['l_method'];
 	$loan_amt 	= $data['total_amt'];
+	$rental 	= $data['installment_value'];
 	$int_val 	= $data['int_val'];
 	$fix_ldate 	= $data['l_date'];
 	$end_ldate 	= $data['i_date'];
@@ -25,21 +26,21 @@
 	$remaining_amt  = $data1['remaining_amt'];
 	$fix_lidate 	= $data1['li_date'];
 	$end_lidate 	= $data1['next_idate'];
-	$new_loan 		= $data1['new_loan'];
+	$remain_int 	= $data1['remain_int'];
 
 	if(empty($remaining_amt))
 	{
 		$remain_amt = $loan_amt;	
 		$fix_date 	= $fix_ldate;
 		$end_date 	= $end_ldate;
-		$old_loan 	= $loan_amt;
+		$remain_int = 0;
 	}
 	else
 	{
 	    $remain_amt = $remaining_amt;	
 		$fix_date 	= $fix_lidate;
 		$end_date 	= $end_lidate;
-		$old_loan 	= $new_loan;
+		$remain_int = $remain_int ;
 	}
 
 	$myObj->remain_amt 	= $remain_amt;
@@ -49,7 +50,8 @@
 	$myObj->int_val 	= $int_val;
 	$myObj->fix_date 	= $fix_date;
 	$myObj->end_date 	= $end_date;
-	$myObj->old_loan 	= $old_loan;
+	$myObj->remain_int 	= $remain_int;
+	$myObj->rental 		= $rental;
 
 	$myJSON = json_encode($myObj);
 
