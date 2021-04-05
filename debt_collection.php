@@ -289,13 +289,14 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                   	<thead class="text-primary">
-                  	  <th>                    ID 				  </th>
+                      <th>                    ID          </th>
+                      <th>                    Customer    </th>
                       <th>                    Date        </th>
                       <th class="text-right"> Rental 	    </th>
                       <th class="text-right"> Interest 		</th>
                       <th class="text-right"> Remaining 	</th>
                       <th>                    NEXT Rental </th>
-                      <th class="text-right"> Loan   			</th>
+                      <!-- <th class="text-right"> Loan   			</th> -->
                       <!-- <th class="text-center">Edit 				</th> -->
                       <th class="text-center">Delete 			</th>
                     </thead>
@@ -308,11 +309,18 @@ mysqli_select_db($con,DB_NAME);
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
+                          $loan =$row['loan_no'];
+
+                          $get_customer=mysqli_query($con,"SELECT C.cust_id as cust_id, C.name as name FROM customer C LEFT JOIN loan L ON C.cust_id = L.cust_id WHERE L.loan_no='$loan'");
+                          $cust_data = mysqli_fetch_array($get_customer);
                         	?>
                             
                             <tr>
                             <td>                      
-                              <?php echo $row['id']  ?>              
+                              <?php echo $cust_data['cust_id']  ?>              
+                            </td>
+                            <td>                      
+                              <?php echo $cust_data['name']  ?>              
                             </td>
                             <td>                      
                               <?php echo $row['li_date']  ?>         
@@ -327,14 +335,7 @@ mysqli_select_db($con,DB_NAME);
                               <?php echo number_format($row['remaining_amt'],2,'.',',') ?>    
                             </td>
                             <td><?php echo $row['next_idate']  ?> </td>
-                            <td class="text-center">   
-                              <?php echo $row['loan_no']  ?>         
-                            </td>
-                            <!-- <td class="text-center">   -->
-                            	<!-- <a href="edit_debt.php?id=<?php //echo $row['id']; ?>" name="edit"> -->
-                             <!--  <a href="#" onclick="editView(<?php // echo $row['id']; ?>)" name="edit">
-                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> -->
-                          	<!-- </td> -->
+
                           	<td class="text-center">  
                             	<a href="#" onclick="confirmation('event','<?php echo $row['id']; ?>')" name="delete">
                             	<i class="fa fa-trash-o" aria-hidden="true"></i></a>

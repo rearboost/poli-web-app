@@ -9,9 +9,9 @@
 
   <table class="table" id="get_data">
     <thead class="text-primary">
-      <th>                    CUSTOMER          </th>
-      <th>                    BORROWED DATE     </th>
-      <th class="text-right"> LOAN              </th>
+      <th>                    CUSTOMER    </th>
+      <th>                    ADDRESS     </th>
+      <th class="text-right"> LOAN AMT    </th>
     </thead>
     <tbody>
 
