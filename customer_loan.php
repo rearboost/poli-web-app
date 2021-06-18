@@ -251,16 +251,17 @@ mysqli_select_db($con,DB_NAME);
                 <div class="table-responsive">
                   <table class="table" id="myTable">
                     <thead class="text-primary">
-                      <th>                    cust.ID</th>
-                      <th>                    Date</th>
-                      <th class="text-right"> Loan</th>
-                      <th class="text-right"> Paid amt</th>
-                      <th class="text-right"> Rental</th>
+                      <th>                    cust.ID     </th>
+                      <th>                    Date        </th>
+                      <th class="text-right"> Loan        </th>
+                      <th class="text-right"> Paid amt    </th>
+                      <th class="text-right"> Rental      </th>
                       <th class="text-center">installments</th>
-                      <th class="text-center">Status</th>
+                      <th class="text-center">Outstanding </th>
+                      <th class="text-center">Status      </th>
                       <th class="text-center">View 				</th>
                       <th class="text-center">Delete 			</th>
-                      <th class="text-center">More    </th>
+                      <th class="text-center">More        </th>
                     </thead>
                     <tbody>
                       <?php
@@ -270,6 +271,55 @@ mysqli_select_db($con,DB_NAME);
                  
                       if($numRows > 0) {
                         while($row = mysqli_fetch_assoc($sql)) {
+                          $loanNo = $row['loan_no'];
+
+                          $getOut = mysqli_query($con, "SELECT * FROM loan_installement WHERE loan_no='$loanNo' ORDER BY id DESC LIMIT 1");
+                          $row2 = mysqli_fetch_assoc($getOut);
+
+                          if(mysqli_num_rows($getOut)>0){
+                              $remain_amt  = $row2['remaining_amt'];
+                              $remain_int  = $row2['remain_int'];
+                              $outstanding = $remain_amt+$remain_int;
+
+                            if($row['l_method']=='Daily'){
+                              
+                              $outstanding = $row['total_amt'];
+
+                            }else if($row['l_method']=='Monthly'){
+                              $total_amt   = $row['total_amt'];
+                              $int_val     = $row['int_val'];
+
+                              $pre_date   = strtotime($row['l_date']);
+                              $now_date   = time();
+                              $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                              $totalInt = $int_val*($Days/30);
+
+                              $outstanding = $total_amt+$totalInt;
+                            }
+
+                          }else{
+
+                            if($row['l_method']=='Daily'){
+
+                              $rental      = $row['installment_value'];
+                              $nos         = $row['no_of_installments'];
+                              $outstanding = $rental*$nos;
+
+                            }else if($row['l_method']=='Monthly'){
+                              $total_amt   = $row['total_amt'];
+                              $int_val     = $row['int_val'];
+
+                              $pre_date   = strtotime($row['l_date']);
+                              $now_date   = time();
+                              $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                              $totalInt = $int_val*($Days/30);
+
+                              $outstanding = $total_amt+$totalInt;
+                            }
+                          }
+
                           ?>
                           <tr>
                             <td> <?php echo $row['cust_id'] ?> </td>
@@ -286,12 +336,15 @@ mysqli_select_db($con,DB_NAME);
                             <td class="text-center">   
                               <?php  echo $row['no_of_installments'] ?> 
                             </td>
+                            <td class="text-right">   
+                              <?php  echo number_format($outstanding,2,'.',',') ?> 
+                            </td>
                             <td class="text-center">                      
                               <?php 
                               if($row['l_status']==1){    
-                              echo '<label class="btn-sm" style="background-color:#000033; border: 0px; color: #ffffff; font-size: 12px; padding-top: 4px;">'."ACTIVE".'</label>';   
+                              echo '<label class="btn-sm" style="background-color:#000033; border: 0px; color: #ffffff; font-size: 10px; padding-top: 4px;">'."Active".'</label>';   
                               }else{
-                              echo '<label class="btn-sm" style="background-color:#990000; border: 0px; color: #ffffff; font-size: 12px; padding-top: 4px;">'."CLOSED".'</label>';
+                              echo '<label class="btn-sm" style="background-color:#990000; border: 0px; color: #ffffff; font-size: 10px; padding-top: 4px;">'."Closed".'</label>';
                               }
                               ?>  
                             </td>
@@ -472,7 +525,8 @@ mysqli_select_db($con,DB_NAME);
       if(rate_value =='Daily')
       { 
         paid_amt = Number(amount)+(Number(amount)*(Number(int)/100))*Number(no);
-        installement_amt = Number(paid_amt)/(Number(no)*30);
+        //installement_amt = Number(paid_amt)/(Number(no)*30);
+        installement_amt = Number(paid_amt)/(Number(no));
         int_value = 0;
 
       }

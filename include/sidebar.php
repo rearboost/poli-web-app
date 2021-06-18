@@ -109,6 +109,23 @@
             </a>
           </li>
 
+
+          <li 
+            <?php if (basename($_SERVER['PHP_SELF'])=='outstanding_report.php')
+            {
+             echo 'class="active"';
+            } else 
+            {
+             echo 'class=""'; 
+            } 
+            ?>
+            >
+            <a href="outstanding_report">
+              <i class="nc-icon nc-single-copy-04"></i>
+              <p>OUTSTANDING REPORT</p>
+            </a>
+          </li>
+
           <li 
             <?php if (basename($_SERVER['PHP_SELF'])=='income.php')
             {
