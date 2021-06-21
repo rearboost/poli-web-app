@@ -58,7 +58,7 @@
         $method = $row['l_method'];
         $int_val = $row['int_val'];
 
-        $pre_date   = strtotime($row['l_date']);
+        $pre_date   = strtotime($bef_date);
         $now_date   = strtotime($date);
         $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
 

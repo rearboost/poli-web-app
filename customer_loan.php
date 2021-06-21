@@ -277,48 +277,72 @@ mysqli_select_db($con,DB_NAME);
                           $row2 = mysqli_fetch_assoc($getOut);
 
                           if(mysqli_num_rows($getOut)>0){
+
+                              $bef_date = $row2['li_date'];
+
                               $remain_amt  = $row2['remaining_amt'];
                               $remain_int  = $row2['remain_int'];
-                              $outstanding = $remain_amt+$remain_int;
 
-                            if($row['l_method']=='Daily'){
-                              
-                              $outstanding = $row['total_amt'];
-
-                            }else if($row['l_method']=='Monthly'){
-                              $total_amt   = $row['total_amt'];
-                              $int_val     = $row['int_val'];
-
-                              $pre_date   = strtotime($row['l_date']);
-                              $now_date   = time();
-                              $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
-
-                              $totalInt = $int_val*($Days/30);
-
-                              $outstanding = $total_amt+$totalInt;
-                            }
-
+                              $totRemain = $remain_amt+$remain_int;
                           }else{
-
-                            if($row['l_method']=='Daily'){
-
-                              $rental      = $row['installment_value'];
-                              $nos         = $row['no_of_installments'];
-                              $outstanding = $rental*$nos;
-
-                            }else if($row['l_method']=='Monthly'){
-                              $total_amt   = $row['total_amt'];
-                              $int_val     = $row['int_val'];
-
-                              $pre_date   = strtotime($row['l_date']);
-                              $now_date   = time();
-                              $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
-
-                              $totalInt = $int_val*($Days/30);
-
-                              $outstanding = $total_amt+$totalInt;
-                            }
+                              $bef_date = $row['l_date'];
+                              $totRemain = $row['total_amt'];
                           }
+
+                          $method = $row['l_method'];
+                          $int_val = $row['int_val'];
+
+                          $pre_date   = strtotime($bef_date);
+                          $now_date   = time();
+                          $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                          if($method=='Daily'){
+                            $Outstanding = $totRemain;
+                          }else{
+                            $Outstanding = $totRemain+($int_val*($Days/30));
+                          }
+                          //     $remain_amt  = $row2['remaining_amt'];
+                          //     $remain_int  = $row2['remain_int'];
+                          //     $outstanding = $remain_amt+$remain_int;
+
+                          //   if($row['l_method']=='Daily'){
+                              
+                          //     $outstanding = $row['total_amt'];
+
+                          //   }else if($row['l_method']=='Monthly'){
+                          //     $total_amt   = $row['total_amt'];
+                          //     $int_val     = $row['int_val'];
+
+                          //     $pre_date   = strtotime($row['l_date']);
+                          //     $now_date   = time();
+                          //     $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                          //     $totalInt = $int_val*($Days/30);
+
+                          //     $outstanding = $total_amt+$totalInt;
+                          //   }
+
+                          // }else{
+
+                          //   if($row['l_method']=='Daily'){
+
+                          //     $rental      = $row['installment_value'];
+                          //     $nos         = $row['no_of_installments'];
+                          //     $outstanding = $rental*$nos;
+
+                          //   }else if($row['l_method']=='Monthly'){
+                          //     $total_amt   = $row['total_amt'];
+                          //     $int_val     = $row['int_val'];
+
+                          //     $pre_date   = strtotime($row['l_date']);
+                          //     $now_date   = time();
+                          //     $Days = round(($now_date-$pre_date) / (60 * 60 * 24));
+
+                          //     $totalInt = $int_val*($Days/30);
+
+                          //     $outstanding = $total_amt+$totalInt;
+                          //   }
+                          // }
 
                           ?>
                           <tr>
@@ -337,7 +361,7 @@ mysqli_select_db($con,DB_NAME);
                               <?php  echo $row['no_of_installments'] ?> 
                             </td>
                             <td class="text-right">   
-                              <?php  echo number_format($outstanding,2,'.',',') ?> 
+                              <?php  echo number_format($Outstanding,2,'.',',') ?> 
                             </td>
                             <td class="text-center">                      
                               <?php 
@@ -524,7 +548,7 @@ mysqli_select_db($con,DB_NAME);
 
       if(rate_value =='Daily')
       { 
-        paid_amt = Number(amount)+(Number(amount)*(Number(int)/100))*Number(no);
+        paid_amt = Number(amount)+((Number(amount)*(Number(int)/100))*(Number(no)/30));
         //installement_amt = Number(paid_amt)/(Number(no)*30);
         installement_amt = Number(paid_amt)/(Number(no));
         int_value = 0;
